@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#f6efe5" />
+  <meta id="meta-description" name="description" content="Kattalogo Produtos Premium — destaque da semana." />
+  <title id="page-title">Kattalogo | Produtos Premium</title>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-ENCJ0Q5JD4"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ENCJ0Q5JD4');
+  </script>
+
+  <style>
+    :root{
+      --bg:#f6efe5;
+      --bg2:#fffaf2;
+      --paper:rgba(255,255,255,.58);
+      --ink:#15130f;
+      --muted:#665f55;
+      --gold:#a87719;
+      --gold2:#d3aa5c;
+      --line:rgba(168,119,25,.26);
+      --shadow:0 16px 44px rgba(76,55,22,.09);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;max-width:100%;overflow-x:hidden}
+    body{
+      margin:0;
+      width:100%;
+      max-width:100%;
+      overflow-x:hidden;
+      color:var(--ink);
+      font-family:Arial,Helvetica,sans-serif;
+      background:
+        radial-gradient(circle at 82% 10%, rgba(211,170,92,.14), transparent 24%),
+        linear-gradient(180deg,var(--bg2),var(--bg));
+      line-height:1.45;
+    }
+
+    img{max-width:100%;display:block}
+    a{color:inherit}
+    .wrap{width:min(1180px,calc(100% - 34px));margin:auto;min-width:0}
+    .hero-grid,.product-side,.hero-copy,.product-stage,.mobile-top,.product-title-row{min-width:0;max-width:100%}
+
+    .hero{padding:28px 0 22px;overflow:hidden;position:relative}
+    .hero:after{
+      content:"";position:absolute;right:-130px;top:-150px;width:520px;height:520px;
+      border:1px solid rgba(168,119,25,.16);border-radius:50%;
+      box-shadow:0 0 0 58px rgba(168,119,25,.025),0 0 0 120px rgba(168,119,25,.018);
+      pointer-events:none;
+    }
+    /* Desktop: cabeçalho institucional no topo, produto à esquerda e imagem à direita */
+    .hero-grid{
+      display:grid;
+      grid-template-columns:.78fr 1.22fr;
+      grid-template-rows:auto 1fr;
+      grid-template-areas:
+        "top top"
+        "copy stage";
+      column-gap:42px;row-gap:12px;align-items:center;min-height:610px
+    }
+    .brand{width:150px;margin:0}
+    .brand img{width:100%;height:auto;object-fit:contain}
+
+    h1{
+      font-family:Georgia,'Times New Roman',serif;
+      font-weight:400;
+      font-size:clamp(48px,5.6vw,84px);
+      line-height:.96;
+      letter-spacing:-.035em;
+      margin:0;
+    }
+    h1 .gold{color:var(--gold)}
+    .model{font-family:Georgia,'Times New Roman',serif;font-size:clamp(24px,2.4vw,38px);margin:8px 0 0}
+    .lead{font-size:clamp(19px,1.8vw,27px);margin:0 0 8px;white-space:nowrap}
+    .lead strong{color:var(--gold)}
+    .sublead{font-size:15px;color:var(--muted);max-width:620px;margin:0}
+
+    .product-side{display:contents}
+    .mobile-top{grid-area:top;position:relative;min-height:142px;display:flex;align-items:flex-start;justify-content:center;padding-top:22px}
+    .mobile-top .brand{position:absolute;left:0;top:0;z-index:2}
+    .mobile-top .product-label{width:min(760px,72%);margin:0 auto;text-align:center;position:relative;z-index:2}
+    .product-label{text-align:center;margin-bottom:6px;position:relative;z-index:2}
+    .premium,.weekly{
+      display:flex;align-items:center;justify-content:center;gap:14px;
+      text-transform:uppercase;font-weight:700;letter-spacing:.14em;color:var(--gold)
+    }
+    .premium{font-size:clamp(25px,2.35vw,34px)}
+    .weekly{font-size:clamp(14px,1.3vw,18px);margin-top:12px}
+    .premium:before,.premium:after,.weekly:before,.weekly:after{content:"";height:1px;background:var(--gold2)}
+    .premium:before,.premium:after{width:clamp(58px,7vw,110px)}
+    .weekly:before,.weekly:after{width:clamp(38px,5vw,72px)}
+
+    .product-stage{
+      grid-area:stage;min-height:470px;position:relative;display:flex;align-items:flex-end;justify-content:center;
+    }
+    .product-stage:before{
+      content:"";position:absolute;left:8%;right:3%;bottom:12px;height:86px;border-radius:50%;
+      background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(231,216,190,.72));
+      border:1px solid rgba(168,119,25,.14);box-shadow:var(--shadow);z-index:-1;
+    }
+    .product-image{
+      width:min(780px,100%);max-height:520px;object-fit:contain;
+      filter:drop-shadow(0 18px 20px rgba(51,39,20,.12));transform:translateY(8px);
+    }
+
+    .hero-copy{grid-area:copy;align-self:center;padding-left:4px}
+    .product-title-row{text-align:left}
+    .product-name-line{display:flex;align-items:baseline;gap:.22em;flex-wrap:wrap}
+
+    .panel{
+      background:var(--paper);border:1px solid rgba(168,119,25,.16);
+      box-shadow:var(--shadow);border-radius:var(--radius);backdrop-filter:blur(8px)
+    }
+
+    .tech{margin:14px auto 0;overflow:hidden}
+    .tech summary{
+      list-style:none;cursor:pointer;padding:19px 22px;display:flex;
+      align-items:center;justify-content:space-between;gap:14px;
+    }
+    .tech summary::-webkit-details-marker{display:none}
+    .tech-title{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px;text-transform:uppercase}
+    .tech-title svg{width:30px;height:30px;color:var(--gold);flex:0 0 30px}
+    .chev{
+      width:18px;height:18px;border-right:3px solid var(--gold);border-bottom:3px solid var(--gold);
+      transform:rotate(45deg);transition:.22s ease;margin-right:6px;
+    }
+    details[open] .chev{transform:rotate(225deg) translate(-3px,-3px)}
+    .tech-content{border-top:1px solid var(--line);padding:6px 22px 22px}
+    .tech-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px}
+    .row{padding:12px 0;border-bottom:1px solid rgba(168,119,25,.12)}
+    .row b{display:block;color:var(--gold);text-transform:uppercase;font-size:12px;letter-spacing:.05em;margin-bottom:3px}
+    .row span{font-size:14px;color:#34302a}
+
+    .message-block{text-align:center;padding:18px 0 0}
+    .message-block .lead,.message-block .sublead{margin-left:auto;margin-right:auto}
+
+    .actions{padding:18px 0 22px}
+    .action-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px}
+    .whatsapp-card,.social-card{padding:16px}
+    .wa-main{
+      display:flex;align-items:center;gap:15px;text-decoration:none;border:1.7px solid #15130f;
+      border-radius:17px;padding:14px 16px;background:transparent;transition:.2s ease;
+    }
+    .wa-main:hover{transform:translateY(-2px);background:rgba(255,255,255,.36)}
+    .wa-logo{width:48px;height:48px;flex:0 0 48px;object-fit:contain}
+    .wa-main strong{display:block;font-size:clamp(20px,2vw,27px);line-height:1.03}
+    .wa-main strong em{font-family:Georgia,'Times New Roman',serif;color:var(--gold);font-style:normal;font-weight:400}
+    .wa-main small{display:block;color:var(--muted);margin-top:4px}
+    .phone{font-size:clamp(18px,1.55vw,23px);font-weight:700;margin-left:auto;white-space:nowrap}
+
+    .social-card{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .social-link{
+      display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:12px;
+      text-decoration:none;border:1px solid rgba(21,19,15,.24);border-radius:14px;
+      padding:12px 14px;font-size:13px;font-weight:700;background:rgba(255,255,255,.28)
+    }
+    .social-icon{width:38px;height:38px;object-fit:contain}
+    .social-arrow{font-size:23px;color:var(--gold);font-weight:400}
+    .social-link:hover{border-color:#15130f}
+
+    .trust{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:18px 0 84px;border-top:1px solid var(--line)}
+    .trust-item{display:flex;gap:11px;align-items:flex-start}
+    .trust-item svg{width:32px;height:32px;color:var(--gold);flex:0 0 32px}
+    .trust-item strong{display:block;text-transform:uppercase;font-size:12px}
+    .trust-item span{display:block;font-size:12px;color:var(--muted)}
+
+    .floating-wa{
+      position:fixed;right:18px;bottom:18px;width:58px;height:58px;border-radius:50%;
+      background:#25D366;border:4px solid rgba(211,170,92,.75);box-shadow:0 10px 28px rgba(0,0,0,.18);
+      display:flex;align-items:center;justify-content:center;text-decoration:none;z-index:40;transition:.2s ease;
+    }
+    .floating-wa:hover{transform:translateY(-2px) scale(1.02)}
+    .floating-wa img{width:31px;height:31px;display:block}
+    footer{height:11px;background:linear-gradient(90deg,#8f6416,#d1aa5d,#8f6416)}
+
+    @media(max-width:860px){
+      .wrap{width:100%;max-width:640px;padding-left:14px;padding-right:14px;margin:0 auto}
+      .hero{padding:18px 0 10px;overflow:hidden}
+      .hero-grid{display:block;min-height:auto;width:100%}
+      .product-side{display:block;position:relative;z-index:1;padding-top:0}
+      .hero-copy{text-align:center;padding:0;width:100%}
+
+      /* Cabeçalho institucional fixo — centralizado na página */
+      .mobile-top{
+        position:relative;display:flex;align-items:flex-start;justify-content:center;
+        width:100%;min-height:92px;margin:0 0 4px;padding-top:8px;
+      }
+      .mobile-top .brand{
+        position:absolute;left:0;top:0;width:78px;max-width:78px;margin:0;z-index:2;
+      }
+      .mobile-top .brand img{width:100%;height:auto}
+      .mobile-top .product-label{
+        width:100%;max-width:520px;text-align:center;margin:0 auto;padding:4px 84px 0;
+      }
+      .mobile-top .premium,.mobile-top .weekly{
+        justify-content:center;width:100%;max-width:100%;white-space:nowrap;
+      }
+      .mobile-top .premium{
+        font-size:clamp(20px,5.7vw,27px);gap:8px;letter-spacing:.065em;line-height:1.05;
+      }
+      .mobile-top .weekly{
+        font-size:clamp(12px,3.5vw,15px);gap:7px;margin-top:10px;letter-spacing:.08em;line-height:1.1;
+      }
+      .mobile-top .premium:before,.mobile-top .premium:after{width:clamp(20px,7vw,52px);flex:0 1 auto}
+      .mobile-top .weekly:before,.mobile-top .weekly:after{width:clamp(15px,5vw,34px);flex:0 1 auto}
+
+      .product-side{width:100%;overflow:hidden}
+      .product-stage{width:100%;min-height:0;margin:0;padding:4px 0 2px;overflow:hidden}
+      .product-stage:before{left:1%;right:1%;height:48px;bottom:2px}
+      .product-image{
+        display:block;width:100%;max-width:100%;max-height:360px;height:auto;object-fit:contain;
+        transform:none;margin:0 auto;filter:drop-shadow(0 12px 14px rgba(51,39,20,.10));
+      }
+
+      .product-title-row{display:block;width:100%;margin:10px 0 10px;text-align:center;overflow:hidden}
+      .product-name-line{justify-content:center;flex-wrap:nowrap;white-space:nowrap}
+      .product-title-row h1{font-size:clamp(34px,10vw,47px);line-height:1.05;letter-spacing:-.04em}
+      .product-title-row .model{display:block;font-size:clamp(19px,5.2vw,24px);margin:7px 0 0;white-space:normal}
+
+      .tech{width:100%;margin-top:8px}
+      .tech summary{padding:16px 18px}
+      .tech-title{font-size:clamp(15px,4.2vw,18px)}
+      .tech-grid{grid-template-columns:1fr}
+
+      .message-block{padding-top:16px}
+      .lead{text-align:center;font-size:clamp(18px,5vw,21px);white-space:normal;margin:0 0 7px}
+      .sublead{text-align:center;font-size:clamp(13px,3.7vw,15px);max-width:520px;margin:0 auto}
+
+      .actions{padding-top:14px}
+      .action-grid{grid-template-columns:1fr}
+      .whatsapp-card,.social-card{padding:12px;min-width:0}
+      .wa-main{padding:13px 14px;gap:12px;min-width:0}
+      .wa-logo{width:44px;height:44px;flex-basis:44px}
+      .wa-main strong{font-size:clamp(18px,5vw,21px)}
+      .wa-main small{font-size:11px}
+      .phone{font-size:clamp(17px,4.8vw,20px)}
+      .social-card{grid-template-columns:1fr;min-width:0}
+      .social-link{min-width:0;padding:13px 14px}
+
+      /* Rodapé mobile: três benefícios sem corte lateral */
+      .trust{
+        width:100%;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;
+        padding:18px 0 92px;margin-top:2px;overflow:visible;
+      }
+      .trust-item{
+        min-width:0;display:grid;grid-template-columns:1fr;justify-items:center;text-align:center;
+        gap:7px;padding:0 8px;align-content:start;
+      }
+      .trust-item:not(:last-child){border-right:1px solid var(--line)}
+      .trust-item svg{width:30px;height:30px;flex:0 0 auto}
+      .trust-item strong{font-size:clamp(10px,3vw,12px);line-height:1.22;overflow-wrap:anywhere}
+      .trust-item span{font-size:clamp(9px,2.7vw,11px);line-height:1.35;overflow-wrap:anywhere}
+
+      .floating-wa{width:56px;height:56px;right:12px;bottom:18px}
+    }
+
+    @media(max-width:430px){
+      .wrap{width:100%;max-width:100%;padding-left:10px;padding-right:10px}
+      .hero{padding-top:14px}
+      .mobile-top{min-height:86px;padding-top:6px}
+      .mobile-top .brand{width:70px;max-width:70px}
+      .mobile-top .product-label{padding-left:72px;padding-right:10px}
+      .mobile-top .premium{font-size:clamp(18px,5.55vw,23px);gap:6px;letter-spacing:.055em}
+      .mobile-top .weekly{font-size:clamp(11px,3.35vw,14px);gap:5px;margin-top:8px}
+      .mobile-top .premium:before,.mobile-top .premium:after{width:clamp(16px,5vw,28px)}
+      .mobile-top .weekly:before,.mobile-top .weekly:after{width:clamp(12px,4vw,20px)}
+
+      .product-stage{padding-top:2px}
+      .product-image{max-height:325px}
+      .product-title-row h1{font-size:clamp(32px,9.7vw,42px)}
+      .product-title-row .model{font-size:clamp(18px,5.1vw,21px)}
+      .tech summary{padding:15px 16px}
+
+      .wa-main{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center}
+      .phone{grid-column:2;margin:0;font-size:17px;white-space:normal}
+      .wa-main small{font-size:10px}
+
+      .trust-item{padding:0 5px}
+      .trust-item svg{width:27px;height:27px}
+      .floating-wa{width:54px;height:54px;right:10px;bottom:16px}
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="product-side">
+          <div class="mobile-top">
+            <div class="brand"><img src="assets/logo-kattalogo.png" alt="Kattalogo" /></div>
+            <div class="product-label">
+              <div class="premium">Produtos Premium</div>
+              <div class="weekly">Destaque da Semana</div>
+            </div>
+          </div>
+
+          <div class="product-stage">
+            <img id="product-image" class="product-image" src="" alt="" />
+          </div>
+        </div>
+
+        <div class="hero-copy">
+          <div class="product-title-row">
+            <div class="product-name-line">
+              <h1 id="product-name"></h1>
+            </div>
+            <div id="product-model" class="model"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <details id="technical-details" class="panel tech">
+        <summary>
+          <span class="tech-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="4" width="12" height="16" rx="1"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+            Descrição Técnica
+          </span>
+          <span class="chev" aria-hidden="true"></span>
+        </summary>
+        <div class="tech-content">
+          <div id="technical-grid" class="tech-grid"></div>
+        </div>
+      </details>
+
+      <div class="message-block">
+        <p id="product-headline" class="lead"></p>
+        <p id="product-description" class="sublead"></p>
+      </div>
+
+      <section class="actions">
+        <div class="action-grid">
+          <div class="panel whatsapp-card">
+            <a id="whatsapp-main" class="wa-main" href="#" target="_blank" rel="noopener">
+              <img class="wa-logo" src="assets/whatsapp-black.svg" alt="WhatsApp">
+              <span><strong>FALE COM UM <em>ESPECIALISTA</em></strong><small>Atendimento rápido e exclusivo</small></span>
+              <span class="phone">(44) 98404-4400</span>
+            </a>
+          </div>
+
+          <div class="panel social-card">
+            <a id="instagram-link" class="social-link" href="#" target="_blank" rel="noopener">
+              <img class="social-icon" src="assets/instagram.svg" alt="Instagram">
+              <span>VER MAIS FOTOS NO INSTAGRAM</span><span class="social-arrow">→</span>
+            </a>
+            <a id="facebook-link" class="social-link" href="#" target="_blank" rel="noopener">
+              <img class="social-icon" src="assets/facebook.svg" alt="Facebook">
+              <span>VER MAIS DETALHES NO FACEBOOK</span><span class="social-arrow">→</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="8"/><path d="M9 12l2 2 4-4"/></svg>
+          <div><strong>Qualidade premium</strong><span>Produtos selecionados com alto padrão.</span></div>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="9" width="14" height="11" rx="2"/><path d="M8 9V7a4 4 0 0 1 8 0v2"/></svg>
+          <div><strong>Compra segura</strong><span>Atendimento claro e confiável.</span></div>
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 13v-2a8 8 0 0 1 16 0v2M4 13h3v6H4zM17 13h3v6h-3z"/></svg>
+          <div><strong>Atendimento exclusivo</strong><span>Suporte especializado antes e depois da compra.</span></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <a id="whatsapp-floating" class="floating-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <img src="assets/whatsapp-white.svg" alt="">
+  </a>
+  <footer></footer>
+
+  <script>
+    /* ============================================================
+       KATTALOGO — VITRINE PRODUTOS PREMIUM
+       ÁREA DE TROCA SEMANAL
+
+       Para trocar o destaque, altere SOMENTE os dados abaixo.
+       A identidade "Produtos Premium", o layout, botões e estrutura
+       permanecem fixos.
+       ============================================================ */
+
+    const DESTAQUE = {
+      categoria: "Bicicletas",
+
+      nomePrincipal: "Audax",
+      nomeDestaque: "ADX 200",
+      modelo: "Deore 20V (2023)",
+
+      imagem: "assets/adx-200.png",
+      imagemAlt: "Bicicleta Audax ADX 200 verde e laranja",
+
+      headlineAntes: "Performance para quem",
+      headlineDestaque: "exige mais.",
+      descricaoCurta: "Leveza, resistência e tecnologia para superar desafios com máximo controle.",
+
+      fichaTecnica: [
+        ["Quadro", "ADX 200 MTB 6061 T6 29 Boost / Tapered / Direct Mount - Side Swing / Press Fit / Cabeamento interno."],
+        ["Suspensão", "Suntour SF19 XCR32 Boost Air 100 DS REM TPR 15x110 / 29” Vaxa Boost Air 100 mm 15x110 REM TPR."],
+        ["Câmbio dianteiro", "Shimano M4100-D Deore 2x10 Direct Side Swing."],
+        ["Câmbio traseiro", "Shimano RD-M4120 Deore 10/11V Shadow."],
+        ["Pedivela", "Shimano Deore M4100-B2 10V 170/175 mm 36/26D."],
+        ["Cassete", "Tridiamond 10V em aço 11-42D cromado."],
+        ["Freio", "Shimano Altus MT-201 hidráulico. Disco Bolids 160 mm com parafuso."],
+        ["Rodas", "Audax BTT-NB 29” 28F Boost, aro parede dupla assimétrico, cubos em alumínio 148x12 mm / 110x15 mm e raios J-bend em aço inox."],
+        ["Peso sem pedal", "13,80 kg."]
+      ],
+
+      whatsappNumero: "5544984044400",
+      whatsappMensagem: "Olá! Gostaria de falar com um especialista sobre o produto em destaque no Kattalogo Produtos Premium.",
+
+      instagram: "https://www.instagram.com/kattalogo.net.br/",
+      facebook: "https://www.facebook.com/kattalogo/?locale=pt_BR"
+    };
+
+    /* ============================================================
+       DAQUI PARA BAIXO NÃO PRECISA ALTERAR PARA TROCAR O PRODUTO.
+       Esta estrutura também ficará preparada para o Analytics na
+       próxima etapa.
+       ============================================================ */
+
+    const productLabel = `${DESTAQUE.nomePrincipal} ${DESTAQUE.nomeDestaque}`.trim();
+
+    document.documentElement.dataset.category = DESTAQUE.categoria;
+    document.documentElement.dataset.product = productLabel;
+
+    document.getElementById('page-title').textContent = `Kattalogo | ${productLabel}`;
+    document.getElementById('meta-description').setAttribute(
+      'content',
+      `Kattalogo Produtos Premium — destaque da semana: ${productLabel}${DESTAQUE.modelo ? ' ' + DESTAQUE.modelo : ''}.`
+    );
+
+    const image = document.getElementById('product-image');
+    image.src = DESTAQUE.imagem;
+    image.alt = DESTAQUE.imagemAlt;
+
+    document.getElementById('product-name').innerHTML =
+      `${DESTAQUE.nomePrincipal} <span class="gold">${DESTAQUE.nomeDestaque}</span>`;
+    document.getElementById('product-model').textContent = DESTAQUE.modelo;
+
+    document.getElementById('product-headline').innerHTML =
+      `${DESTAQUE.headlineAntes} <strong>${DESTAQUE.headlineDestaque}</strong>`;
+    document.getElementById('product-description').textContent = DESTAQUE.descricaoCurta;
+
+    const technicalGrid = document.getElementById('technical-grid');
+    technicalGrid.innerHTML = DESTAQUE.fichaTecnica.map(([titulo, texto]) =>
+      `<div class="row"><b>${titulo}</b><span>${texto}</span></div>`
+    ).join('');
+
+    const waUrl = `https://wa.me/${DESTAQUE.whatsappNumero}?text=${encodeURIComponent(DESTAQUE.whatsappMensagem)}`;
+    document.getElementById('whatsapp-main').href = waUrl;
+    document.getElementById('whatsapp-floating').href = waUrl;
+    document.getElementById('instagram-link').href = DESTAQUE.instagram;
+    document.getElementById('facebook-link').href = DESTAQUE.facebook;
+
+    /* Dados do destaque disponíveis para integrações e Analytics */
+    window.KATTALOGO_DESTAQUE = DESTAQUE;
+
+    /* ============================================================
+       GOOGLE ANALYTICS 4 — FUNIL DA VITRINE
+       page_view é coletado automaticamente pela tag do Google.
+       Os eventos abaixo medem interesse e intenção comercial.
+       ============================================================ */
+    const analyticsParams = () => ({
+      categoria: DESTAQUE.categoria,
+      produto: productLabel,
+      modelo: DESTAQUE.modelo || ''
+    });
+
+    function trackEvent(nome, parametros = {}) {
+      if (typeof gtag === 'function') {
+        gtag('event', nome, { ...analyticsParams(), ...parametros });
+      }
+    }
+
+    // Visualização do produto em destaque (uma vez por carregamento).
+    trackEvent('visualizacao_destaque');
+
+    // Abertura da ficha técnica.
+    const technicalDetails = document.getElementById('technical-details');
+    let fichaTecnicaRegistrada = false;
+    technicalDetails.addEventListener('toggle', () => {
+      if (technicalDetails.open && !fichaTecnicaRegistrada) {
+        fichaTecnicaRegistrada = true;
+        trackEvent('descricao_tecnica_aberta');
+      }
+    });
+
+    // Cliques de contato e redes sociais.
+    document.getElementById('whatsapp-main').addEventListener('click', () =>
+      trackEvent('clique_whatsapp', { posicao: 'botao_principal' })
+    );
+    document.getElementById('whatsapp-floating').addEventListener('click', () =>
+      trackEvent('clique_whatsapp', { posicao: 'botao_flutuante' })
+    );
+    document.getElementById('instagram-link').addEventListener('click', () =>
+      trackEvent('clique_instagram')
+    );
+    document.getElementById('facebook-link').addEventListener('click', () =>
+      trackEvent('clique_facebook')
+    );
+  </script>
+</body>
+</html>
