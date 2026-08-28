@@ -676,10 +676,13 @@
     document.documentElement.dataset.category = DESTAQUE.categoria;
     document.documentElement.dataset.product = productLabel;
 
-    document.getElementById('page-title').textContent = `Kattalogo | ${productLabel}`;
+    /* SEO institucional fixo:
+       o produto em destaque continua mudando visualmente,
+       mas título e descrição da página permanecem estáveis para o Google. */
+    document.getElementById('page-title').textContent = 'Kattalogo | Catálogo de Produtos Premium';
     document.getElementById('meta-description').setAttribute(
       'content',
-      `Kattalogo Produtos Premium — destaque da semana: ${productLabel}${DESTAQUE.modelo ? ' ' + DESTAQUE.modelo : ''}.`
+      'Descubra produtos selecionados para futebol e ciclismo, fabricação de uniformes esportivos e mobiliário de alto padrão, como estofados. Confira lançamentos e destaques no Kattalogo, com informações, especificações e atendimento especializado.'
     );
 
     /* Carrossel do produto — 3 imagens, 4 segundos, fade e swipe no celular */
