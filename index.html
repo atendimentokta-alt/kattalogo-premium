@@ -107,10 +107,52 @@
       background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(231,216,190,.72));
       border:1px solid rgba(168,119,25,.14);box-shadow:var(--shadow);z-index:-1;
     }
-    .product-image{
-      width:min(780px,100%);max-height:520px;object-fit:contain;
-      filter:drop-shadow(0 18px 20px rgba(51,39,20,.12));transform:translateY(8px);
+    .product-carousel{
+      width:min(780px,100%);
+      display:grid;
+      place-items:end center;
+      position:relative;
+      cursor:zoom-in;
+      touch-action:pan-y;
+      -webkit-tap-highlight-color:transparent;
     }
+    .product-carousel .product-image{
+      grid-area:1 / 1;
+      width:100%;max-height:520px;object-fit:contain;
+      filter:drop-shadow(0 18px 20px rgba(51,39,20,.12));transform:translateY(8px);
+      opacity:0;
+      transition:opacity .65s ease;
+      pointer-events:none;
+      user-select:none;
+      -webkit-user-drag:none;
+    }
+    .product-carousel .product-image.active{opacity:1}
+
+    .image-lightbox{
+      position:fixed;inset:0;z-index:1000;
+      display:flex;align-items:center;justify-content:center;
+      padding:28px;
+      background:rgba(255,250,242,.96);
+      backdrop-filter:blur(8px);
+      opacity:0;visibility:hidden;
+      transition:opacity .22s ease,visibility .22s ease;
+    }
+    .image-lightbox.open{opacity:1;visibility:visible}
+    .image-lightbox img{
+      max-width:min(1180px,92vw);max-height:88vh;
+      width:auto;height:auto;object-fit:contain;
+      filter:drop-shadow(0 20px 34px rgba(74,52,19,.16));
+      user-select:none;-webkit-user-drag:none;
+    }
+    .lightbox-close{
+      position:absolute;top:18px;right:22px;
+      width:46px;height:46px;border:1px solid rgba(168,119,25,.34);
+      border-radius:50%;background:rgba(255,255,255,.72);
+      color:var(--gold);font-size:31px;line-height:1;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;
+    }
+    .lightbox-close:hover{background:#fff}
 
     .hero-copy{grid-area:copy;align-self:center;padding-left:4px}
     .product-title-row{text-align:left}
@@ -216,10 +258,14 @@
       .product-side{width:100%;overflow:hidden}
       .product-stage{width:100%;min-height:0;margin:0;padding:4px 0 2px;overflow:hidden}
       .product-stage:before{left:1%;right:1%;height:48px;bottom:2px}
-      .product-image{
+      .product-carousel{display:grid;width:100%;max-width:100%;margin:0 auto}
+      .product-carousel .product-image{
         display:block;width:100%;max-width:100%;max-height:360px;height:auto;object-fit:contain;
         transform:none;margin:0 auto;filter:drop-shadow(0 12px 14px rgba(51,39,20,.10));
       }
+      .image-lightbox{padding:18px}
+      .image-lightbox img{max-width:94vw;max-height:84vh}
+      .lightbox-close{top:12px;right:12px;width:42px;height:42px;font-size:28px}
 
       .product-title-row{display:block;width:100%;margin:10px 0 10px;text-align:center;overflow:hidden}
       .product-name-line{justify-content:center;flex-wrap:nowrap;white-space:nowrap}
@@ -275,7 +321,7 @@
       .mobile-top .weekly:before,.mobile-top .weekly:after{width:clamp(12px,4vw,20px)}
 
       .product-stage{padding-top:2px}
-      .product-image{max-height:325px}
+      .product-carousel .product-image{max-height:325px}
       .product-title-row h1{font-size:clamp(32px,9.7vw,42px)}
       .product-title-row .model{font-size:clamp(18px,5.1vw,21px)}
       .tech summary{padding:15px 16px}
@@ -304,7 +350,7 @@
           </div>
 
           <div class="product-stage">
-            <img id="product-image" class="product-image" src="" alt="" />
+            <div id="product-carousel" class="product-carousel" aria-label="Galeria de imagens do produto"></div>
           </div>
         </div>
 
@@ -378,6 +424,11 @@
     </div>
   </main>
 
+  <div id="image-lightbox" class="image-lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada do produto">
+    <button id="lightbox-close" class="lightbox-close" type="button" aria-label="Fechar imagem ampliada">×</button>
+    <img id="lightbox-image" src="" alt="" />
+  </div>
+
   <a id="whatsapp-floating" class="floating-wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp">
     <img src="assets/whatsapp-white.svg" alt="">
   </a>
@@ -400,8 +451,16 @@
       nomeDestaque: "ADX 200",
       modelo: "Deore 20V (2023)",
 
-      imagem: "assets/adx-200.png",
-      imagemAlt: "Bicicleta Audax ADX 200 verde e laranja",
+      imagens: [
+        "assets/adx-200.png",
+        "adx-200-2.png",
+        "adx-200-3.png"
+      ],
+      imagensAlt: [
+        "Bicicleta Audax ADX 200 verde e laranja",
+        "Bicicleta Audax ADX 200 em vista alternativa",
+        "Detalhe da roda traseira, cassete e câmbio da Audax ADX 200"
+      ],
 
       headlineAntes: "Performance para quem",
       headlineDestaque: "exige mais.",
@@ -443,9 +502,91 @@
       `Kattalogo Produtos Premium — destaque da semana: ${productLabel}${DESTAQUE.modelo ? ' ' + DESTAQUE.modelo : ''}.`
     );
 
-    const image = document.getElementById('product-image');
-    image.src = DESTAQUE.imagem;
-    image.alt = DESTAQUE.imagemAlt;
+    /* Carrossel do produto — 3 imagens, 4 segundos, fade e swipe no celular */
+    const carousel = document.getElementById('product-carousel');
+    const lightbox = document.getElementById('image-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    const carouselImages = DESTAQUE.imagens.map((src, index) => {
+      const img = document.createElement('img');
+      img.className = `product-image${index === 0 ? ' active' : ''}`;
+      img.src = src;
+      img.alt = DESTAQUE.imagensAlt[index] || productLabel;
+      img.dataset.index = index;
+      carousel.appendChild(img);
+      return img;
+    });
+
+    let carouselIndex = 0;
+    let carouselTimer = null;
+    let touchStartX = 0;
+    let touchDeltaX = 0;
+    let touchMoved = false;
+
+    function showCarouselImage(index) {
+      carouselIndex = (index + carouselImages.length) % carouselImages.length;
+      carouselImages.forEach((img, i) => img.classList.toggle('active', i === carouselIndex));
+    }
+
+    function startCarousel() {
+      clearInterval(carouselTimer);
+      carouselTimer = setInterval(() => showCarouselImage(carouselIndex + 1), 4000);
+    }
+
+    function stopCarousel() {
+      clearInterval(carouselTimer);
+      carouselTimer = null;
+    }
+
+    function openLightbox() {
+      stopCarousel();
+      const current = carouselImages[carouselIndex];
+      lightboxImage.src = current.src;
+      lightboxImage.alt = current.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+      startCarousel();
+    }
+
+    carousel.addEventListener('click', () => {
+      if (!touchMoved) openLightbox();
+      touchMoved = false;
+    });
+
+    carousel.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
+      touchDeltaX = 0;
+      touchMoved = false;
+    }, { passive:true });
+
+    carousel.addEventListener('touchmove', (event) => {
+      touchDeltaX = event.touches[0].clientX - touchStartX;
+      if (Math.abs(touchDeltaX) > 10) touchMoved = true;
+    }, { passive:true });
+
+    carousel.addEventListener('touchend', () => {
+      if (Math.abs(touchDeltaX) >= 45) {
+        showCarouselImage(carouselIndex + (touchDeltaX < 0 ? 1 : -1));
+        startCarousel();
+      }
+      setTimeout(() => { touchMoved = false; }, 50);
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (event) => {
+      if (event.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+    });
+
+    startCarousel();
 
     document.getElementById('product-name').innerHTML =
       `${DESTAQUE.nomePrincipal} <span class="gold">${DESTAQUE.nomeDestaque}</span>`;
