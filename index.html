@@ -8,6 +8,62 @@
 <title id="page-title">Kattalogo | Catálogo de Produtos Premium</title>
 <link rel="canonical" href="https://kattalogo.net.br/" />
 
+<meta name="robots" content="index,follow,max-image-preview:large" />
+
+<!-- Compartilhamento social -->
+<meta property="og:locale" content="pt_BR" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Kattálogo" />
+<meta property="og:title" content="Kattalogo | Catálogo de Produtos Premium" />
+<meta property="og:description" content="Descubra produtos selecionados, lançamentos e destaques no Kattalogo, com informações, especificações e atendimento especializado." />
+<meta property="og:url" content="https://kattalogo.net.br/" />
+<meta property="og:image" content="https://kattalogo.net.br/assets/adx-200.png" />
+<meta property="og:image:alt" content="Produto em destaque no Kattalogo" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Kattalogo | Catálogo de Produtos Premium" />
+<meta name="twitter:description" content="Descubra produtos selecionados, lançamentos e destaques no Kattalogo, com informações, especificações e atendimento especializado." />
+<meta name="twitter:image" content="https://kattalogo.net.br/assets/adx-200.png" />
+
+  <!-- Dados estruturados institucionais — Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://kattalogo.net.br/#organization",
+        "name": "Kattálogo",
+        "url": "https://kattalogo.net.br/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://kattalogo.net.br/assets/logo-kattalogo.png"
+        },
+        "description": "Plataforma de catálogo virtual inteligente para apresentação e comercialização de produtos e soluções, com atendimento especializado.",
+        "sameAs": [
+          "https://www.instagram.com/kattalogo.net.br/",
+          "https://www.facebook.com/kattalogo/?locale=pt_BR"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://kattalogo.net.br/#website",
+        "url": "https://kattalogo.net.br/",
+        "name": "Kattálogo",
+        "publisher": {
+          "@id": "https://kattalogo.net.br/#organization"
+        },
+        "inLanguage": "pt-BR"
+      }
+    ]
+  }
+  </script>
+
+
+  
+  <!-- O conteúdo deste Schema é preenchido automaticamente pelo produto em destaque -->
+  <script id="product-schema" type="application/ld+json">{}</script>
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ENCJ0Q5JD4"></script>
   <script>
@@ -675,6 +731,48 @@
 
     document.documentElement.dataset.category = DESTAQUE.categoria;
     document.documentElement.dataset.product = productLabel;
+
+
+    /* Schema do produto em destaque.
+       É alimentado pelo mesmo objeto DESTAQUE para evitar informações divergentes. */
+    const productSchemaElement = document.getElementById('product-schema');
+    const productSchema = {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "@id": `https://kattalogo.net.br/#${DESTAQUE.nomePrincipal}-${DESTAQUE.nomeDestaque}`
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, ''),
+      "name": `${productLabel}${DESTAQUE.modelo ? ' ' + DESTAQUE.modelo : ''}`,
+      "url": "https://kattalogo.net.br/",
+      "category": DESTAQUE.categoria,
+      "description": DESTAQUE.descricaoCurta,
+      "image": DESTAQUE.imagens.map(src =>
+        src.startsWith('http') ? src : `https://kattalogo.net.br/${src.replace(/^\.\//, '')}`
+      ),
+      "brand": {
+        "@type": "Brand",
+        "name": DESTAQUE.nomePrincipal
+      },
+      "seller": {
+        "@id": "https://kattalogo.net.br/#organization"
+      }
+    };
+    productSchemaElement.textContent = JSON.stringify(productSchema);
+
+
+    /* Mantém metadados sociais coerentes com o destaque atual em navegadores que executam JS. */
+    const currentShareImage = DESTAQUE.imagens[0].startsWith('http')
+      ? DESTAQUE.imagens[0]
+      : `https://kattalogo.net.br/${DESTAQUE.imagens[0].replace(/^\.\//, '')}`;
+
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    const twitterImage = document.querySelector('meta[name="twitter:image"]');
+    const ogImageAlt = document.querySelector('meta[property="og:image:alt"]');
+
+    if (ogImage) ogImage.setAttribute('content', currentShareImage);
+    if (twitterImage) twitterImage.setAttribute('content', currentShareImage);
+    if (ogImageAlt) ogImageAlt.setAttribute('content', productLabel);
 
     /* SEO institucional fixo:
        o produto em destaque continua mudando visualmente,
