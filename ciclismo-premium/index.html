@@ -146,6 +146,89 @@ footer{background:var(--black);color:#cab98f;padding:22px 0;margin-top:10px}
   .wa-icon{width:30px;height:30px}
 }
 
+
+/* AJUSTE V4 — cards compactos e imagem em alta definição */
+.product-image{
+  aspect-ratio: 4/3 !important;
+  min-height:0 !important;
+  height:auto !important;
+  background:#f7f2e9 !important;
+  overflow:hidden;
+}
+.product-image img{
+  width:100% !important;
+  height:auto !important;
+  aspect-ratio:4/3 !important;
+  object-fit:contain !important;
+  padding:0 !important;
+  background:#f7f2e9 !important;
+}
+.card-body{
+  padding:12px 14px 14px !important;
+  gap:7px !important;
+}
+.card-body h2{margin:0 !important;}
+.card-body p{margin:0 0 4px !important;}
+@media(max-width:560px){
+  .product-image,.product-image img{aspect-ratio:4/3 !important;}
+  .card-body{padding:11px 12px 13px !important;}
+}
+
+/* Lightbox com zoom progressivo */
+.lightbox{
+  overflow:hidden;
+}
+.lightbox-stage{
+  width:min(94vw,1400px);
+  height:min(82vh,900px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  touch-action:none;
+}
+.lightbox-stage img{
+  max-width:92%;
+  max-height:92%;
+  transform-origin:center center;
+  transition:transform .16s ease;
+  cursor:grab;
+  user-select:none;
+}
+.zoom-controls{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  transform:translateX(-50%);
+  display:flex;
+  gap:8px;
+  z-index:10002;
+  background:rgba(9,8,6,.88);
+  border:1px solid rgba(216,184,109,.55);
+  border-radius:999px;
+  padding:7px;
+}
+.zoom-controls button{
+  border:0;
+  min-width:42px;
+  height:38px;
+  border-radius:999px;
+  background:#f7f2e9;
+  color:#17140f;
+  font-weight:800;
+  font-size:18px;
+  cursor:pointer;
+}
+.zoom-level{
+  min-width:58px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#efc65f;
+  font-weight:700;
+  font-size:13px;
+}
+
 </style>
 </head>
 <body>
@@ -239,7 +322,20 @@ footer{background:var(--black);color:#cab98f;padding:22px 0;margin-top:10px}
   </div>
 </article>
 
+  
+<article class="card">
+  <button class="product-image" type="button" data-full="../assets/audax-no-series.jpg" data-title="Audax No Series" aria-label="Ampliar imagem de Audax No Series">
+    <img src="../assets/audax-no-series.jpg" alt="Bicicleta Audax No Series aro 29 preta com detalhes azul e vermelho" loading="lazy" width="1800" height="1350">
+    <span class="zoom-hint" aria-hidden="true">⌕</span>
+  </button>
+  <div class="card-body">
+    <h2>Audax No Series</h2>
+    <p>Aro 29, quadro em alumínio, transmissão 16 velocidades, suspensão dianteira com trava no guidão e freios a disco hidráulicos.</p>
+    <a class="btn" href="https://wa.me/5544984044400?text=Ol%C3%A1%21%20Vim%20pelo%20Kattalogo%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20Audax%20No%20Series." target="_blank" rel="noopener">Consulte um especialista</a>
   </div>
+</article>
+
+</div>
 </section>
     <!-- FIM DOS PRODUTOS -->
   </div>
@@ -261,7 +357,15 @@ footer{background:var(--black);color:#cab98f;padding:22px 0;margin-top:10px}
 
 <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada">
   <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Fechar">×</button>
+  <div class="lightbox-stage" id="lightbox-stage">
   <img id="lightbox-image" src="" alt="">
+</div>
+<div class="zoom-controls" id="zoom-controls" aria-label="Controles de zoom">
+  <button type="button" id="zoom-out" aria-label="Diminuir zoom">−</button>
+  <span class="zoom-level" id="zoom-level">100%</span>
+  <button type="button" id="zoom-in" aria-label="Aumentar zoom">+</button>
+  <button type="button" id="zoom-reset" aria-label="Restaurar zoom">↺</button>
+</div>
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
@@ -270,6 +374,29 @@ const lightbox = document.getElementById('lightbox');
 const lightboxImage = document.getElementById('lightbox-image');
 const lightboxCaption = document.getElementById('lightbox-caption');
 const lightboxClose = document.getElementById('lightbox-close');
+
+let zoomScale = 1;
+const zoomLevel = document.getElementById('zoom-level');
+const zoomIn = document.getElementById('zoom-in');
+const zoomOut = document.getElementById('zoom-out');
+const zoomReset = document.getElementById('zoom-reset');
+const lightboxStage = document.getElementById('lightbox-stage');
+
+function applyZoom(){
+  zoomScale = Math.max(1, Math.min(4, zoomScale));
+  lightboxImage.style.transform = `scale(${zoomScale})`;
+  zoomLevel.textContent = `${Math.round(zoomScale*100)}%`;
+}
+function resetZoom(){ zoomScale=1; applyZoom(); }
+zoomIn.addEventListener('click',()=>{ zoomScale += .5; applyZoom(); });
+zoomOut.addEventListener('click',()=>{ zoomScale -= .5; applyZoom(); });
+zoomReset.addEventListener('click',resetZoom);
+lightboxStage.addEventListener('wheel',e=>{
+  e.preventDefault();
+  zoomScale += e.deltaY < 0 ? .25 : -.25;
+  applyZoom();
+},{passive:false});
+
 let lastTrigger = null;
 
 document.querySelectorAll('.product-image').forEach(button => {
@@ -278,6 +405,7 @@ document.querySelectorAll('.product-image').forEach(button => {
     lightboxImage.src = button.dataset.full;
     lightboxImage.alt = button.dataset.title;
     lightboxCaption.textContent = button.dataset.title;
+    resetZoom();
     lightbox.classList.add('open');
     document.body.style.overflow = 'hidden';
     lightboxClose.focus();
@@ -320,6 +448,11 @@ const PRODUTOS = [
     "name": "Audax ADX 400",
     "image": "adx-400.jpg",
     "desc": "Aro 29, Shimano Deore 12 velocidades, suspensão a ar RockShox Recon RL 100 mm e configuração Boost."
+  },
+  {
+    "name": "Audax No Series",
+    "image": "audax-no-series.jpg",
+    "desc": "Aro 29, quadro em alumínio, transmissão 16 velocidades, suspensão dianteira com trava no guidão e freios a disco hidráulicos."
   }
 ];
 </script>
