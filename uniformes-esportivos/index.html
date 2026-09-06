@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff6500">
+<title>Mega Sports | Estúdio de Uniformes</title>
+<meta name="description" content="Crie uma referência visual do uniforme do seu time e solicite orçamento à Mega Sports.">
+<style>
+:root{
+ --bg:#f3f4f6;--paper:#fff;--ink:#171717;--muted:#6d7279;--line:#e2e5e9;
+ --orange:#ff6500;--orange2:#ff8b37;--green:#25d366;--radius:20px;
+ --shadow:0 18px 48px rgba(17,24,39,.08)
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(#fff,#f2f4f6);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}img{max-width:100%;display:block}
+.wrap{width:min(1380px,calc(100% - 26px));margin:auto}
+.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.topbar-in{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:13px;min-width:0}
+.home-link{color:#696d73;text-decoration:none;font-size:12px;letter-spacing:.14em;white-space:nowrap}
+.home-link:hover{color:var(--orange)}
+.brand-line{width:1px;height:30px;background:var(--line)}
+.brand-logo{width:210px;max-height:56px;object-fit:contain}
+.top-actions{display:flex;gap:8px}
+.btn{border:1px solid var(--line);border-radius:12px;background:#fff;padding:11px 14px;font-weight:800;transition:.18s}
+.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.hero{padding:24px 0 18px}
+.hero-card{border:1px solid var(--line);border-radius:24px;overflow:hidden;background:#fff;box-shadow:var(--shadow);display:grid;grid-template-columns:.94fr 1.06fr}
+.hero-copy{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:12px;font-weight:900;letter-spacing:.16em;color:var(--orange)}
+.hero h1{font-size:clamp(40px,4.7vw,70px);letter-spacing:-.045em;line-height:1;margin:10px 0 15px}
+.hero h1 span{color:var(--orange)}.hero p{margin:0;color:#555;font-size:17px;line-height:1.45}
+.hero-art{min-height:330px;background:#eee}.hero-art img{width:100%;height:100%;object-fit:cover}
+.studio{padding:6px 0 40px}
+.studio-grid{display:grid;grid-template-columns:235px minmax(0,1fr) 390px;gap:15px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.panel-title{padding:17px 18px;border-bottom:1px solid var(--line);font-size:15px;font-weight:900;letter-spacing:.02em}
+.models{padding:11px;display:grid;gap:9px;max-height:790px;overflow:auto}
+.model-card{padding:7px;border:1px solid var(--line);border-radius:14px;background:#fff;text-align:left}
+.model-card.active{border:2px solid var(--orange);padding:6px}
+.model-card img{width:100%;height:98px;object-fit:cover;border-radius:9px}
+.model-card strong{font-size:13px;display:block;margin:7px 2px 0}.model-card small{color:var(--muted);font-size:11px;margin-left:2px}
+.badge{display:inline-block;margin:6px 2px 1px;padding:4px 7px;border-radius:999px;background:var(--orange);color:#fff;font-size:9px;font-weight:900}
+.preview-header{padding:11px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.piece-tabs,.view-tabs{display:flex;gap:7px;overflow:auto}
+.pill{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-size:12px;font-weight:900;white-space:nowrap}
+.pill.active{background:#171717;border-color:#171717;color:#fff}
+.canvas-wrap{background:radial-gradient(circle at 50% 38%,#fff,#e9ecef 72%,#dfe3e7);min-height:690px;display:flex;align-items:center;justify-content:center;padding:12px;position:relative}
+#kitCanvas{width:min(700px,100%);height:auto;border-radius:15px;display:block}
+.canvas-hint{position:absolute;left:14px;bottom:14px;background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:#60656d;font-size:11px;backdrop-filter:blur(5px)}
+.custom{padding:13px}
+.editor-section{padding:13px 0;border-bottom:1px solid var(--line)}.editor-section:first-child{padding-top:0}.editor-section:last-child{border-bottom:0}
+.editor-section h3{margin:0 0 10px;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.choice{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 7px;text-align:center;font-size:11px;font-weight:800}
+.choice.active{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,101,0,.12)}
+.color-row{display:grid;grid-template-columns:1fr 54px;gap:9px;align-items:center;margin-top:8px}
+.color-row label{font-size:12px;font-weight:700;color:#545960}
+input[type=color]{width:54px;height:38px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:3px}
+input[type=text],input[type=number],select{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px 11px;background:#fff}
+.field{display:grid;gap:5px;margin-top:8px}.field label{font-size:11px;font-weight:800;color:#666b72}
+.switch-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;font-size:12px;font-weight:700}
+.switch{width:44px;height:24px;background:#cfd3d7;border-radius:999px;position:relative;border:0}.switch:after{content:"";position:absolute;width:18px;height:18px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s}.switch.on{background:var(--orange)}.switch.on:after{left:23px}
+.upload-list{display:grid;gap:7px}
+.upload{display:grid;grid-template-columns:1fr auto;gap:7px;align-items:center}
+.file-btn{position:relative;overflow:hidden;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;font-size:11px;font-weight:800;text-align:center}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.zone-label{font-size:11px;color:var(--muted)}
+.actions{display:grid;gap:8px;margin-top:11px}.btn.whatsapp{background:var(--green);border-color:var(--green);color:#fff}.btn.email{background:#171717;border-color:#171717;color:#fff}
+.note{font-size:10px;color:var(--muted);line-height:1.45;margin:8px 0 0}
+.steps{padding:0 0 46px}.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.step{background:#fff;border:1px solid var(--line);border-radius:15px;padding:16px}.step b{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fff1e8;color:var(--orange);margin-bottom:9px}.step strong{display:block}.step span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+@media(max-width:1120px){
+ .studio-grid{grid-template-columns:220px minmax(0,1fr)}.custom-panel{grid-column:1/-1}
+ .custom{display:grid;grid-template-columns:repeat(2,1fr);gap:0 24px}.custom .editor-section:nth-child(odd){padding-right:0}
+}
+@media(max-width:760px){
+ .wrap{width:min(100% - 16px,640px)}
+ .topbar{position:static}.topbar-in{height:70px}.home-link{font-size:9px;letter-spacing:.08em}.brand-line{display:none}.brand-logo{width:140px}
+ .top-actions .btn:first-child{display:none}.top-actions .btn{padding:10px 12px}
+ .hero{padding-top:11px}.hero-card{grid-template-columns:1fr}.hero-copy{padding:24px 20px}.hero h1{font-size:38px}.hero p{font-size:14px}.hero-art{min-height:225px}
+ .studio-grid{grid-template-columns:1fr}
+ .models{grid-auto-flow:column;grid-auto-columns:168px;overflow-x:auto;overflow-y:hidden;max-height:none;padding:10px}.model-card img{height:94px}
+ .preview-panel{order:2}.models-panel{order:1}.custom-panel{order:3;grid-column:auto}
+ .preview-header{display:block}.piece-tabs{margin-bottom:8px}.view-tabs{padding-bottom:2px}
+ .canvas-wrap{min-height:0;padding:8px}.canvas-hint{position:static;margin:8px 10px 10px}
+ .custom{display:block}
+ .steps-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:430px){
+ .home-link{max-width:122px;white-space:normal;line-height:1.2}.brand-logo{width:112px}
+ .hero h1{font-size:34px}.hero-art{min-height:205px}
+ .option-grid{grid-template-columns:repeat(3,1fr)}.choice{padding:9px 4px;font-size:10px}
+ .steps-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="wrap topbar-in">
+  <div class="brand">
+   <a class="home-link" href="/">KATTALOGO · PÁGINA INICIAL</a>
+   <span class="brand-line"></span>
+   <img class="brand-logo" src="assets/mega-sports-logo.png" alt="Mega Esportes">
+  </div>
+  <div class="top-actions">
+   <button class="btn" id="resetTop">Recomeçar</button>
+   <button class="btn primary" id="createTop">Criar uniforme</button>
+  </div>
+ </div>
+</header>
+
+<section class="hero">
+ <div class="wrap">
+  <div class="hero-card">
+   <div class="hero-copy">
+    <div class="eyebrow">ESTÚDIO MEGA SPORTS</div>
+    <h1>Seu uniforme,<br><span>sua identidade</span><br>em campo.</h1>
+    <p>Escolha uma tendência e personalize camisa, calção e meião em uma referência visual para seu time.</p>
+   </div>
+   <div class="hero-art"><img src="assets/mega-sports-banner.png" alt="Uniformes personalizados"></div>
+  </div>
+ </div>
+</section>
+
+<main class="studio" id="studio">
+ <div class="wrap studio-grid">
+  <aside class="panel models-panel">
+   <div class="panel-title">ESCOLHA A ESTAMPA</div>
+   <div class="models" id="modelList"></div>
+  </aside>
+
+  <section class="panel preview-panel">
+   <div class="preview-header">
+    <div class="piece-tabs">
+     <button class="pill active" data-piece="kit">Conjunto</button>
+     <button class="pill" data-piece="shirt">Camisa</button>
+     <button class="pill" data-piece="shorts">Calção</button>
+     <button class="pill" data-piece="socks">Meião</button>
+    </div>
+    <div class="view-tabs">
+     <button class="pill active" data-view="both">Frente + Costas</button>
+     <button class="pill" data-view="front">Frente</button>
+     <button class="pill" data-view="back">Costas</button>
+    </div>
+   </div>
+   <div class="canvas-wrap">
+    <canvas id="kitCanvas" width="735" height="985"></canvas>
+   </div>
+   <div class="canvas-hint">As marcações em cinza indicam posições sugeridas. Ao enviar uma logo, ela substitui a marcação.</div>
+  </section>
+
+  <aside class="panel custom-panel">
+   <div class="panel-title">PERSONALIZE</div>
+   <div class="custom">
+
+    <section class="editor-section shirt-editor">
+     <h3>Construção da camisa</h3>
+     <div class="option-grid">
+      <button class="choice active" data-sleeve="simple">Manga simples</button>
+      <button class="choice" data-sleeve="raglan">Raglan</button>
+      <button class="choice" id="linkSleeves">Mangas vinculadas</button>
+     </div>
+     <div class="option-grid" style="margin-top:8px">
+      <button class="choice active" data-collar="v">Gola V</button>
+      <button class="choice" data-collar="round">Redonda</button>
+      <button class="choice" data-collar="madri">Madri</button>
+     </div>
+    </section>
+
+    <section class="editor-section shirt-editor">
+     <h3>Cor / template do corpo</h3>
+     <div class="switch-row"><span>Usar estampa selecionada no corpo</span><button class="switch on" id="templateSwitch" aria-label="Ativar ou desativar estampa"></button></div>
+     <div class="color-row"><label>Cor sólida do corpo</label><input id="bodyColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Manga direita</label><input id="rightSleeveColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Manga esquerda</label><input id="leftSleeveColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Gola</label><input id="collarColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Punhos</label><input id="cuffColor" type="color" value="#ffffff"></div>
+    </section>
+
+    <section class="editor-section shirt-editor">
+     <h3>Camisa · logos e anúncios</h3>
+     <div class="upload-list">
+      <div class="upload"><span class="zone-label">Escudo · peito esquerdo</span><label class="file-btn">Enviar<input id="crestFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 1 · peito central</span><label class="file-btn">Enviar<input id="frontSponsorFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 2 · manga direita</span><label class="file-btn">Enviar<input id="rightSponsorFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 3 · manga esquerda</span><label class="file-btn">Enviar<input id="leftSponsorFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 4 · costas superior</span><label class="file-btn">Enviar<input id="backUpperFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 5 · costas inferior</span><label class="file-btn">Enviar<input id="backLowerFile" type="file" accept="image/*"></label></div>
+     </div>
+     <div class="field"><label>Nome</label><input id="playerName" type="text" maxlength="16" placeholder="Ex.: DORIVAL"></div>
+     <div class="field"><label>Número</label><input id="playerNumber" type="number" min="0" max="99" placeholder="10"></div>
+    </section>
+
+    <section class="editor-section shorts-editor">
+     <h3>Calção</h3>
+     <div class="color-row"><label>Cor principal</label><input id="shortsColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Detalhes</label><input id="shortsDetail" type="color" value="#e5e7eb"></div>
+     <div class="upload-list" style="margin-top:9px">
+      <div class="upload"><span class="zone-label">Escudo</span><label class="file-btn">Enviar<input id="shortsCrestFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 6 · perna esquerda</span><label class="file-btn">Enviar<input id="shortsLeftFile" type="file" accept="image/*"></label></div>
+      <div class="upload"><span class="zone-label">Anúncio 7 · perna direita</span><label class="file-btn">Enviar<input id="shortsRightFile" type="file" accept="image/*"></label></div>
+     </div>
+    </section>
+
+    <section class="editor-section socks-editor">
+     <h3>Meião</h3>
+     <div class="option-grid">
+      <button class="choice active" data-sockstyle="plain">Liso</button>
+      <button class="choice" data-sockstyle="one">1 faixa</button>
+      <button class="choice" data-sockstyle="two">2 faixas</button>
+     </div>
+     <div class="color-row"><label>Cor principal</label><input id="socksColor" type="color" value="#ffffff"></div>
+     <div class="color-row"><label>Cor do detalhe</label><input id="socksDetail" type="color" value="#d1d5db"></div>
+     <div class="upload" style="margin-top:9px"><span class="zone-label">Logo / escudo</span><label class="file-btn">Enviar<input id="socksLogoFile" type="file" accept="image/*"></label></div>
+    </section>
+
+    <section class="editor-section">
+     <h3>Finalizar</h3>
+     <div class="field"><label>Quantidade aproximada</label><input id="qty" type="number" min="1" placeholder="Ex.: 18"></div>
+     <div class="actions">
+      <button class="btn whatsapp" id="whatsappBtn">ENVIAR PARA WHATSAPP</button>
+      <button class="btn email" id="emailBtn">ENVIAR POR E-MAIL</button>
+      <button class="btn" id="downloadBtn">BAIXAR PRÉVIA</button>
+     </div>
+     <p class="note">A simulação é uma referência visual. A equipe Mega Sports confirma arte final, medidas, cores e produção antes do fechamento.</p>
+    </section>
+   </div>
+  </aside>
+ </div>
+</main>
+
+<section class="steps"><div class="wrap steps-grid">
+ <div class="step"><b>01</b><strong>Escolha a tendência</strong><span>Templates aplicados somente ao corpo da camisa.</span></div>
+ <div class="step"><b>02</b><strong>Configure as peças</strong><span>Manga, gola, camisa, calção e meião independentes.</span></div>
+ <div class="step"><b>03</b><strong>Posicione sua identidade</strong><span>Escudo, anúncios, nome e número em zonas definidas.</span></div>
+ <div class="step"><b>04</b><strong>Solicite orçamento</strong><span>Envie sua referência diretamente para atendimento.</span></div>
+</div></section>
+
+<script src="modelos.js"></script>
+<script>
+const WHATSAPP="5544984044400", EMAIL="atendimentokta@gmail.com";
+const canvas=document.getElementById("kitCanvas"),ctx=canvas.getContext("2d");
+const base=new Image(); base.src="assets/mockup-base.jpg";
+const templateImages={};
+window.MEGA_MODELOS.forEach(m=>{const im=new Image(); im.src=m.arquivo; templateImages[m.id]=im});
+
+const S={
+ model:window.MEGA_MODELOS[0], useTemplate:true, piece:"kit", view:"both",
+ sleeve:"simple", collar:"v", linkedSleeves:true,
+ body:"#ffffff", rightSleeve:"#ffffff", leftSleeve:"#ffffff", collarColor:"#ffffff", cuff:"#ffffff",
+ shorts:"#ffffff", shortsDetail:"#e5e7eb", socks:"#ffffff", socksDetail:"#d1d5db", sockStyle:"plain",
+ name:"",number:"",qty:"",
+ img:{crest:null,frontSponsor:null,rightSponsor:null,leftSponsor:null,backUpper:null,backLower:null,shortsCrest:null,shortsLeft:null,shortsRight:null,socksLogo:null}
+};
+
+const P={
+ frontBody:[[128,144],[315,144],[335,546],[107,546]],
+ backBody:[[450,148],[625,148],[633,512],[417,512]],
+ frontSleeveL:[[128,144],[68,160],[41,280],[103,302],[116,230]],
+ frontSleeveR:[[315,144],[374,164],[402,279],[344,301],[331,231]],
+ backSleeveL:[[450,148],[390,165],[367,278],[419,299],[431,226]],
+ backSleeveR:[[625,148],[682,164],[706,278],[655,298],[643,226]],
+ shorts:[[83,603],[337,603],[363,906],[49,906]],
+ sock1:[[451,570],[532,570],[524,907],[455,907]],
+ sock2:[[565,578],[681,599],[627,916],[548,891]]
+};
+
+function poly(points){ctx.beginPath();ctx.moveTo(points[0][0],points[0][1]);for(let i=1;i<points.length;i++)ctx.lineTo(points[i][0],points[i][1]);ctx.closePath()}
+function fillPoly(points,color,alpha=.78){ctx.save();poly(points);ctx.clip();ctx.globalAlpha=alpha;ctx.globalCompositeOperation="multiply";ctx.fillStyle=color;ctx.fillRect(0,0,canvas.width,canvas.height);ctx.restore()}
+function templatePoly(points, rect){
+ const im=templateImages[S.model.id]; if(!im.complete)return;
+ const xs=points.map(p=>p[0]), ys=points.map(p=>p[1]); const dx=Math.min(...xs),dy=Math.min(...ys),dw=Math.max(...xs)-dx,dh=Math.max(...ys)-dy;
+ ctx.save();poly(points);ctx.clip();ctx.globalAlpha=.82;ctx.globalCompositeOperation="multiply";
+ ctx.drawImage(im,rect.x,rect.y,rect.w,rect.h,dx,dy,dw,dh);ctx.restore()
+}
+function line(a,b,color="#b8bec5",w=1.5){ctx.save();ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();ctx.restore()}
+function text(txt,x,y,size=18,alpha=.34,align="center"){ctx.save();ctx.fillStyle=`rgba(75,82,92,${alpha})`;ctx.font=`700 ${size}px Arial`;ctx.textAlign=align;ctx.fillText(txt,x,y);ctx.restore()}
+function drawImageFit(im,x,y,w,h){
+ if(!im)return; const iw=im.width,ih=im.height; if(!iw||!ih)return;
+ const sc=Math.min(w/iw,h/ih),dw=iw*sc,dh=ih*sc;ctx.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,dw,dh)
+}
+function drawCollar(){
+ ctx.save();ctx.strokeStyle=S.collarColor;ctx.lineWidth=10;ctx.lineCap="round";
+ if(S.collar==="v"){ctx.beginPath();ctx.moveTo(174,110);ctx.lineTo(220,145);ctx.lineTo(267,110);ctx.stroke()}
+ if(S.collar==="round"){ctx.beginPath();ctx.arc(220,112,49,0.15*Math.PI,.85*Math.PI);ctx.stroke()}
+ if(S.collar==="madri"){ctx.beginPath();ctx.arc(220,115,48,0.1*Math.PI,.9*Math.PI);ctx.stroke();ctx.fillStyle=S.collarColor;ctx.fillRect(176,102,88,9)}
+ ctx.restore();
+}
+function drawSleeveConstruction(){
+ if(S.sleeve==="raglan"){
+   line([174,112],[106,230],"#aeb4bb",2);line([267,112],[337,230],"#aeb4bb",2);
+   line([495,112],[430,228],"#aeb4bb",2);line([582,112],[648,226],"#aeb4bb",2);
+ }else{
+   line([129,145],[116,230],"#aeb4bb",2);line([314,145],[331,231],"#aeb4bb",2);
+   line([450,149],[431,226],"#aeb4bb",2);line([625,149],[643,226],"#aeb4bb",2);
+ }
+}
+function drawCuffs(){
+ ctx.save();ctx.strokeStyle=S.cuff;ctx.lineWidth=8;
+ line([48,274],[105,296],S.cuff,8);line([345,295],[396,275],S.cuff,8);line([373,274],[420,294],S.cuff,8);line([656,293],[701,274],S.cuff,8);
+ ctx.restore()
+}
+function drawSocks(){
+ fillPoly(P.sock1,S.socks,.8);fillPoly(P.sock2,S.socks,.8);
+ if(S.sockStyle==="one"||S.sockStyle==="two"){
+   ctx.save();ctx.fillStyle=S.socksDetail;ctx.globalAlpha=.88;ctx.globalCompositeOperation="multiply";
+   ctx.fillRect(454,605,75,12);ctx.save();ctx.translate(574,604);ctx.rotate(.18);ctx.fillRect(0,0,97,12);ctx.restore();
+   if(S.sockStyle==="two"){ctx.fillRect(455,626,73,8);ctx.save();ctx.translate(570,628);ctx.rotate(.18);ctx.fillRect(0,0,96,8);ctx.restore()}
+   ctx.restore()
+ }
+ if(S.img.socksLogo){drawImageFit(S.img.socksLogo,472,657,38,38);drawImageFit(S.img.socksLogo,594,666,38,38)}
+}
+function render(){
+ if(!base.complete){requestAnimationFrame(render);return}
+ ctx.clearRect(0,0,735,985);ctx.drawImage(base,0,0,735,985);
+
+ // Shirt body only: template OR solid
+ if(S.useTemplate){
+  templatePoly(P.frontBody,S.model.recortes.frente);templatePoly(P.backBody,S.model.recortes.costas);
+ }else{
+  fillPoly(P.frontBody,S.body,.78);fillPoly(P.backBody,S.body,.78);
+ }
+ // Sleeves independent
+ fillPoly(P.frontSleeveL,S.leftSleeve,.82);fillPoly(P.frontSleeveR,S.rightSleeve,.82);
+ fillPoly(P.backSleeveL,S.leftSleeve,.82);fillPoly(P.backSleeveR,S.rightSleeve,.82);
+ drawSleeveConstruction();drawCollar();drawCuffs();
+
+ // Shorts
+ fillPoly(P.shorts,S.shorts,.77);
+ ctx.save();ctx.strokeStyle=S.shortsDetail;ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(54,888);ctx.lineTo(356,888);ctx.stroke();ctx.restore();
+
+ // Socks
+ drawSocks();
+
+ // Watermark / user assets
+ if(S.img.crest) drawImageFit(S.img.crest,250,177,52,58); else text("ESCUDO",276,205,11,.28);
+ if(S.img.frontSponsor) drawImageFit(S.img.frontSponsor,142,270,155,72); else text("ANÚNCIO 1",220,307,13,.30);
+ if(S.img.leftSponsor) drawImageFit(S.img.leftSponsor,50,205,55,42); else text("A3",78,229,11,.28);
+ if(S.img.rightSponsor) drawImageFit(S.img.rightSponsor,335,206,55,42); else text("A2",360,230,11,.28);
+
+ if(S.img.backUpper) drawImageFit(S.img.backUpper,461,163,145,48); else text("ANÚNCIO 4",535,193,12,.24);
+ if(S.name) text(S.name.toUpperCase(),536,237,22,.74); else text("NOME",536,237,20,.25);
+ if(S.number) text(S.number,536,345,86,.72); else text("10",536,345,82,.18);
+ if(S.img.backLower) drawImageFit(S.img.backLower,462,405,145,52); else text("ANÚNCIO 5",535,438,12,.24);
+
+ if(S.img.shortsCrest) drawImageFit(S.img.shortsCrest,274,782,42,46); else text("ESCUDO",294,810,10,.22);
+ if(S.img.shortsLeft) drawImageFit(S.img.shortsLeft,95,725,78,50); else text("ANÚNCIO 6",133,756,10,.22);
+ if(S.img.shortsRight) drawImageFit(S.img.shortsRight,245,725,78,50); else text("ANÚNCIO 7",283,756,10,.22);
+
+ applyView();
+}
+function applyView(){
+ // Visual cropping by drawing current canvas into itself is messy; CSS clip via canvas class handled instead.
+ canvas.dataset.piece=S.piece;canvas.dataset.view=S.view;
+}
+function buildModels(){
+ const el=document.getElementById("modelList");el.innerHTML="";
+ window.MEGA_MODELOS.forEach(m=>{
+  const b=document.createElement("button");b.className="model-card";b.dataset.id=m.id;
+  b.innerHTML=`<img src="${m.arquivo}" alt="${m.nome}"><strong>${m.nome}</strong><small>${m.categoria}</small><span class="badge">${m.selo}</span>`;
+  b.onclick=()=>{S.model=m;document.querySelectorAll(".model-card").forEach(x=>x.classList.toggle("active",x===b));render()};el.appendChild(b)
+ });el.firstElementChild?.classList.add("active")
+}
+function fileLoad(inp,key){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{S.img[key]=im;render()};im.src=r.result};r.readAsDataURL(f)}
+document.querySelectorAll("[data-piece]").forEach(b=>b.onclick=()=>{S.piece=b.dataset.piece;document.querySelectorAll("[data-piece]").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{S.view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.querySelectorAll("[data-sleeve]").forEach(b=>b.onclick=()=>{S.sleeve=b.dataset.sleeve;document.querySelectorAll("[data-sleeve]").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{S.collar=b.dataset.collar;document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.querySelectorAll("[data-sockstyle]").forEach(b=>b.onclick=()=>{S.sockStyle=b.dataset.sockstyle;document.querySelectorAll("[data-sockstyle]").forEach(x=>x.classList.toggle("active",x===b));render()});
+document.getElementById("templateSwitch").onclick=e=>{S.useTemplate=!S.useTemplate;e.currentTarget.classList.toggle("on",S.useTemplate);render()};
+document.getElementById("linkSleeves").onclick=e=>{S.linkedSleeves=!S.linkedSleeves;e.currentTarget.classList.toggle("active",S.linkedSleeves)};
+function color(id,key){document.getElementById(id).oninput=e=>{S[key]=e.target.value;if((key==="rightSleeve"||key==="leftSleeve")&&S.linkedSleeves){S.rightSleeve=S.leftSleeve=e.target.value;document.getElementById("rightSleeveColor").value=e.target.value;document.getElementById("leftSleeveColor").value=e.target.value}render()}}
+color("bodyColor","body");color("rightSleeveColor","rightSleeve");color("leftSleeveColor","leftSleeve");color("collarColor","collarColor");color("cuffColor","cuff");
+color("shortsColor","shorts");color("shortsDetail","shortsDetail");color("socksColor","socks");color("socksDetail","socksDetail");
+["crestFile","frontSponsorFile","rightSponsorFile","leftSponsorFile","backUpperFile","backLowerFile","shortsCrestFile","shortsLeftFile","shortsRightFile","socksLogoFile"].forEach(id=>{
+ const map={crestFile:"crest",frontSponsorFile:"frontSponsor",rightSponsorFile:"rightSponsor",leftSponsorFile:"leftSponsor",backUpperFile:"backUpper",backLowerFile:"backLower",shortsCrestFile:"shortsCrest",shortsLeftFile:"shortsLeft",shortsRightFile:"shortsRight",socksLogoFile:"socksLogo"};
+ document.getElementById(id).onchange=e=>fileLoad(e.target,map[id])
+});
+document.getElementById("playerName").oninput=e=>{S.name=e.target.value;render()};document.getElementById("playerNumber").oninput=e=>{S.number=e.target.value;render()};document.getElementById("qty").oninput=e=>S.qty=e.target.value;
+function reset(){
+ S.model=window.MEGA_MODELOS[0];S.useTemplate=true;S.sleeve="simple";S.collar="v";S.linkedSleeves=true;S.body="#ffffff";S.rightSleeve=S.leftSleeve=S.collarColor=S.cuff=S.shorts=S.socks="#ffffff";S.shortsDetail="#e5e7eb";S.socksDetail="#d1d5db";S.sockStyle="plain";S.name="";S.number="";S.qty="";Object.keys(S.img).forEach(k=>S.img[k]=null);
+ location.reload()
+}
+document.getElementById("resetTop").onclick=reset;document.getElementById("createTop").onclick=()=>document.getElementById("studio").scrollIntoView({behavior:"smooth"});
+function summary(){return ["Olá! Fiz uma simulação no Estúdio Mega Sports.",`Estampa: ${S.model.nome}`,`Manga: ${S.sleeve==="raglan"?"Raglan":"Simples"}`,`Gola: ${S.collar}`,`Nome: ${S.name||"-"}`,`Número: ${S.number||"-"}`,`Quantidade aproximada: ${S.qty||"-"}`,"Gostaria de receber um orçamento."].join("\n")}
+document.getElementById("whatsappBtn").onclick=()=>window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(summary())}`,"_blank");
+document.getElementById("emailBtn").onclick=()=>location.href=`mailto:${EMAIL}?subject=${encodeURIComponent("Orçamento Mega Sports - "+S.model.nome)}&body=${encodeURIComponent(summary())}`;
+document.getElementById("downloadBtn").onclick=()=>{const a=document.createElement("a");a.download=`mega-sports-${S.model.id}.png`;a.href=canvas.toDataURL("image/png");a.click()};
+buildModels();base.onload=render;setTimeout(render,300);
+</script>
+</body>
+</html>
