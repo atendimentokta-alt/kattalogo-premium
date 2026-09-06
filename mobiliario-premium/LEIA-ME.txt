@@ -1,0 +1,24 @@
+MEGA SPORTS — PACOTE COMPLETO
+
+SUBSTITUA/ENVIE o conteúdo deste pacote para:
+mobiliario-premium/
+
+Estrutura:
+mobiliario-premium/
+├── index.html
+├── modelos.js
+└── assets/
+    ├── mega-sports-logo.png
+    ├── mega-sports-banner.png
+    └── modelos/
+        ├── atletico-madrid.jpg
+        ├── barcelona.png
+        ├── milan-concept-red.png
+        └── italia-2020.png
+
+CTAs configurados:
+WhatsApp: (44) 98404-4400
+E-mail: atendimentokta@gmail.com
+
+A galeria já usa as quatro estampas reais.
+O arquivo modelos.js é a área que poderá ser alimentada com novas tendências.
