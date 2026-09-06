@@ -1,12 +1,7 @@
-MEGA SPORTS V3 — SIMULADOR MODULAR
+PROVA 2D COM MÁSCARAS
 
-A V3 mantém o topo, banner, identidade, modelos e CTAs, mas refaz o miolo do simulador em recipientes independentes:
-- camisa frente
-- camisa costas
-- calção
-- meião
+Objetivo: validar somente se a estampa entra dentro do corpo da camisa e preserva sombras/dobras.
 
-O template é aplicado somente ao corpo da camisa. Mangas, gola, calção e meião recebem controles próprios.
-As zonas de logo/anúncio são independentes e substituídas pelos arquivos enviados pelo cliente.
+Destino: uniformes-esportivos/
 
-Destino no GitHub: /uniformes-esportivos/
+Não substituir o index.html da raiz do repositório.
