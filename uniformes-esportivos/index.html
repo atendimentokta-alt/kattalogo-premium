@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ff6500">
+<title>Mega Sports | Estúdio de Uniformes</title>
+<style>
+:root{--orange:#ff6500;--ink:#171717;--muted:#6f747b;--line:#e3e6ea;--paper:#fff;--shadow:0 16px 46px rgba(18,24,32,.07)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(#fff,#f4f5f6);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+button{font:inherit;cursor:pointer}.wrap{width:min(1370px,calc(100% - 24px));margin:auto}
+.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+.top-in{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{display:flex;align-items:center;gap:14px}.brand a{text-decoration:none;color:#6e737a;font-size:12px;letter-spacing:.13em}.brand img{width:190px;max-height:55px;object-fit:contain}
+.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;font-weight:800}.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.hero{padding:22px 0 16px}.hero-card{display:grid;grid-template-columns:.92fr 1.08fr;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
+.hero-copy{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}.hero-copy small{color:var(--orange);font-weight:900;letter-spacing:.15em}.hero-copy h1{font-size:clamp(40px,4.7vw,68px);line-height:1;margin:10px 0 15px;letter-spacing:-.045em}.hero-copy h1 span{color:var(--orange)}.hero-copy p{color:#555;line-height:1.45;margin:0}.hero-card img{width:100%;height:100%;min-height:300px;object-fit:cover}
+.studio{padding:6px 0 42px}.grid{display:grid;grid-template-columns:235px minmax(0,1fr) 300px;gap:15px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.title{padding:16px 18px;border-bottom:1px solid var(--line);font-weight:900}
+.models{padding:10px;display:grid;gap:9px}.model{border:1px solid var(--line);background:#fff;border-radius:13px;padding:7px;text-align:left}.model.active{border:2px solid var(--orange);padding:6px}.model.disabled{opacity:.58}.model img{width:100%;height:92px;object-fit:cover;border-radius:8px}.model b{display:block;font-size:13px;margin-top:6px}.model small{color:var(--muted)}
+.stage-head{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.tabs{display:flex;gap:7px}.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-weight:800}.tab.active{background:#171717;color:#fff}
+.stage{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:18px;background:#fff;min-height:650px;align-items:center}
+.shirt-slot{position:relative;min-height:600px;display:flex;align-items:center;justify-content:center;background:transparent}
+.shirt-slot img{max-width:96%;max-height:600px;object-fit:contain;display:block;filter:drop-shadow(0 18px 20px rgba(24,30,38,.08))}
+.slot-label{position:absolute;left:12px;bottom:10px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900}
+.controls{padding:14px}.controls h3{font-size:12px;letter-spacing:.08em;margin:0 0 10px}.collars{display:grid;gap:8px}.collar{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;font-weight:800;text-align:left}.collar.active{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,101,0,.12)}.hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:12px}.status{margin-top:14px;padding:11px;border:1px solid #f1d4c3;background:#fff8f4;border-radius:11px;font-size:11px;line-height:1.4}
+@media(max-width:1050px){.grid{grid-template-columns:210px minmax(0,1fr)}.controls-panel{grid-column:1/-1}}
+@media(max-width:760px){.wrap{width:min(100% - 16px,640px)}.top{position:static}.brand a{font-size:9px}.brand img{width:130px}.hero-card{grid-template-columns:1fr}.hero-copy{padding:24px 20px}.hero-copy h1{font-size:36px}.hero-card img{min-height:210px}.grid{grid-template-columns:1fr}.models{grid-auto-flow:column;grid-auto-columns:165px;overflow-x:auto}.stage{grid-template-columns:1fr;gap:8px;min-height:auto}.shirt-slot{min-height:420px}.shirt-slot img{max-height:420px}.controls-panel{grid-column:auto}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap top-in">
+  <div class="brand"><a href="/">KATTALOGO · PÁGINA INICIAL</a><img src="assets/mega-sports-logo.png" alt="Mega Esportes"></div>
+  <button class="btn primary" onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">Criar uniforme</button>
+</div></header>
+
+<section class="hero"><div class="wrap"><div class="hero-card">
+  <div class="hero-copy"><small>ESTÚDIO MEGA SPORTS</small><h1>Seu uniforme,<br><span>sua identidade</span><br>em campo.</h1><p>Agora cada escolha troca o arquivo inteiro da camisa, sem colagens, máscaras internas ou recortes retangulares.</p></div>
+  <img src="assets/mega-sports-banner.png" alt="">
+</div></div></section>
+
+<main class="studio" id="studio"><div class="wrap grid">
+  <aside class="panel"><div class="title">ESCOLHA A ESTAMPA</div><div class="models" id="models"></div></aside>
+
+  <section class="panel">
+    <div class="stage-head"><strong>RESULTADO</strong><div class="tabs"><button class="tab active" data-view="both">Frente + Costas</button><button class="tab" data-view="front">Frente</button><button class="tab" data-view="back">Costas</button></div></div>
+    <div class="stage">
+      <div class="shirt-slot front"><img id="frontImg" src="assets/bases/gola-v-f.png" alt="Frente"><span class="slot-label">FRENTE</span></div>
+      <div class="shirt-slot back"><img id="backImg" src="assets/bases/gola-v-c.png" alt="Costas"><span class="slot-label">COSTAS</span></div>
+    </div>
+  </section>
+
+  <aside class="panel controls-panel"><div class="title">MODELO DA CAMISA</div><div class="controls">
+    <h3>TIPO DE GOLA</h3>
+    <div class="collars">
+      <button class="collar active" data-collar="v">Gola V</button>
+      <button class="collar" data-collar="redonda">Gola Redonda</button>
+      <button class="collar" data-collar="madrid">Gola Madrid</button>
+    </div>
+    <div class="hint">Ao trocar a gola, o sistema substitui frente e costas pela base correspondente. Não existe remendo desenhado por cima.</div>
+    <div class="status" id="status"><b>Estado inicial:</b> camisa branca. Clique em Atlético Concept para testar a troca completa de frente e costas.</div>
+  </div></aside>
+</div></main>
+
+<script src="modelos.js"></script>
+<script>
+const bases={
+  v:{f:"assets/bases/gola-v-f.png",c:"assets/bases/gola-v-c.png"},
+  redonda:{f:"assets/bases/gola-redonda-f.png",c:"assets/bases/gola-redonda-c.png"},
+  madrid:{f:"assets/bases/gola-madrid-f.png",c:"assets/bases/gola-madrid-c.png"}
+};
+let collar="v", selected=null, view="both";
+const front=document.getElementById("frontImg"),back=document.getElementById("backImg"),status=document.getElementById("status");
+function showBlank(){selected=null;front.src=bases[collar].f;back.src=bases[collar].c;status.innerHTML="<b>Base branca:</b> "+document.querySelector('[data-collar="'+collar+'"]').textContent+" selecionada."}
+function showModel(m){
+  if(!m.pronto){status.innerHTML="<b>"+m.nome+":</b> ainda não renderizado em arquivos F/C. A arquitetura já está pronta para receber o par.";return}
+  selected=m;front.src=m.frente;back.src=m.costas;status.innerHTML="<b>"+m.nome+":</b> frente e costas foram substituídas por arquivos independentes — exatamente a lógica F/C aprovada."
+}
+document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{collar=b.dataset.collar;document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));showBlank()});
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));document.querySelector(".front").style.display=view==="back"?"none":"flex";document.querySelector(".back").style.display=view==="front"?"none":"flex"});
+const list=document.getElementById("models");
+window.MEGA_MODELOS.forEach(m=>{const b=document.createElement("button");b.className="model"+(m.pronto?"":" disabled");b.innerHTML=`<img src="${m.thumb}" alt="${m.nome}"><b>${m.nome}</b><small>${m.pronto?"PRONTO F/C":"PRÓXIMO"}</small>`;b.onclick=()=>{document.querySelectorAll(".model").forEach(x=>x.classList.remove("active"));if(m.pronto)b.classList.add("active");showModel(m)};list.appendChild(b)});
+</script>
+</body></html>
