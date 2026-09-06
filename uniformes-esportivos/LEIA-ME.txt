@@ -1,7 +1,0 @@
-PROVA 2D COM MÁSCARAS
-
-Objetivo: validar somente se a estampa entra dentro do corpo da camisa e preserva sombras/dobras.
-
-Destino: uniformes-esportivos/
-
-Não substituir o index.html da raiz do repositório.
