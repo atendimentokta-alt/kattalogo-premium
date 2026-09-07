@@ -6,79 +6,724 @@
 <meta name="theme-color" content="#ff6500">
 <title>Mega Sports | Estúdio de Uniformes</title>
 <style>
-:root{--orange:#ff6500;--ink:#171717;--muted:#6f747b;--line:#e3e6ea;--paper:#fff;--shadow:0 16px 46px rgba(18,24,32,.07)}
-*{box-sizing:border-box}body{margin:0;background:linear-gradient(#fff,#f4f5f6);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
-button{font:inherit;cursor:pointer}.wrap{width:min(1370px,calc(100% - 24px));margin:auto}
-.top{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
-.top-in{height:76px;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brand{display:flex;align-items:center;gap:14px}.brand a{text-decoration:none;color:#6e737a;font-size:12px;letter-spacing:.13em}.brand img{width:190px;max-height:55px;object-fit:contain}
-.btn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:11px 14px;font-weight:800}.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
-.hero{padding:22px 0 16px}.hero-card{display:grid;grid-template-columns:.92fr 1.08fr;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}
-.hero-copy{padding:34px 38px;display:flex;flex-direction:column;justify-content:center}.hero-copy small{color:var(--orange);font-weight:900;letter-spacing:.15em}.hero-copy h1{font-size:clamp(40px,4.7vw,68px);line-height:1;margin:10px 0 15px;letter-spacing:-.045em}.hero-copy h1 span{color:var(--orange)}.hero-copy p{color:#555;line-height:1.45;margin:0}.hero-card img{width:100%;height:100%;min-height:300px;object-fit:cover}
-.studio{padding:6px 0 42px}.grid{display:grid;grid-template-columns:235px minmax(0,1fr) 300px;gap:15px}
-.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}.title{padding:16px 18px;border-bottom:1px solid var(--line);font-weight:900}
-.models{padding:10px;display:grid;gap:9px}.model{border:1px solid var(--line);background:#fff;border-radius:13px;padding:7px;text-align:left}.model.active{border:2px solid var(--orange);padding:6px}.model.disabled{opacity:.58}.model img{width:100%;height:92px;object-fit:cover;border-radius:8px}.model b{display:block;font-size:13px;margin-top:6px}.model small{color:var(--muted)}
-.stage-head{padding:11px 14px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.tabs{display:flex;gap:7px}.tab{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 12px;font-weight:800}.tab.active{background:#171717;color:#fff}
-.stage{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:18px;background:#fff;min-height:650px;align-items:center}
-.shirt-slot{position:relative;min-height:600px;display:flex;align-items:center;justify-content:center;background:transparent}
-.shirt-slot img{max-width:96%;max-height:600px;object-fit:contain;display:block;filter:drop-shadow(0 18px 20px rgba(24,30,38,.08))}
-.slot-label{position:absolute;left:12px;bottom:10px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900}
-.controls{padding:14px}.controls h3{font-size:12px;letter-spacing:.08em;margin:0 0 10px}.collars{display:grid;gap:8px}.collar{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px;font-weight:800;text-align:left}.collar.active{border-color:var(--orange);box-shadow:0 0 0 2px rgba(255,101,0,.12)}.hint{font-size:11px;line-height:1.45;color:var(--muted);margin-top:12px}.status{margin-top:14px;padding:11px;border:1px solid #f1d4c3;background:#fff8f4;border-radius:11px;font-size:11px;line-height:1.4}
-@media(max-width:1050px){.grid{grid-template-columns:210px minmax(0,1fr)}.controls-panel{grid-column:1/-1}}
-@media(max-width:760px){.wrap{width:min(100% - 16px,640px)}.top{position:static}.brand a{font-size:9px}.brand img{width:130px}.hero-card{grid-template-columns:1fr}.hero-copy{padding:24px 20px}.hero-copy h1{font-size:36px}.hero-card img{min-height:210px}.grid{grid-template-columns:1fr}.models{grid-auto-flow:column;grid-auto-columns:165px;overflow-x:auto}.stage{grid-template-columns:1fr;gap:8px;min-height:auto}.shirt-slot{min-height:420px}.shirt-slot img{max-height:420px}.controls-panel{grid-column:auto}}
+:root{
+  --orange:#ff6500;
+  --orange2:#ff8a33;
+  --ink:#171717;
+  --muted:#6b7077;
+  --line:#e5e8ec;
+  --paper:#ffffff;
+  --bg:#f5f6f7;
+  --shadow:0 18px 52px rgba(20,24,30,.08);
+  --soft:#fafafa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(#fff,#f3f5f6);
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.wrap{width:min(1380px,calc(100% - 24px));margin:auto}
+
+.top{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:40;
+}
+.top-in{
+  min-height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.kattalogo{
+  color:#747980;
+  font-size:12px;
+  letter-spacing:.13em;
+  text-decoration:none;
+}
+.brand-mark{
+  font-size:28px;
+  font-weight:900;
+  letter-spacing:.03em;
+}
+.brand-mark span{color:var(--orange)}
+.top-actions{display:flex;gap:8px}
+.btn{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:11px 15px;
+  font-weight:800;
+}
+.btn.primary{
+  color:#fff;
+  background:var(--orange);
+  border-color:var(--orange);
+}
+
+.hero{padding:20px 0 16px}
+.hero-card{
+  display:grid;
+  grid-template-columns:.92fr 1.08fr;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.hero-copy{
+  padding:34px 38px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.hero-copy small{
+  color:var(--orange);
+  font-weight:900;
+  letter-spacing:.16em;
+}
+.hero-copy h1{
+  margin:10px 0 15px;
+  font-size:clamp(40px,4.7vw,68px);
+  line-height:1;
+  letter-spacing:-.045em;
+}
+.hero-copy h1 span{color:var(--orange)}
+.hero-copy p{
+  margin:0;
+  color:#555;
+  line-height:1.5;
+  font-size:16px;
+}
+.hero-visual{
+  min-height:320px;
+  background:
+    radial-gradient(circle at 75% 35%,rgba(255,101,0,.16),transparent 28%),
+    linear-gradient(135deg,#fff,#f3f4f5 55%,#eceff1);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+.hero-mini{
+  width:min(620px,94%);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  align-items:center;
+}
+.mini-shirt{
+  filter:drop-shadow(0 20px 24px rgba(20,25,30,.12));
+}
+
+.studio{padding:4px 0 44px}
+.studio-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 390px;
+  gap:16px;
+}
+.panel{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.panel-title{
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  font-weight:900;
+}
+.preview-head{
+  padding:12px 14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  border-bottom:1px solid var(--line);
+}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab,.choice{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:10px;
+  padding:9px 12px;
+  font-weight:800;
+}
+.tab.active,.choice.active{
+  background:#171717;
+  color:#fff;
+  border-color:#171717;
+}
+.stage{
+  background:#fff;
+  min-height:720px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.preview-layout{
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+  align-items:center;
+}
+.product-card{
+  min-height:650px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  background:#fff;
+}
+.product-card svg{
+  width:min(500px,95%);
+  height:auto;
+  overflow:visible;
+  filter:drop-shadow(0 22px 28px rgba(20,25,30,.10));
+}
+.view-label{
+  position:absolute;
+  left:14px;
+  bottom:12px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.04em;
+}
+.step{
+  padding:14px 15px;
+  border-bottom:1px solid var(--line);
+}
+.step:last-child{border-bottom:0}
+.step h3{
+  margin:0 0 10px;
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.options2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.options3{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.choice{
+  min-height:46px;
+}
+.switch-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:8px 0;
+}
+.switch{
+  width:46px;
+  height:26px;
+  border:0;
+  border-radius:999px;
+  background:#ccd2d7;
+  position:relative;
+}
+.switch:after{
+  content:"";
+  position:absolute;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:#fff;
+  top:3px;
+  left:3px;
+  transition:.2s;
+}
+.switch.on{background:var(--orange)}
+.switch.on:after{left:23px}
+.colors{
+  display:grid;
+  gap:8px;
+}
+.color-row{
+  display:grid;
+  grid-template-columns:1fr 62px;
+  align-items:center;
+  gap:10px;
+}
+.color-row label{
+  font-size:12px;
+  color:#585d64;
+  font-weight:700;
+}
+input[type=color]{
+  width:62px;
+  height:40px;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:10px;
+  padding:3px;
+}
+.status{
+  margin-top:10px;
+  background:#fff8f4;
+  border:1px solid #f5d2bd;
+  color:#6e4a34;
+  padding:10px 11px;
+  border-radius:10px;
+  font-size:11px;
+  line-height:1.45;
+}
+.footer-note{
+  padding:12px 14px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+}
+@media(max-width:1000px){
+  .studio-grid{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .wrap{width:min(100% - 16px,640px)}
+  .top{position:static}
+  .kattalogo{font-size:9px;letter-spacing:.08em}
+  .brand-mark{font-size:22px}
+  .hero-card{grid-template-columns:1fr}
+  .hero-copy{padding:24px 20px}
+  .hero-copy h1{font-size:36px}
+  .hero-visual{min-height:230px}
+  .stage{min-height:auto;padding:10px}
+  .preview-layout{grid-template-columns:1fr}
+  .product-card{min-height:460px}
+  .product-card svg{width:min(420px,96%)}
+}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap top-in">
-  <div class="brand"><a href="/">KATTALOGO · PÁGINA INICIAL</a><img src="assets/mega-sports-logo.png" alt="Mega Esportes"></div>
-  <button class="btn primary" onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">Criar uniforme</button>
-</div></header>
 
-<section class="hero"><div class="wrap"><div class="hero-card">
-  <div class="hero-copy"><small>ESTÚDIO MEGA SPORTS</small><h1>Seu uniforme,<br><span>sua identidade</span><br>em campo.</h1><p>Agora cada escolha troca o arquivo inteiro da camisa, sem colagens, máscaras internas ou recortes retangulares.</p></div>
-  <img src="assets/mega-sports-banner.png" alt="">
-</div></div></section>
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand">
+      <a class="kattalogo" href="#">KATTALOGO · PÁGINA INICIAL</a>
+      <div class="brand-mark">MEGA <span>SPORTS</span></div>
+    </div>
+    <div class="top-actions">
+      <button class="btn" id="resetBtn">Recomeçar</button>
+      <button class="btn primary" onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">Criar uniforme</button>
+    </div>
+  </div>
+</header>
 
-<main class="studio" id="studio"><div class="wrap grid">
-  <aside class="panel"><div class="title">ESCOLHA A ESTAMPA</div><div class="models" id="models"></div></aside>
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-card">
+      <div class="hero-copy">
+        <small>ESTÚDIO MEGA SPORTS</small>
+        <h1>Seu uniforme,<br><span>sua identidade</span><br>em campo.</h1>
+        <p>Escolha a construção da camisa e personalize cada parte de forma independente: corpo, mangas, punhos e gola.</p>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-mini">
+          <svg class="mini-shirt" viewBox="0 0 500 560">
+            <path d="M160 95 Q200 75 250 75 Q300 75 340 95 L390 150 L360 500 Q310 520 250 520 Q190 520 140 500 L110 150 Z" fill="#fff" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M160 95 L110 150 L45 190 L15 135 L125 75 Z" fill="#f15a24" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M340 95 L390 150 L455 190 L485 135 L375 75 Z" fill="#f15a24" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M205 76 Q250 58 295 76 L286 97 Q250 86 214 97 Z" fill="#111"/>
+            <path d="M214 97 Q235 92 250 91 Q265 92 286 97 L250 135 Z" fill="#fff" stroke="#cdd2d7" stroke-width="2"/>
+          </svg>
+          <svg class="mini-shirt" viewBox="0 0 500 560">
+            <path d="M160 95 Q200 75 250 75 Q300 75 340 95 L390 150 L360 500 Q310 520 250 520 Q190 520 140 500 L110 150 Z" fill="#171717" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M160 95 L110 150 L45 190 L15 135 L125 75 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M340 95 L390 150 L455 190 L485 135 L375 75 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="3"/>
+            <path d="M205 76 Q250 58 295 76 L286 97 Q250 86 214 97 Z" fill="#fff"/>
+            <path d="M214 97 Q235 92 250 91 Q265 92 286 97 L250 135 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="studio" id="studio">
+<div class="wrap studio-grid">
 
   <section class="panel">
-    <div class="stage-head"><strong>RESULTADO</strong><div class="tabs"><button class="tab active" data-view="both">Frente + Costas</button><button class="tab" data-view="front">Frente</button><button class="tab" data-view="back">Costas</button></div></div>
+    <div class="preview-head">
+      <strong>VISUALIZAÇÃO DO UNIFORME</strong>
+      <div class="tabs">
+        <button class="tab active" data-view="both">Frente + Costas</button>
+        <button class="tab" data-view="front">Frente</button>
+        <button class="tab" data-view="back">Costas</button>
+      </div>
+    </div>
+
     <div class="stage">
-      <div class="shirt-slot front"><img id="frontImg" src="assets/bases/gola-v-f.png" alt="Frente"><span class="slot-label">FRENTE</span></div>
-      <div class="shirt-slot back"><img id="backImg" src="assets/bases/gola-v-c.png" alt="Costas"><span class="slot-label">COSTAS</span></div>
+      <div class="preview-layout">
+
+        <div class="product-card front-card">
+          <svg id="frontSvg" viewBox="0 0 700 780">
+            <defs>
+              <linearGradient id="bodyLightF" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,.22)"/>
+                <stop offset=".48" stop-color="rgba(255,255,255,0)"/>
+                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
+              </linearGradient>
+              <linearGradient id="sleeveLightF" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,.20)"/>
+                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
+              </linearGradient>
+            </defs>
+
+            <ellipse cx="350" cy="735" rx="215" ry="20" fill="rgba(0,0,0,.07)"/>
+
+            <path id="frontBody" d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+
+            <path id="frontSleeveLeft" d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+            <path id="frontSleeveRight" d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+
+            <path id="frontCuffLeft" d="M47 191 L92 258 L106 246 L61 180 Z"
+              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+            <path id="frontCuffRight" d="M653 191 L608 258 L594 246 L639 180 Z"
+              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+
+            <g id="collarV">
+              <path id="vA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
+                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
+              <path id="vB" d="M295 148 Q320 136 350 135 Q380 136 405 148 L350 215 Z"
+                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+            </g>
+
+            <g id="collarRound" style="display:none">
+              <path id="roundA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
+                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
+              <path id="roundB" d="M295 148 Q350 128 405 148 Q391 196 350 205 Q309 196 295 148 Z"
+                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+            </g>
+
+            <g id="collarMadrid" style="display:none">
+              <path id="madridA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
+                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
+              <path id="madridB" d="M295 148 Q350 128 405 148 Q392 181 350 190 Q308 181 295 148 Z"
+                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+              <path id="madridC" d="M320 180 L350 220 L380 180 Q366 190 350 193 Q334 190 320 180 Z"
+                fill="#ff6500" stroke="#c7ccd1" stroke-width="2"/>
+            </g>
+
+            <path d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+              fill="url(#bodyLightF)" pointer-events="none"/>
+
+            <path d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
+              fill="url(#sleeveLightF)" pointer-events="none"/>
+            <path d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
+              fill="url(#sleeveLightF)" pointer-events="none"/>
+
+            <path d="M245 260 Q350 240 455 260" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
+            <path d="M250 520 Q350 545 450 520" fill="none" stroke="rgba(0,0,0,.05)" stroke-width="3"/>
+          </svg>
+          <span class="view-label">FRENTE</span>
+        </div>
+
+        <div class="product-card back-card">
+          <svg id="backSvg" viewBox="0 0 700 780">
+            <defs>
+              <linearGradient id="bodyLightB" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,.22)"/>
+                <stop offset=".48" stop-color="rgba(255,255,255,0)"/>
+                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
+              </linearGradient>
+              <linearGradient id="sleeveLightB" x1="0" x2="1">
+                <stop offset="0" stop-color="rgba(255,255,255,.20)"/>
+                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
+              </linearGradient>
+            </defs>
+
+            <ellipse cx="350" cy="735" rx="215" ry="20" fill="rgba(0,0,0,.07)"/>
+
+            <path id="backBody" d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+
+            <path id="backSleeveLeft" d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+            <path id="backSleeveRight" d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+
+            <path id="backCuffLeft" d="M47 191 L92 258 L106 246 L61 180 Z"
+              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+            <path id="backCuffRight" d="M653 191 L608 258 L594 246 L639 180 Z"
+              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+
+            <path id="backCollarA" d="M285 124 Q350 96 415 124 L402 147 Q350 132 298 147 Z"
+              fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
+
+            <path d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+              fill="url(#bodyLightB)" pointer-events="none"/>
+
+            <path d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
+              fill="url(#sleeveLightB)" pointer-events="none"/>
+            <path d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
+              fill="url(#sleeveLightB)" pointer-events="none"/>
+
+            <path d="M245 270 Q350 245 455 270" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="3"/>
+            <path d="M250 520 Q350 545 450 520" fill="none" stroke="rgba(0,0,0,.05)" stroke-width="3"/>
+          </svg>
+          <span class="view-label">COSTAS</span>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-note">
+      Esta versão testa a arquitetura modular real: corpo, mangas, punhos e gola são elementos independentes. A aparência recebe volume, luz e sombra sem transformar a camisa em um desenho técnico chapado.
     </div>
   </section>
 
-  <aside class="panel controls-panel"><div class="title">MODELO DA CAMISA</div><div class="controls">
-    <h3>TIPO DE GOLA</h3>
-    <div class="collars">
-      <button class="collar active" data-collar="v">Gola V</button>
-      <button class="collar" data-collar="redonda">Gola Redonda</button>
-      <button class="collar" data-collar="madrid">Gola Madrid</button>
-    </div>
-    <div class="hint">Ao trocar a gola, o sistema substitui frente e costas pela base correspondente. Não existe remendo desenhado por cima.</div>
-    <div class="status" id="status"><b>Estado inicial:</b> camisa branca. Clique em Atlético Concept para testar a troca completa de frente e costas.</div>
-  </div></aside>
-</div></main>
+  <aside class="panel">
+    <div class="panel-title">PERSONALIZE</div>
 
-<script src="modelos.js"></script>
+    <section class="step">
+      <h3>1. Tipo de manga</h3>
+      <div class="options2">
+        <button class="choice active" data-sleeve="traditional">Tradicional</button>
+        <button class="choice" data-sleeve="raglan">Raglan</button>
+      </div>
+    </section>
+
+    <section class="step">
+      <h3>2. Tipo de gola</h3>
+      <div class="options3">
+        <button class="choice active" data-collar="v">V</button>
+        <button class="choice" data-collar="round">Redonda</button>
+        <button class="choice" data-collar="madrid">Madrid</button>
+      </div>
+    </section>
+
+    <section class="step">
+      <h3>3. Punho da manga</h3>
+      <div class="switch-row">
+        <span style="font-size:12px;font-weight:700">Usar punho</span>
+        <button class="switch on" id="useCuff"></button>
+      </div>
+    </section>
+
+    <section class="step">
+      <h3>4. Cores por parte</h3>
+      <div class="colors">
+
+        <div class="color-row">
+          <label>Corpo</label>
+          <input id="bodyColor" type="color" value="#ffffff">
+        </div>
+
+        <div class="switch-row">
+          <span style="font-size:12px;font-weight:700">Mesma cor nas duas mangas</span>
+          <button class="switch on" id="linkSleeves"></button>
+        </div>
+
+        <div class="color-row">
+          <label>Manga esquerda</label>
+          <input id="leftSleeveColor" type="color" value="#ffffff">
+        </div>
+
+        <div class="color-row">
+          <label>Manga direita</label>
+          <input id="rightSleeveColor" type="color" value="#ffffff">
+        </div>
+
+        <div class="color-row">
+          <label>Punho</label>
+          <input id="cuffColor" type="color" value="#111111">
+        </div>
+
+      </div>
+    </section>
+
+    <section class="step">
+      <h3>5. Partes da gola</h3>
+      <div class="colors">
+
+        <div class="color-row">
+          <label>Parte A</label>
+          <input id="collarAColor" type="color" value="#ffffff">
+        </div>
+
+        <div class="color-row">
+          <label>Parte B</label>
+          <input id="collarBColor" type="color" value="#111111">
+        </div>
+
+        <div class="color-row" id="partCRow" style="display:none">
+          <label>Parte C</label>
+          <input id="collarCColor" type="color" value="#ff6500">
+        </div>
+
+      </div>
+      <div class="status" id="status">
+        Gola V selecionada. A Parte C só aparece quando a gola Madrid estiver ativa.
+      </div>
+    </section>
+
+  </aside>
+
+</div>
+</main>
+
 <script>
-const bases={
-  v:{f:"assets/bases/gola-v-f.png",c:"assets/bases/gola-v-c.png"},
-  redonda:{f:"assets/bases/gola-redonda-f.png",c:"assets/bases/gola-redonda-c.png"},
-  madrid:{f:"assets/bases/gola-madrid-f.png",c:"assets/bases/gola-madrid-c.png"}
+const S={
+  view:"both",
+  sleeve:"traditional",
+  collar:"v",
+  useCuff:true,
+  linkSleeves:true,
+  body:"#ffffff",
+  leftSleeve:"#ffffff",
+  rightSleeve:"#ffffff",
+  cuff:"#111111",
+  collarA:"#ffffff",
+  collarB:"#111111",
+  collarC:"#ff6500"
 };
-let collar="v", selected=null, view="both";
-const front=document.getElementById("frontImg"),back=document.getElementById("backImg"),status=document.getElementById("status");
-function showBlank(){selected=null;front.src=bases[collar].f;back.src=bases[collar].c;status.innerHTML="<b>Base branca:</b> "+document.querySelector('[data-collar="'+collar+'"]').textContent+" selecionada."}
-function showModel(m){
-  if(!m.pronto){status.innerHTML="<b>"+m.nome+":</b> ainda não renderizado em arquivos F/C. A arquitetura já está pronta para receber o par.";return}
-  selected=m;front.src=m.frente;back.src=m.costas;status.innerHTML="<b>"+m.nome+":</b> frente e costas foram substituídas por arquivos independentes — exatamente a lógica F/C aprovada."
+
+const $=s=>document.querySelector(s);
+const $$=s=>[...document.querySelectorAll(s)];
+
+const sleevePaths={
+  traditional:{
+    left:"M230 150 L185 215 L92 258 L47 191 L178 124 Z",
+    right:"M470 150 L515 215 L608 258 L653 191 L522 124 Z",
+    body:"M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+  },
+  raglan:{
+    left:"M292 122 L185 215 L92 258 L47 191 L178 124 Z",
+    right:"M408 122 L515 215 L608 258 L653 191 L522 124 Z",
+    body:"M292 122 Q320 110 350 110 Q380 110 408 122 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
+  }
+};
+
+function paint(id,color){const el=$("#"+id);if(el)el.setAttribute("fill",color)}
+
+function render(){
+  const p=sleevePaths[S.sleeve];
+
+  ["frontBody","backBody"].forEach(id=>{
+    $("#"+id).setAttribute("d",p.body);
+    paint(id,S.body);
+  });
+
+  ["frontSleeveLeft","backSleeveLeft"].forEach(id=>{
+    $("#"+id).setAttribute("d",p.left);
+    paint(id,S.leftSleeve);
+  });
+
+  ["frontSleeveRight","backSleeveRight"].forEach(id=>{
+    $("#"+id).setAttribute("d",p.right);
+    paint(id,S.rightSleeve);
+  });
+
+  ["frontCuffLeft","frontCuffRight","backCuffLeft","backCuffRight"].forEach(id=>{
+    paint(id,S.cuff);
+    $("#"+id).style.display=S.useCuff?"block":"none";
+  });
+
+  $("#collarV").style.display=S.collar==="v"?"block":"none";
+  $("#collarRound").style.display=S.collar==="round"?"block":"none";
+  $("#collarMadrid").style.display=S.collar==="madrid"?"block":"none";
+
+  ["vA","roundA","madridA","backCollarA"].forEach(id=>paint(id,S.collarA));
+  ["vB","roundB","madridB"].forEach(id=>paint(id,S.collarB));
+  paint("madridC",S.collarC);
+
+  $("#partCRow").style.display=S.collar==="madrid"?"grid":"none";
+
+  $(".front-card").style.display=S.view==="back"?"none":"flex";
+  $(".back-card").style.display=S.view==="front"?"none":"flex";
+
+  const collarName={v:"Gola V",round:"Gola redonda",madrid:"Gola Madrid"}[S.collar];
+  $("#status").textContent = collarName+" selecionada. Corpo, mangas, punhos e partes da gola continuam independentes.";
 }
-document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{collar=b.dataset.collar;document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));showBlank()});
-document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));document.querySelector(".front").style.display=view==="back"?"none":"flex";document.querySelector(".back").style.display=view==="front"?"none":"flex"});
-const list=document.getElementById("models");
-window.MEGA_MODELOS.forEach(m=>{const b=document.createElement("button");b.className="model"+(m.pronto?"":" disabled");b.innerHTML=`<img src="${m.thumb}" alt="${m.nome}"><b>${m.nome}</b><small>${m.pronto?"PRONTO F/C":"PRÓXIMO"}</small>`;b.onclick=()=>{document.querySelectorAll(".model").forEach(x=>x.classList.remove("active"));if(m.pronto)b.classList.add("active");showModel(m)};list.appendChild(b)});
+
+$$("[data-view]").forEach(b=>b.onclick=()=>{
+  S.view=b.dataset.view;
+  $$("[data-view]").forEach(x=>x.classList.toggle("active",x===b));
+  render();
+});
+
+$$("[data-sleeve]").forEach(b=>b.onclick=()=>{
+  S.sleeve=b.dataset.sleeve;
+  $$("[data-sleeve]").forEach(x=>x.classList.toggle("active",x===b));
+  render();
+});
+
+$$("[data-collar]").forEach(b=>b.onclick=()=>{
+  S.collar=b.dataset.collar;
+  $$("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));
+  render();
+});
+
+$("#useCuff").onclick=e=>{
+  S.useCuff=!S.useCuff;
+  e.currentTarget.classList.toggle("on",S.useCuff);
+  render();
+};
+
+$("#linkSleeves").onclick=e=>{
+  S.linkSleeves=!S.linkSleeves;
+  e.currentTarget.classList.toggle("on",S.linkSleeves);
+};
+
+$("#bodyColor").oninput=e=>{S.body=e.target.value;render()};
+
+$("#leftSleeveColor").oninput=e=>{
+  S.leftSleeve=e.target.value;
+  if(S.linkSleeves){
+    S.rightSleeve=e.target.value;
+    $("#rightSleeveColor").value=e.target.value;
+  }
+  render();
+};
+
+$("#rightSleeveColor").oninput=e=>{
+  S.rightSleeve=e.target.value;
+  if(S.linkSleeves){
+    S.leftSleeve=e.target.value;
+    $("#leftSleeveColor").value=e.target.value;
+  }
+  render();
+};
+
+$("#cuffColor").oninput=e=>{S.cuff=e.target.value;render()};
+$("#collarAColor").oninput=e=>{S.collarA=e.target.value;render()};
+$("#collarBColor").oninput=e=>{S.collarB=e.target.value;render()};
+$("#collarCColor").oninput=e=>{S.collarC=e.target.value;render()};
+
+$("#resetBtn").onclick=()=>location.reload();
+
+render();
 </script>
-</body></html>
+
+</body>
+</html>
