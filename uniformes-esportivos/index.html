@@ -3,727 +3,526 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#ff6500">
-<title>Mega Sports | Estúdio de Uniformes</title>
+<title>Mega Sports | Simulador de Uniformes</title>
 <style>
 :root{
-  --orange:#ff6500;
-  --orange2:#ff8a33;
-  --ink:#171717;
-  --muted:#6b7077;
-  --line:#e5e8ec;
-  --paper:#ffffff;
-  --bg:#f5f6f7;
-  --shadow:0 18px 52px rgba(20,24,30,.08);
-  --soft:#fafafa;
+  --orange:#ff6a00;
+  --orange-2:#ff8a33;
+  --ink:#1c252c;
+  --muted:#748089;
+  --line:#e3e7ea;
+  --panel:#ffffff;
+  --bg:#eef2f4;
+  --soft:#f7f8f9;
+  --shadow:0 14px 40px rgba(27,39,48,.12);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--ink);
-  background:linear-gradient(#fff,#f3f5f6);
-}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#edf1f3}
 button,input{font:inherit}
 button{cursor:pointer}
-.wrap{width:min(1380px,calc(100% - 24px));margin:auto}
-
-.top{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  position:sticky;
-  top:0;
-  z-index:40;
+.app{min-height:100vh;background:
+  radial-gradient(circle at 50% 12%,rgba(255,255,255,.97),rgba(235,240,243,.90) 35%,rgba(220,227,231,.92) 72%),
+  linear-gradient(#eef2f4,#dde4e8)}
+.topbar{
+  height:78px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;padding:0 22px;
+  position:sticky;top:0;z-index:50;
 }
-.top-in{
-  min-height:76px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
+.brand{display:flex;align-items:center;gap:18px}
+.home-link{font-size:11px;letter-spacing:.12em;color:#727a80;text-decoration:none}
+.logo{font-size:28px;font-weight:900;letter-spacing:.02em}.logo span{color:var(--orange)}
+.top-actions{display:flex;gap:9px}
+.top-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;font-weight:800}
+.top-btn.primary{background:var(--orange);color:#fff;border-color:var(--orange)}
+.nav{
+  background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);
+  display:flex;justify-content:center;gap:9px;padding:8px 12px;
+  position:sticky;top:78px;z-index:45;overflow-x:auto;
 }
-.brand{
-  display:flex;
-  align-items:center;
-  gap:14px;
+.nav button{
+  white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;
+  padding:8px 13px;font-size:12px;font-weight:800;color:#4d565d;
 }
-.kattalogo{
-  color:#747980;
-  font-size:12px;
-  letter-spacing:.13em;
-  text-decoration:none;
+.nav button.active{background:#222;color:#fff;border-color:#222}
+.workspace{
+  width:min(1680px,calc(100% - 20px));margin:12px auto 0;
+  display:grid;grid-template-columns:330px minmax(620px,1fr) 340px;gap:14px;align-items:start;
 }
-.brand-mark{
-  font-size:28px;
-  font-weight:900;
-  letter-spacing:.03em;
+.side{
+  background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;
 }
-.brand-mark span{color:var(--orange)}
-.top-actions{display:flex;gap:8px}
-.btn{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:12px;
-  padding:11px 15px;
-  font-weight:800;
+.side-head{
+  padding:16px 17px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:10px;font-weight:900;
 }
-.btn.primary{
-  color:#fff;
-  background:var(--orange);
-  border-color:var(--orange);
+.side-head .ico{
+  width:35px;height:35px;border-radius:50%;border:2px solid var(--orange);
+  display:grid;place-items:center;color:var(--orange);font-size:18px;
 }
-
-.hero{padding:20px 0 16px}
-.hero-card{
-  display:grid;
-  grid-template-columns:.92fr 1.08fr;
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:24px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
+.side-body{padding:12px}
+.segment{
+  display:flex;border-bottom:1px solid var(--line);margin:-2px -2px 12px;
 }
-.hero-copy{
-  padding:34px 38px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.segment button{
+  flex:1;border:0;background:#fff;padding:10px;font-weight:800;color:#545c62;
+  border-bottom:3px solid transparent;
 }
-.hero-copy small{
-  color:var(--orange);
-  font-weight:900;
-  letter-spacing:.16em;
+.segment button.active{color:#111;border-color:var(--orange)}
+.models{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:9px;
 }
-.hero-copy h1{
-  margin:10px 0 15px;
-  font-size:clamp(40px,4.7vw,68px);
-  line-height:1;
-  letter-spacing:-.045em;
+.model{
+  border:1px solid var(--line);border-radius:11px;background:#fff;padding:6px;text-align:center;
 }
-.hero-copy h1 span{color:var(--orange)}
-.hero-copy p{
-  margin:0;
-  color:#555;
-  line-height:1.5;
-  font-size:16px;
+.model.active{border:2px solid var(--orange);padding:5px;box-shadow:0 0 0 2px rgba(255,106,0,.10)}
+.thumb{
+  height:92px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:#f3f5f6;overflow:hidden;
 }
-.hero-visual{
-  min-height:320px;
+.thumb svg{width:80px;height:86px}
+.model small{display:block;margin-top:5px;font-weight:800;font-size:10px;color:#4a5259}
+.checks{display:grid;gap:8px;margin-bottom:11px;font-size:12px;color:#60686f}
+.checks label{display:flex;gap:7px;align-items:center}
+.scroller{max-height:525px;overflow:auto;padding-right:2px}
+.center{
+  min-height:720px;position:relative;border-radius:18px;overflow:hidden;
   background:
-    radial-gradient(circle at 75% 35%,rgba(255,101,0,.16),transparent 28%),
-    linear-gradient(135deg,#fff,#f3f4f5 55%,#eceff1);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:18px;
+   radial-gradient(circle at 50% 12%,rgba(255,255,255,.95),rgba(231,236,239,.72) 37%,rgba(205,214,219,.75) 76%),
+   linear-gradient(#f4f6f7,#dce3e7);
+  border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);
 }
-.hero-mini{
-  width:min(620px,94%);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  align-items:center;
+.center-head{
+  height:52px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;gap:9px;
 }
-.mini-shirt{
-  filter:drop-shadow(0 20px 24px rgba(20,25,30,.12));
+.center-head button{
+  border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;font-size:12px;
 }
-
-.studio{padding:4px 0 44px}
-.studio-grid{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) 390px;
-  gap:16px;
-}
-.panel{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:20px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.panel-title{
-  padding:16px 18px;
-  border-bottom:1px solid var(--line);
-  font-weight:900;
-}
-.preview-head{
-  padding:12px 14px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  flex-wrap:wrap;
-  border-bottom:1px solid var(--line);
-}
-.tabs{display:flex;gap:8px;flex-wrap:wrap}
-.tab,.choice{
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:10px;
-  padding:9px 12px;
-  font-weight:800;
-}
-.tab.active,.choice.active{
-  background:#171717;
-  color:#fff;
-  border-color:#171717;
-}
+.center-head button.active{background:#222;color:#fff;border-color:#222}
 .stage{
-  background:#fff;
-  min-height:720px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
+  min-height:668px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;padding:20px 14px 22px;
 }
-.preview-layout{
-  width:100%;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-  align-items:center;
+.look{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:620px;
 }
-.product-card{
-  min-height:650px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  background:#fff;
+.look svg{width:min(470px,98%);height:auto;filter:drop-shadow(0 22px 24px rgba(20,29,35,.16))}
+.look-label{
+  position:absolute;top:5px;background:#324a56;color:#fff;border-radius:999px;
+  font-size:11px;padding:5px 10px;font-weight:900;letter-spacing:.04em
 }
-.product-card svg{
-  width:min(500px,95%);
-  height:auto;
-  overflow:visible;
-  filter:drop-shadow(0 22px 28px rgba(20,25,30,.10));
+.right-section{padding:14px 16px;border-bottom:1px solid var(--line)}
+.right-section:last-child{border-bottom:0}
+.right-section h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.sync{display:flex;align-items:center;justify-content:space-between;font-size:12px}
+.switch{width:45px;height:25px;border:0;border-radius:999px;background:#cbd2d7;position:relative}
+.switch:after{content:"";width:19px;height:19px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:.2s}
+.switch.on{background:#42b75b}.switch.on:after{left:23px}
+.palette{display:flex;gap:9px;flex-wrap:wrap}
+.swatch{
+  width:39px;height:39px;border-radius:7px;border:2px solid #fff;box-shadow:0 0 0 1px #cfd5da;position:relative
 }
-.view-label{
-  position:absolute;
-  left:14px;
-  bottom:12px;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.04em;
+.swatch.active:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;text-shadow:0 1px 3px #000}
+.color-line{display:grid;grid-template-columns:58px 1fr;gap:8px;align-items:start;margin:10px 0}
+.color-line b{font-size:11px;color:#5a6268;padding-top:12px}
+.finish-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.finish-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 8px;font-weight:800;font-size:11px}
+.finish-btn.active{border:2px solid var(--orange);padding:9px 7px}
+.form-row{display:grid;gap:6px;margin-bottom:9px}
+.form-row label{font-size:11px;font-weight:800;color:#596168}
+.form-row input{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}
+.upload-box{
+  border:1px dashed #c7d0d6;border-radius:10px;padding:10px;text-align:center;font-size:11px;color:#69737a;background:#fafbfb
 }
-.step{
-  padding:14px 15px;
-  border-bottom:1px solid var(--line);
+.upload-box input{width:100%;font-size:11px}
+.cta{
+  width:100%;border:0;background:var(--orange);color:#fff;border-radius:11px;padding:12px;font-weight:900
 }
-.step:last-child{border-bottom:0}
-.step h3{
-  margin:0 0 10px;
-  font-size:12px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+.help{font-size:10px;color:#7a838a;line-height:1.45;margin-top:7px}
+.bottom{
+  width:min(1680px,calc(100% - 20px));margin:14px auto 20px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
 }
-.options2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
+.info{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;font-size:11px;font-weight:800;color:#566067}
+@media(max-width:1200px){
+  .workspace{grid-template-columns:280px minmax(560px,1fr)}
+  .right{grid-column:1/-1}
 }
-.options3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
+@media(max-width:850px){
+  .topbar{height:auto;min-height:66px;padding:10px 12px}.home-link{display:none}.logo{font-size:22px}
+  .nav{top:66px;justify-content:flex-start}
+  .workspace{grid-template-columns:1fr;width:min(100% - 12px,650px)}
+  .side.left{order:2}.center{order:1}.right{order:3}
+  .stage{grid-template-columns:1fr}.look{min-height:520px}.look svg{width:min(430px,96%)}
+  .models{grid-template-columns:repeat(4,1fr)}.bottom{grid-template-columns:1fr 1fr;width:min(100% - 12px,650px)}
 }
-.choice{
-  min-height:46px;
-}
-.switch-row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin:8px 0;
-}
-.switch{
-  width:46px;
-  height:26px;
-  border:0;
-  border-radius:999px;
-  background:#ccd2d7;
-  position:relative;
-}
-.switch:after{
-  content:"";
-  position:absolute;
-  width:20px;
-  height:20px;
-  border-radius:50%;
-  background:#fff;
-  top:3px;
-  left:3px;
-  transition:.2s;
-}
-.switch.on{background:var(--orange)}
-.switch.on:after{left:23px}
-.colors{
-  display:grid;
-  gap:8px;
-}
-.color-row{
-  display:grid;
-  grid-template-columns:1fr 62px;
-  align-items:center;
-  gap:10px;
-}
-.color-row label{
-  font-size:12px;
-  color:#585d64;
-  font-weight:700;
-}
-input[type=color]{
-  width:62px;
-  height:40px;
-  border:1px solid var(--line);
-  background:#fff;
-  border-radius:10px;
-  padding:3px;
-}
-.status{
-  margin-top:10px;
-  background:#fff8f4;
-  border:1px solid #f5d2bd;
-  color:#6e4a34;
-  padding:10px 11px;
-  border-radius:10px;
-  font-size:11px;
-  line-height:1.45;
-}
-.footer-note{
-  padding:12px 14px;
-  border-top:1px solid var(--line);
-  color:var(--muted);
-  font-size:11px;
-  line-height:1.45;
-}
-@media(max-width:1000px){
-  .studio-grid{grid-template-columns:1fr}
-}
-@media(max-width:760px){
-  .wrap{width:min(100% - 16px,640px)}
-  .top{position:static}
-  .kattalogo{font-size:9px;letter-spacing:.08em}
-  .brand-mark{font-size:22px}
-  .hero-card{grid-template-columns:1fr}
-  .hero-copy{padding:24px 20px}
-  .hero-copy h1{font-size:36px}
-  .hero-visual{min-height:230px}
-  .stage{min-height:auto;padding:10px}
-  .preview-layout{grid-template-columns:1fr}
-  .product-card{min-height:460px}
-  .product-card svg{width:min(420px,96%)}
+@media(max-width:520px){
+  .models{grid-template-columns:repeat(3,1fr)}.top-actions .top-btn:first-child{display:none}
+  .stage{padding:10px 4px}.look{min-height:430px}.bottom{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-
-<header class="top">
-  <div class="wrap top-in">
-    <div class="brand">
-      <a class="kattalogo" href="#">KATTALOGO · PÁGINA INICIAL</a>
-      <div class="brand-mark">MEGA <span>SPORTS</span></div>
-    </div>
-    <div class="top-actions">
-      <button class="btn" id="resetBtn">Recomeçar</button>
-      <button class="btn primary" onclick="document.getElementById('studio').scrollIntoView({behavior:'smooth'})">Criar uniforme</button>
-    </div>
+<div class="app">
+<header class="topbar">
+  <div class="brand">
+    <a href="#" class="home-link">KATTALOGO · PÁGINA INICIAL</a>
+    <div class="logo">MEGA <span>SPORTS</span></div>
+  </div>
+  <div class="top-actions">
+    <button class="top-btn" id="reset">Nova simulação</button>
+    <button class="top-btn primary">Solicitar orçamento</button>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-card">
-      <div class="hero-copy">
-        <small>ESTÚDIO MEGA SPORTS</small>
-        <h1>Seu uniforme,<br><span>sua identidade</span><br>em campo.</h1>
-        <p>Escolha a construção da camisa e personalize cada parte de forma independente: corpo, mangas, punhos e gola.</p>
+<nav class="nav" id="mainNav">
+  <button class="active" data-panel="models">Modelos / Estampas</button>
+  <button data-panel="finish">Acabamentos</button>
+  <button data-panel="name">Nome e Número</button>
+  <button data-panel="logos">Escudo e Patrocínio</button>
+  <button data-panel="upload">Upload de Imagem</button>
+</nav>
+
+<div class="workspace">
+
+  <aside class="side left">
+    <div class="side-head"><span class="ico">👕</span><span id="leftTitle">Modelos / Estampas</span></div>
+    <div class="side-body" id="leftPanel">
+
+      <div class="panel-page" data-page="models">
+        <div class="checks">
+          <label><input type="checkbox" checked id="syncSet"> Sincronizar camisa e calção</label>
+        </div>
+        <div class="segment">
+          <button class="active">Camisa</button>
+          <button>Calção</button>
+          <button>Meião</button>
+        </div>
+        <div class="scroller"><div class="models" id="modelGrid"></div></div>
       </div>
-      <div class="hero-visual">
-        <div class="hero-mini">
-          <svg class="mini-shirt" viewBox="0 0 500 560">
-            <path d="M160 95 Q200 75 250 75 Q300 75 340 95 L390 150 L360 500 Q310 520 250 520 Q190 520 140 500 L110 150 Z" fill="#fff" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M160 95 L110 150 L45 190 L15 135 L125 75 Z" fill="#f15a24" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M340 95 L390 150 L455 190 L485 135 L375 75 Z" fill="#f15a24" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M205 76 Q250 58 295 76 L286 97 Q250 86 214 97 Z" fill="#111"/>
-            <path d="M214 97 Q235 92 250 91 Q265 92 286 97 L250 135 Z" fill="#fff" stroke="#cdd2d7" stroke-width="2"/>
-          </svg>
-          <svg class="mini-shirt" viewBox="0 0 500 560">
-            <path d="M160 95 Q200 75 250 75 Q300 75 340 95 L390 150 L360 500 Q310 520 250 520 Q190 520 140 500 L110 150 Z" fill="#171717" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M160 95 L110 150 L45 190 L15 135 L125 75 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M340 95 L390 150 L455 190 L485 135 L375 75 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="3"/>
-            <path d="M205 76 Q250 58 295 76 L286 97 Q250 86 214 97 Z" fill="#fff"/>
-            <path d="M214 97 Q235 92 250 91 Q265 92 286 97 L250 135 Z" fill="#ff6500" stroke="#cdd2d7" stroke-width="2"/>
-          </svg>
+
+      <div class="panel-page" data-page="finish" style="display:none">
+        <div class="right-section" style="padding:0 0 14px;border:0">
+          <h3>Manga</h3>
+          <div class="finish-options">
+            <button class="finish-btn active" data-sleeve="traditional">Tradicional</button>
+            <button class="finish-btn" data-sleeve="raglan">Raglan</button>
+          </div>
+        </div>
+        <div class="right-section" style="padding:14px 0;border-top:1px solid var(--line)">
+          <h3>Gola</h3>
+          <div class="finish-options">
+            <button class="finish-btn active" data-collar="v">V</button>
+            <button class="finish-btn" data-collar="round">Redonda</button>
+            <button class="finish-btn" data-collar="madrid">Madrid</button>
+          </div>
+        </div>
+        <div class="right-section" style="padding:14px 0;border-top:1px solid var(--line)">
+          <h3>Punho</h3>
+          <div class="finish-options">
+            <button class="finish-btn active" data-cuff="off">Sem punho</button>
+            <button class="finish-btn" data-cuff="on">Punho simples</button>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<main class="studio" id="studio">
-<div class="wrap studio-grid">
-
-  <section class="panel">
-    <div class="preview-head">
-      <strong>VISUALIZAÇÃO DO UNIFORME</strong>
-      <div class="tabs">
-        <button class="tab active" data-view="both">Frente + Costas</button>
-        <button class="tab" data-view="front">Frente</button>
-        <button class="tab" data-view="back">Costas</button>
+      <div class="panel-page" data-page="name" style="display:none">
+        <div class="form-row"><label>Nome nas costas</label><input id="playerName" value="SEU NOME"></div>
+        <div class="form-row"><label>Número</label><input id="playerNumber" value="10" maxlength="2"></div>
+        <div class="help">Nome e número são atualizados ao vivo no verso da camisa e no calção.</div>
       </div>
-    </div>
 
+      <div class="panel-page" data-page="logos" style="display:none">
+        <div class="form-row"><label>Escudo</label><input type="file" id="crestUpload" accept="image/*"></div>
+        <div class="form-row"><label>Patrocínio frontal</label><input type="file" id="sponsorUpload" accept="image/*"></div>
+        <div class="help">Para melhor resultado, use PNG com fundo transparente.</div>
+      </div>
+
+      <div class="panel-page" data-page="upload" style="display:none">
+        <div class="upload-box">
+          <b>Adicionar imagem livre</b><br><br>
+          <input type="file" id="freeUpload" accept="image/*">
+        </div>
+        <div class="help">Nesta prova, a imagem livre aparece na região central frontal.</div>
+      </div>
+
+    </div>
+  </aside>
+
+  <section class="center">
+    <div class="center-head">
+      <button class="active" data-view="both">Frente + Costas</button>
+      <button data-view="front">Frente</button>
+      <button data-view="back">Costas</button>
+    </div>
     <div class="stage">
-      <div class="preview-layout">
 
-        <div class="product-card front-card">
-          <svg id="frontSvg" viewBox="0 0 700 780">
-            <defs>
-              <linearGradient id="bodyLightF" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(255,255,255,.22)"/>
-                <stop offset=".48" stop-color="rgba(255,255,255,0)"/>
-                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
-              </linearGradient>
-              <linearGradient id="sleeveLightF" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(255,255,255,.20)"/>
-                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
-              </linearGradient>
-            </defs>
+      <div class="look frontLook">
+        <span class="look-label">FRENTE</span>
+        <svg viewBox="0 0 700 900" id="frontSvg">
+          <defs>
+            <linearGradient id="fabricF" x1="0" x2="1">
+              <stop offset="0" stop-color="#ffffff" stop-opacity=".20"/>
+              <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="1" stop-color="#000000" stop-opacity=".09"/>
+            </linearGradient>
+            <pattern id="geoPatternF" width="46" height="46" patternUnits="userSpaceOnUse">
+              <path d="M0 23 L23 0 L46 23 L23 46 Z" fill="none" stroke="var(--detail2)" stroke-width="7" opacity=".55"/>
+            </pattern>
+            <clipPath id="bodyClipF">
+              <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"/>
+            </clipPath>
+          </defs>
 
-            <ellipse cx="350" cy="735" rx="215" ry="20" fill="rgba(0,0,0,.07)"/>
+          <ellipse cx="350" cy="825" rx="210" ry="22" fill="rgba(0,0,0,.08)"/>
 
-            <path id="frontBody" d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+          <path id="fBody" d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
+            fill="var(--base)" stroke="#69747b" stroke-width="2"/>
+          <rect id="fPattern" x="210" y="135" width="280" height="500" fill="url(#geoPatternF)" clip-path="url(#bodyClipF)" opacity=".65"/>
 
-            <path id="frontSleeveLeft" d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
-            <path id="frontSleeveRight" d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
+          <path id="fSleeveL" d="M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z"
+            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
+          <path id="fSleeveR" d="M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
+            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
 
-            <path id="frontCuffLeft" d="M47 191 L92 258 L106 246 L61 180 Z"
-              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-            <path id="frontCuffRight" d="M653 191 L608 258 L594 246 L639 180 Z"
-              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
+          <path id="fCuffL" d="M52 191 L91 250 L106 241 L67 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
+          <path id="fCuffR" d="M648 191 L609 250 L594 241 L633 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
 
-            <g id="collarV">
-              <path id="vA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
-                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
-              <path id="vB" d="M295 148 Q320 136 350 135 Q380 136 405 148 L350 215 Z"
-                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-            </g>
+          <g id="fCollarV">
+            <path id="fVA" d="M305 139 Q350 120 395 139 L388 155 Q350 145 312 155 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
+            <path id="fVB" d="M312 155 Q350 143 388 155 L350 210 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
+          </g>
+          <g id="fCollarRound" style="display:none">
+            <path id="fRA" d="M305 139 Q350 120 395 139 L388 155 Q350 145 312 155 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
+            <path id="fRB" d="M312 155 Q350 143 388 155 Q382 190 350 197 Q318 190 312 155 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
+          </g>
+          <g id="fCollarMadrid" style="display:none">
+            <path id="fMA" d="M303 138 Q350 118 397 138 L389 154 Q350 143 311 154 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
+            <path id="fMB" d="M311 154 Q350 143 389 154 Q382 182 350 188 Q318 182 311 154 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
+            <path id="fMC" d="M325 180 L350 211 L375 180 Q363 188 350 191 Q337 188 325 180 Z" fill="var(--accent)" stroke="#69747b" stroke-width="1.5"/>
+          </g>
 
-            <g id="collarRound" style="display:none">
-              <path id="roundA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
-                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
-              <path id="roundB" d="M295 148 Q350 128 405 148 Q391 196 350 205 Q309 196 295 148 Z"
-                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-            </g>
+          <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
+            fill="url(#fabricF)" pointer-events="none"/>
 
-            <g id="collarMadrid" style="display:none">
-              <path id="madridA" d="M285 124 Q350 96 415 124 L405 148 Q350 128 295 148 Z"
-                fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
-              <path id="madridB" d="M295 148 Q350 128 405 148 Q392 181 350 190 Q308 181 295 148 Z"
-                fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-              <path id="madridC" d="M320 180 L350 220 L380 180 Q366 190 350 193 Q334 190 320 180 Z"
-                fill="#ff6500" stroke="#c7ccd1" stroke-width="2"/>
-            </g>
+          <image id="crestFront" href="" x="370" y="245" width="70" height="70" preserveAspectRatio="xMidYMid meet"/>
+          <image id="sponsorFront" href="" x="275" y="335" width="150" height="70" preserveAspectRatio="xMidYMid meet"/>
+          <image id="freeFront" href="" x="295" y="415" width="110" height="90" preserveAspectRatio="xMidYMid meet"/>
 
-            <path d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-              fill="url(#bodyLightF)" pointer-events="none"/>
-
-            <path d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
-              fill="url(#sleeveLightF)" pointer-events="none"/>
-            <path d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
-              fill="url(#sleeveLightF)" pointer-events="none"/>
-
-            <path d="M245 260 Q350 240 455 260" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="3"/>
-            <path d="M250 520 Q350 545 450 520" fill="none" stroke="rgba(0,0,0,.05)" stroke-width="3"/>
-          </svg>
-          <span class="view-label">FRENTE</span>
-        </div>
-
-        <div class="product-card back-card">
-          <svg id="backSvg" viewBox="0 0 700 780">
-            <defs>
-              <linearGradient id="bodyLightB" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(255,255,255,.22)"/>
-                <stop offset=".48" stop-color="rgba(255,255,255,0)"/>
-                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
-              </linearGradient>
-              <linearGradient id="sleeveLightB" x1="0" x2="1">
-                <stop offset="0" stop-color="rgba(255,255,255,.20)"/>
-                <stop offset="1" stop-color="rgba(0,0,0,.08)"/>
-              </linearGradient>
-            </defs>
-
-            <ellipse cx="350" cy="735" rx="215" ry="20" fill="rgba(0,0,0,.07)"/>
-
-            <path id="backBody" d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
-
-            <path id="backSleeveLeft" d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
-            <path id="backSleeveRight" d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="3"/>
-
-            <path id="backCuffLeft" d="M47 191 L92 258 L106 246 L61 180 Z"
-              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-            <path id="backCuffRight" d="M653 191 L608 258 L594 246 L639 180 Z"
-              fill="#111111" stroke="#c7ccd1" stroke-width="2"/>
-
-            <path id="backCollarA" d="M285 124 Q350 96 415 124 L402 147 Q350 132 298 147 Z"
-              fill="#ffffff" stroke="#c7ccd1" stroke-width="2"/>
-
-            <path d="M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-              fill="url(#bodyLightB)" pointer-events="none"/>
-
-            <path d="M230 150 L185 215 L92 258 L47 191 L178 124 Z"
-              fill="url(#sleeveLightB)" pointer-events="none"/>
-            <path d="M470 150 L515 215 L608 258 L653 191 L522 124 Z"
-              fill="url(#sleeveLightB)" pointer-events="none"/>
-
-            <path d="M245 270 Q350 245 455 270" fill="none" stroke="rgba(255,255,255,.30)" stroke-width="3"/>
-            <path d="M250 520 Q350 545 450 520" fill="none" stroke="rgba(0,0,0,.05)" stroke-width="3"/>
-          </svg>
-          <span class="view-label">COSTAS</span>
-        </div>
-
+          <!-- calção -->
+          <path id="fShorts" d="M248 630 L452 630 L478 790 L382 790 L350 735 L318 790 L222 790 Z"
+            fill="var(--shortBase)" stroke="#69747b" stroke-width="2"/>
+          <path d="M248 630 L452 630 L458 660 L242 660 Z" fill="var(--shortDetail)" opacity=".95"/>
+          <text id="shortNumF" x="405" y="750" font-size="34" font-weight="900" text-anchor="middle" fill="#fff">10</text>
+        </svg>
       </div>
-    </div>
 
-    <div class="footer-note">
-      Esta versão testa a arquitetura modular real: corpo, mangas, punhos e gola são elementos independentes. A aparência recebe volume, luz e sombra sem transformar a camisa em um desenho técnico chapado.
+      <div class="look backLook">
+        <span class="look-label">COSTAS</span>
+        <svg viewBox="0 0 700 900" id="backSvg">
+          <defs>
+            <linearGradient id="fabricB" x1="0" x2="1">
+              <stop offset="0" stop-color="#ffffff" stop-opacity=".20"/>
+              <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
+              <stop offset="1" stop-color="#000000" stop-opacity=".09"/>
+            </linearGradient>
+            <pattern id="geoPatternB" width="46" height="46" patternUnits="userSpaceOnUse">
+              <path d="M0 23 L23 0 L46 23 L23 46 Z" fill="none" stroke="var(--detail2)" stroke-width="7" opacity=".55"/>
+            </pattern>
+            <clipPath id="bodyClipB">
+              <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"/>
+            </clipPath>
+          </defs>
+
+          <ellipse cx="350" cy="825" rx="210" ry="22" fill="rgba(0,0,0,.08)"/>
+          <path id="bBody" d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
+            fill="var(--base)" stroke="#69747b" stroke-width="2"/>
+          <rect id="bPattern" x="210" y="135" width="280" height="500" fill="url(#geoPatternB)" clip-path="url(#bodyClipB)" opacity=".65"/>
+
+          <path id="bSleeveL" d="M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z"
+            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
+          <path id="bSleeveR" d="M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
+            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
+          <path id="bCuffL" d="M52 191 L91 250 L106 241 L67 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
+          <path id="bCuffR" d="M648 191 L609 250 L594 241 L633 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
+          <path id="backCollar" d="M305 139 Q350 120 395 139 Q388 160 350 165 Q312 160 305 139 Z"
+            fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
+
+          <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
+            fill="url(#fabricB)" pointer-events="none"/>
+
+          <text id="nameBack" x="350" y="300" font-size="32" font-weight="900" text-anchor="middle" fill="var(--detail3)">SEU NOME</text>
+          <text id="numBack" x="350" y="455" font-size="150" font-weight="900" text-anchor="middle" fill="var(--detail3)">10</text>
+
+          <path id="bShorts" d="M248 630 L452 630 L478 790 L382 790 L350 735 L318 790 L222 790 Z"
+            fill="var(--shortBase)" stroke="#69747b" stroke-width="2"/>
+          <path d="M248 630 L452 630 L458 660 L242 660 Z" fill="var(--shortDetail)" opacity=".95"/>
+          <text id="shortNumB" x="405" y="750" font-size="34" font-weight="900" text-anchor="middle" fill="#fff">10</text>
+        </svg>
+      </div>
+
     </div>
   </section>
 
-  <aside class="panel">
-    <div class="panel-title">PERSONALIZE</div>
+  <aside class="side right">
+    <div class="side-head"><span class="ico">◉</span><span>Cores</span></div>
 
-    <section class="step">
-      <h3>1. Tipo de manga</h3>
-      <div class="options2">
-        <button class="choice active" data-sleeve="traditional">Tradicional</button>
-        <button class="choice" data-sleeve="raglan">Raglan</button>
-      </div>
-    </section>
+    <div class="right-section">
+      <div class="sync"><b>Sincronizar cores</b><button class="switch on" id="syncColors"></button></div>
+    </div>
 
-    <section class="step">
-      <h3>2. Tipo de gola</h3>
-      <div class="options3">
-        <button class="choice active" data-collar="v">V</button>
-        <button class="choice" data-collar="round">Redonda</button>
-        <button class="choice" data-collar="madrid">Madrid</button>
-      </div>
-    </section>
+    <div class="right-section">
+      <h3>Cores camisa</h3>
+      <div class="color-line"><b>Base</b><div class="palette" id="basePalette"></div></div>
+      <div class="color-line"><b>Cor 1</b><div class="palette" id="detail1Palette"></div></div>
+      <div class="color-line"><b>Cor 2</b><div class="palette" id="detail2Palette"></div></div>
+      <div class="color-line"><b>Cor 3</b><div class="palette" id="detail3Palette"></div></div>
+    </div>
 
-    <section class="step">
-      <h3>3. Punho da manga</h3>
-      <div class="switch-row">
-        <span style="font-size:12px;font-weight:700">Usar punho</span>
-        <button class="switch on" id="useCuff"></button>
-      </div>
-    </section>
+    <div class="right-section">
+      <h3>Cores calção</h3>
+      <div class="color-line"><b>Base</b><div class="palette" id="shortBasePalette"></div></div>
+      <div class="color-line"><b>Detalhe</b><div class="palette" id="shortDetailPalette"></div></div>
+    </div>
 
-    <section class="step">
-      <h3>4. Cores por parte</h3>
-      <div class="colors">
-
-        <div class="color-row">
-          <label>Corpo</label>
-          <input id="bodyColor" type="color" value="#ffffff">
-        </div>
-
-        <div class="switch-row">
-          <span style="font-size:12px;font-weight:700">Mesma cor nas duas mangas</span>
-          <button class="switch on" id="linkSleeves"></button>
-        </div>
-
-        <div class="color-row">
-          <label>Manga esquerda</label>
-          <input id="leftSleeveColor" type="color" value="#ffffff">
-        </div>
-
-        <div class="color-row">
-          <label>Manga direita</label>
-          <input id="rightSleeveColor" type="color" value="#ffffff">
-        </div>
-
-        <div class="color-row">
-          <label>Punho</label>
-          <input id="cuffColor" type="color" value="#111111">
-        </div>
-
-      </div>
-    </section>
-
-    <section class="step">
-      <h3>5. Partes da gola</h3>
-      <div class="colors">
-
-        <div class="color-row">
-          <label>Parte A</label>
-          <input id="collarAColor" type="color" value="#ffffff">
-        </div>
-
-        <div class="color-row">
-          <label>Parte B</label>
-          <input id="collarBColor" type="color" value="#111111">
-        </div>
-
-        <div class="color-row" id="partCRow" style="display:none">
-          <label>Parte C</label>
-          <input id="collarCColor" type="color" value="#ff6500">
-        </div>
-
-      </div>
-      <div class="status" id="status">
-        Gola V selecionada. A Parte C só aparece quando a gola Madrid estiver ativa.
-      </div>
-    </section>
-
+    <div class="right-section">
+      <h3>Próximo passo</h3>
+      <button class="cta" id="nextBtn">Continuar personalização</button>
+      <div class="help">Depois desta prova, podemos acrescentar meião, mais modelos e o fluxo completo de orçamento.</div>
+    </div>
   </aside>
 
 </div>
-</main>
+
+<div class="bottom">
+  <div class="info">✓ Modelos e estampas selecionáveis</div>
+  <div class="info">✓ Cores independentes por parte</div>
+  <div class="info">✓ Frente e costas sincronizadas</div>
+  <div class="info">✓ Nome, número e uploads</div>
+</div>
+</div>
 
 <script>
-const S={
-  view:"both",
-  sleeve:"traditional",
-  collar:"v",
-  useCuff:true,
-  linkSleeves:true,
-  body:"#ffffff",
-  leftSleeve:"#ffffff",
-  rightSleeve:"#ffffff",
-  cuff:"#111111",
-  collarA:"#ffffff",
-  collarB:"#111111",
-  collarC:"#ff6500"
+const root=document.documentElement;
+const state={
+  model:0, view:"both",
+  base:"#ffe75a", detail1:"#ffd400", detail2:"#2e663f", detail3:"#0a9449", accent:"#ff6a00",
+  shortBase:"#084aa8", shortDetail:"#ffffff",
+  syncColors:true, sleeve:"traditional", collar:"v", cuff:false,
+  name:"SEU NOME", number:"10"
 };
 
-const $=s=>document.querySelector(s);
-const $$=s=>[...document.querySelectorAll(s)];
+const models=[
+  {name:"570",base:"#ffe75a",d1:"#ffd400",d2:"#2e663f",d3:"#0a9449",pattern:"geo"},
+  {name:"569",base:"#10151b",d1:"#153d7a",d2:"#1e77d1",d3:"#ffffff",pattern:"geo"},
+  {name:"568",base:"#c6242f",d1:"#ef3f4e",d2:"#73111e",d3:"#ffffff",pattern:"geo"},
+  {name:"567",base:"#0c397a",d1:"#1458aa",d2:"#76a9e5",d3:"#ffffff",pattern:"geo"},
+  {name:"566",base:"#7c1f2a",d1:"#b43a47",d2:"#401017",d3:"#ffffff",pattern:"geo"},
+  {name:"565",base:"#f8f8f8",d1:"#b82731",d2:"#7d0f18",d3:"#111111",pattern:"geo"},
+  {name:"564",base:"#111111",d1:"#2f2f2f",d2:"#5d5d5d",d3:"#ffffff",pattern:"geo"},
+  {name:"563",base:"#d9f3f0",d1:"#8bd4ca",d2:"#ffffff",d3:"#184d4a",pattern:"geo"},
+  {name:"562",base:"#109250",d1:"#08753c",d2:"#0fc96b",d3:"#ffffff",pattern:"geo"}
+];
 
-const sleevePaths={
-  traditional:{
-    left:"M230 150 L185 215 L92 258 L47 191 L178 124 Z",
-    right:"M470 150 L515 215 L608 258 L653 191 L522 124 Z",
-    body:"M230 150 Q270 125 350 125 Q430 125 470 150 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-  },
-  raglan:{
-    left:"M292 122 L185 215 L92 258 L47 191 L178 124 Z",
-    right:"M408 122 L515 215 L608 258 L653 191 L522 124 Z",
-    body:"M292 122 Q320 110 350 110 Q380 110 408 122 L515 215 L485 650 Q420 676 350 676 Q280 676 215 650 L185 215 Z"
-  }
-};
+const palette=["#ffffff","#111111","#6b7378","#ffe75a","#ffd400","#d81f26","#0a9449","#084aa8","#ff6a00","#7b2cbf"];
 
-function paint(id,color){const el=$("#"+id);if(el)el.setAttribute("fill",color)}
+function setVar(k,v){root.style.setProperty("--"+k,v)}
+function applyState(){
+  setVar("base",state.base);setVar("detail1",state.detail1);setVar("detail2",state.detail2);setVar("detail3",state.detail3);
+  setVar("accent",state.accent);setVar("shortBase",state.shortBase);setVar("shortDetail",state.shortDetail);
+  document.getElementById("nameBack").textContent=state.name;
+  document.getElementById("numBack").textContent=state.number;
+  document.getElementById("shortNumF").textContent=state.number;
+  document.getElementById("shortNumB").textContent=state.number;
+  const fv=document.getElementById("fCollarV"),fr=document.getElementById("fCollarRound"),fm=document.getElementById("fCollarMadrid");
+  fv.style.display=state.collar==="v"?"block":"none";fr.style.display=state.collar==="round"?"block":"none";fm.style.display=state.collar==="madrid"?"block":"none";
+  ["fCuffL","fCuffR","bCuffL","bCuffR"].forEach(id=>document.getElementById(id).style.display=state.cuff?"block":"none");
 
-function render(){
-  const p=sleevePaths[S.sleeve];
-
-  ["frontBody","backBody"].forEach(id=>{
-    $("#"+id).setAttribute("d",p.body);
-    paint(id,S.body);
-  });
-
-  ["frontSleeveLeft","backSleeveLeft"].forEach(id=>{
-    $("#"+id).setAttribute("d",p.left);
-    paint(id,S.leftSleeve);
-  });
-
-  ["frontSleeveRight","backSleeveRight"].forEach(id=>{
-    $("#"+id).setAttribute("d",p.right);
-    paint(id,S.rightSleeve);
-  });
-
-  ["frontCuffLeft","frontCuffRight","backCuffLeft","backCuffRight"].forEach(id=>{
-    paint(id,S.cuff);
-    $("#"+id).style.display=S.useCuff?"block":"none";
-  });
-
-  $("#collarV").style.display=S.collar==="v"?"block":"none";
-  $("#collarRound").style.display=S.collar==="round"?"block":"none";
-  $("#collarMadrid").style.display=S.collar==="madrid"?"block":"none";
-
-  ["vA","roundA","madridA","backCollarA"].forEach(id=>paint(id,S.collarA));
-  ["vB","roundB","madridB"].forEach(id=>paint(id,S.collarB));
-  paint("madridC",S.collarC);
-
-  $("#partCRow").style.display=S.collar==="madrid"?"grid":"none";
-
-  $(".front-card").style.display=S.view==="back"?"none":"flex";
-  $(".back-card").style.display=S.view==="front"?"none":"flex";
-
-  const collarName={v:"Gola V",round:"Gola redonda",madrid:"Gola Madrid"}[S.collar];
-  $("#status").textContent = collarName+" selecionada. Corpo, mangas, punhos e partes da gola continuam independentes.";
+  const traditional={
+    body:"M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z",
+    l:"M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z",
+    r:"M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
+  };
+  const raglan={
+    body:"M305 142 Q350 132 395 142 Q430 158 462 190 Q474 205 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q226 205 238 190 Q270 158 305 142 Z",
+    l:"M305 142 Q270 145 238 190 L91 250 L52 191 L195 108 Q245 121 305 142 Z",
+    r:"M395 142 Q430 145 462 190 L609 250 L648 191 L505 108 Q455 121 395 142 Z"
+  };
+  const p=state.sleeve==="raglan"?raglan:traditional;
+  ["fBody","bBody"].forEach(id=>document.getElementById(id).setAttribute("d",p.body));
+  ["fSleeveL","bSleeveL"].forEach(id=>document.getElementById(id).setAttribute("d",p.l));
+  ["fSleeveR","bSleeveR"].forEach(id=>document.getElementById(id).setAttribute("d",p.r));
 }
 
-$$("[data-view]").forEach(b=>b.onclick=()=>{
-  S.view=b.dataset.view;
-  $$("[data-view]").forEach(x=>x.classList.toggle("active",x===b));
-  render();
+function thumbSvg(m){
+  return `<svg viewBox="0 0 100 110">
+    <path d="M32 25 Q50 15 68 25 L80 35 L92 50 L80 62 L72 50 L70 96 Q50 101 30 96 L28 50 L20 62 L8 50 L20 35 Z" fill="${m.base}" stroke="#69747b" stroke-width="1.4"/>
+    <path d="M32 25 L20 35 L8 50 L20 62 L28 50 L32 25" fill="${m.d1}"/>
+    <path d="M68 25 L80 35 L92 50 L80 62 L72 50 L68 25" fill="${m.d1}"/>
+    <path d="M36 26 Q50 20 64 26 L50 40 Z" fill="${m.d3}"/>
+    <path d="M30 60 Q50 45 70 60 M30 76 Q50 61 70 76" fill="none" stroke="${m.d2}" stroke-width="5" opacity=".7"/>
+  </svg>`;
+}
+
+const grid=document.getElementById("modelGrid");
+models.forEach((m,i)=>{
+  const b=document.createElement("button");b.className="model"+(i===0?" active":"");
+  b.innerHTML=`<div class="thumb">${thumbSvg(m)}</div><small>Modelo ${m.name}</small>`;
+  b.onclick=()=>{state.model=i;state.base=m.base;state.detail1=m.d1;state.detail2=m.d2;state.detail3=m.d3;
+    document.querySelectorAll(".model").forEach(x=>x.classList.remove("active"));b.classList.add("active");applyState();renderPalettes()};
+  grid.appendChild(b);
 });
 
-$$("[data-sleeve]").forEach(b=>b.onclick=()=>{
-  S.sleeve=b.dataset.sleeve;
-  $$("[data-sleeve]").forEach(x=>x.classList.toggle("active",x===b));
-  render();
+function paletteInto(id,key){
+  const box=document.getElementById(id);box.innerHTML="";
+  palette.forEach(c=>{
+    const b=document.createElement("button");b.className="swatch"+(state[key]===c?" active":"");b.style.background=c;
+    b.title=c;b.onclick=()=>{state[key]=c;if(state.syncColors && key==="base"){state.shortBase=c}applyState();renderPalettes()};
+    box.appendChild(b);
+  });
+}
+function renderPalettes(){
+  paletteInto("basePalette","base");paletteInto("detail1Palette","detail1");paletteInto("detail2Palette","detail2");paletteInto("detail3Palette","detail3");
+  paletteInto("shortBasePalette","shortBase");paletteInto("shortDetailPalette","shortDetail");
+}
+
+document.querySelectorAll("#mainNav button").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll("#mainNav button").forEach(x=>x.classList.toggle("active",x===b));
+  document.querySelectorAll(".panel-page").forEach(p=>p.style.display=p.dataset.page===b.dataset.panel?"block":"none");
+  document.getElementById("leftTitle").textContent=b.textContent;
+});
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
+  state.view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));
+  document.querySelector(".frontLook").style.display=state.view==="back"?"none":"flex";
+  document.querySelector(".backLook").style.display=state.view==="front"?"none":"flex";
+});
+document.querySelectorAll("[data-sleeve]").forEach(b=>b.onclick=()=>{
+  state.sleeve=b.dataset.sleeve;document.querySelectorAll("[data-sleeve]").forEach(x=>x.classList.toggle("active",x===b));applyState();
+});
+document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{
+  state.collar=b.dataset.collar;document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));applyState();
+});
+document.querySelectorAll("[data-cuff]").forEach(b=>b.onclick=()=>{
+  state.cuff=b.dataset.cuff==="on";document.querySelectorAll("[data-cuff]").forEach(x=>x.classList.toggle("active",x===b));applyState();
 });
 
-$$("[data-collar]").forEach(b=>b.onclick=()=>{
-  S.collar=b.dataset.collar;
-  $$("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));
-  render();
-});
+document.getElementById("syncColors").onclick=e=>{state.syncColors=!state.syncColors;e.currentTarget.classList.toggle("on",state.syncColors)};
+document.getElementById("playerName").oninput=e=>{state.name=e.target.value.toUpperCase();applyState()};
+document.getElementById("playerNumber").oninput=e=>{state.number=e.target.value||"0";applyState()};
 
-$("#useCuff").onclick=e=>{
-  S.useCuff=!S.useCuff;
-  e.currentTarget.classList.toggle("on",S.useCuff);
-  render();
+function fileToImage(input, targetId){
+  const f=input.files&&input.files[0];if(!f)return;
+  const r=new FileReader();r.onload=()=>document.getElementById(targetId).setAttribute("href",r.result);r.readAsDataURL(f);
+}
+document.getElementById("crestUpload").onchange=e=>fileToImage(e.target,"crestFront");
+document.getElementById("sponsorUpload").onchange=e=>fileToImage(e.target,"sponsorFront");
+document.getElementById("freeUpload").onchange=e=>fileToImage(e.target,"freeFront");
+
+document.getElementById("nextBtn").onclick=()=>{
+  document.querySelector('[data-panel="name"]').click();
+  document.querySelector(".left").scrollIntoView({behavior:"smooth",block:"start"});
 };
+document.getElementById("reset").onclick=()=>location.reload();
 
-$("#linkSleeves").onclick=e=>{
-  S.linkSleeves=!S.linkSleeves;
-  e.currentTarget.classList.toggle("on",S.linkSleeves);
-};
-
-$("#bodyColor").oninput=e=>{S.body=e.target.value;render()};
-
-$("#leftSleeveColor").oninput=e=>{
-  S.leftSleeve=e.target.value;
-  if(S.linkSleeves){
-    S.rightSleeve=e.target.value;
-    $("#rightSleeveColor").value=e.target.value;
-  }
-  render();
-};
-
-$("#rightSleeveColor").oninput=e=>{
-  S.rightSleeve=e.target.value;
-  if(S.linkSleeves){
-    S.leftSleeve=e.target.value;
-    $("#leftSleeveColor").value=e.target.value;
-  }
-  render();
-};
-
-$("#cuffColor").oninput=e=>{S.cuff=e.target.value;render()};
-$("#collarAColor").oninput=e=>{S.collarA=e.target.value;render()};
-$("#collarBColor").oninput=e=>{S.collarB=e.target.value;render()};
-$("#collarCColor").oninput=e=>{S.collarC=e.target.value;render()};
-
-$("#resetBtn").onclick=()=>location.reload();
-
-render();
+applyState();renderPalettes();
 </script>
-
 </body>
 </html>
