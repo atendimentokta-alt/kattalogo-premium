@@ -3,526 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Mega Sports | Simulador de Uniformes</title>
+<meta name="theme-color" content="#ff6500">
+<title>Mega Sports | Estúdio 2D Premium</title>
 <style>
 :root{
-  --orange:#ff6a00;
-  --orange-2:#ff8a33;
-  --ink:#1c252c;
-  --muted:#748089;
-  --line:#e3e7ea;
-  --panel:#ffffff;
-  --bg:#eef2f4;
-  --soft:#f7f8f9;
-  --shadow:0 14px 40px rgba(27,39,48,.12);
+  --orange:#ff6500;
+  --ink:#182028;
+  --muted:#727b83;
+  --line:#e4e8eb;
+  --panel:#fff;
+  --bg:#edf1f3;
+  --body:#ffe44d;
+  --left:#ffe44d;
+  --right:#ffe44d;
+  --cuff:#06603d;
+  --collar:#06603d;
+  --detail:#f2c700;
 }
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:#edf1f3}
-button,input{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;background:
-  radial-gradient(circle at 50% 12%,rgba(255,255,255,.97),rgba(235,240,243,.90) 35%,rgba(220,227,231,.92) 72%),
-  linear-gradient(#eef2f4,#dde4e8)}
-.topbar{
-  height:78px;background:#fff;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:space-between;padding:0 22px;
-  position:sticky;top:0;z-index:50;
-}
-.brand{display:flex;align-items:center;gap:18px}
-.home-link{font-size:11px;letter-spacing:.12em;color:#727a80;text-decoration:none}
-.logo{font-size:28px;font-weight:900;letter-spacing:.02em}.logo span{color:var(--orange)}
-.top-actions{display:flex;gap:9px}
-.top-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;font-weight:800}
-.top-btn.primary{background:var(--orange);color:#fff;border-color:var(--orange)}
-.nav{
-  background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);
-  display:flex;justify-content:center;gap:9px;padding:8px 12px;
-  position:sticky;top:78px;z-index:45;overflow-x:auto;
-}
-.nav button{
-  white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;
-  padding:8px 13px;font-size:12px;font-weight:800;color:#4d565d;
-}
-.nav button.active{background:#222;color:#fff;border-color:#222}
-.workspace{
-  width:min(1680px,calc(100% - 20px));margin:12px auto 0;
-  display:grid;grid-template-columns:330px minmax(620px,1fr) 340px;gap:14px;align-items:start;
-}
-.side{
-  background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden;
-}
-.side-head{
-  padding:16px 17px;border-bottom:1px solid var(--line);
-  display:flex;align-items:center;gap:10px;font-weight:900;
-}
-.side-head .ico{
-  width:35px;height:35px;border-radius:50%;border:2px solid var(--orange);
-  display:grid;place-items:center;color:var(--orange);font-size:18px;
-}
-.side-body{padding:12px}
-.segment{
-  display:flex;border-bottom:1px solid var(--line);margin:-2px -2px 12px;
-}
-.segment button{
-  flex:1;border:0;background:#fff;padding:10px;font-weight:800;color:#545c62;
-  border-bottom:3px solid transparent;
-}
-.segment button.active{color:#111;border-color:var(--orange)}
-.models{
-  display:grid;grid-template-columns:repeat(3,1fr);gap:9px;
-}
-.model{
-  border:1px solid var(--line);border-radius:11px;background:#fff;padding:6px;text-align:center;
-}
-.model.active{border:2px solid var(--orange);padding:5px;box-shadow:0 0 0 2px rgba(255,106,0,.10)}
-.thumb{
-  height:92px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:#f3f5f6;overflow:hidden;
-}
-.thumb svg{width:80px;height:86px}
-.model small{display:block;margin-top:5px;font-weight:800;font-size:10px;color:#4a5259}
-.checks{display:grid;gap:8px;margin-bottom:11px;font-size:12px;color:#60686f}
-.checks label{display:flex;gap:7px;align-items:center}
-.scroller{max-height:525px;overflow:auto;padding-right:2px}
-.center{
-  min-height:720px;position:relative;border-radius:18px;overflow:hidden;
-  background:
-   radial-gradient(circle at 50% 12%,rgba(255,255,255,.95),rgba(231,236,239,.72) 37%,rgba(205,214,219,.75) 76%),
-   linear-gradient(#f4f6f7,#dce3e7);
-  border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);
-}
-.center-head{
-  height:52px;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;gap:9px;
-}
-.center-head button{
-  border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;font-size:12px;
-}
-.center-head button.active{background:#222;color:#fff;border-color:#222}
-.stage{
-  min-height:668px;display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:center;padding:20px 14px 22px;
-}
-.look{
-  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:620px;
-}
-.look svg{width:min(470px,98%);height:auto;filter:drop-shadow(0 22px 24px rgba(20,29,35,.16))}
-.look-label{
-  position:absolute;top:5px;background:#324a56;color:#fff;border-radius:999px;
-  font-size:11px;padding:5px 10px;font-weight:900;letter-spacing:.04em
-}
-.right-section{padding:14px 16px;border-bottom:1px solid var(--line)}
-.right-section:last-child{border-bottom:0}
-.right-section h3{margin:0 0 10px;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
-.sync{display:flex;align-items:center;justify-content:space-between;font-size:12px}
-.switch{width:45px;height:25px;border:0;border-radius:999px;background:#cbd2d7;position:relative}
-.switch:after{content:"";width:19px;height:19px;background:white;border-radius:50%;position:absolute;top:3px;left:3px;transition:.2s}
-.switch.on{background:#42b75b}.switch.on:after{left:23px}
-.palette{display:flex;gap:9px;flex-wrap:wrap}
-.swatch{
-  width:39px;height:39px;border-radius:7px;border:2px solid #fff;box-shadow:0 0 0 1px #cfd5da;position:relative
-}
-.swatch.active:after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-weight:900;text-shadow:0 1px 3px #000}
-.color-line{display:grid;grid-template-columns:58px 1fr;gap:8px;align-items:start;margin:10px 0}
-.color-line b{font-size:11px;color:#5a6268;padding-top:12px}
-.finish-options{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.finish-btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 8px;font-weight:800;font-size:11px}
-.finish-btn.active{border:2px solid var(--orange);padding:9px 7px}
-.form-row{display:grid;gap:6px;margin-bottom:9px}
-.form-row label{font-size:11px;font-weight:800;color:#596168}
-.form-row input{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}
-.upload-box{
-  border:1px dashed #c7d0d6;border-radius:10px;padding:10px;text-align:center;font-size:11px;color:#69737a;background:#fafbfb
-}
-.upload-box input{width:100%;font-size:11px}
-.cta{
-  width:100%;border:0;background:var(--orange);color:#fff;border-radius:11px;padding:12px;font-weight:900
-}
-.help{font-size:10px;color:#7a838a;line-height:1.45;margin-top:7px}
-.bottom{
-  width:min(1680px,calc(100% - 20px));margin:14px auto 20px;
-  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
-}
-.info{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;font-size:11px;font-weight:800;color:#566067}
-@media(max-width:1200px){
-  .workspace{grid-template-columns:280px minmax(560px,1fr)}
-  .right{grid-column:1/-1}
-}
-@media(max-width:850px){
-  .topbar{height:auto;min-height:66px;padding:10px 12px}.home-link{display:none}.logo{font-size:22px}
-  .nav{top:66px;justify-content:flex-start}
-  .workspace{grid-template-columns:1fr;width:min(100% - 12px,650px)}
-  .side.left{order:2}.center{order:1}.right{order:3}
-  .stage{grid-template-columns:1fr}.look{min-height:520px}.look svg{width:min(430px,96%)}
-  .models{grid-template-columns:repeat(4,1fr)}.bottom{grid-template-columns:1fr 1fr;width:min(100% - 12px,650px)}
-}
-@media(max-width:520px){
-  .models{grid-template-columns:repeat(3,1fr)}.top-actions .top-btn:first-child{display:none}
-  .stage{padding:10px 4px}.look{min-height:430px}.bottom{grid-template-columns:1fr}
-}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(#fff,#edf1f3)}
+button,input{font:inherit}button{cursor:pointer}
+.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:30}
+.brand{display:flex;align-items:center;gap:18px}.home{font-size:11px;letter-spacing:.12em;color:#777;text-decoration:none}.logo{font-size:28px;font-weight:900}.logo span{color:var(--orange)}
+.top-actions{display:flex;gap:8px}.btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;font-weight:800}.btn.primary{background:var(--orange);border-color:var(--orange);color:#fff}
+.nav{display:flex;gap:8px;justify-content:center;overflow:auto;padding:8px 12px;background:#fff;border-bottom:1px solid var(--line)}
+.nav button{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 13px;font-weight:800;font-size:12px}.nav button.active{background:#222;color:#fff}
+.workspace{width:min(1650px,calc(100% - 20px));margin:12px auto 0;display:grid;grid-template-columns:315px minmax(620px,1fr) 350px;gap:14px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 34px rgba(25,34,42,.09);overflow:hidden}
+.head{padding:15px 16px;border-bottom:1px solid var(--line);font-weight:900;display:flex;align-items:center;gap:10px}.ico{width:34px;height:34px;border:2px solid var(--orange);border-radius:50%;display:grid;place-items:center;color:var(--orange)}
+.left-body,.right-body{padding:12px}
+.segment{display:flex;border-bottom:1px solid var(--line);margin-bottom:12px}.segment button{flex:1;border:0;background:#fff;padding:10px;font-weight:800;border-bottom:3px solid transparent}.segment button.active{border-color:var(--orange)}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.model{border:1px solid var(--line);background:#fff;border-radius:11px;padding:6px;text-align:center}.model.active{border:2px solid var(--orange);padding:5px}
+.model-preview{height:94px;border-radius:8px;position:relative;overflow:hidden;background:#f4f6f7}.model-preview:before{content:"";position:absolute;inset:11px 18px;border-radius:18px 18px 12px 12px;background:var(--m1);clip-path:polygon(20% 0,80% 0,100% 22%,88% 34%,84% 100%,16% 100%,12% 34%,0 22%)}.model-preview:after{content:"";position:absolute;inset:22px 28px 20px;background:var(--m2);opacity:.55;background-image:repeating-linear-gradient(45deg,transparent 0 9px,var(--m3) 9px 14px)}
+.model small{display:block;margin-top:5px;font-size:10px;font-weight:800}
+.center{min-height:750px;background:radial-gradient(circle at 50% 12%,#fff,#e9eef1 52%,#d9e1e5);border-radius:18px;box-shadow:0 12px 34px rgba(25,34,42,.12);overflow:hidden;border:1px solid #fff}
+.center-head{height:50px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;gap:8px}.center-head button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 12px;font-weight:800;font-size:12px}.center-head button.active{background:#222;color:#fff;border-color:#222}
+.stage{min-height:700px;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;padding:12px}
+.mock{min-height:650px;position:relative;display:flex;align-items:center;justify-content:center}
+.mock-wrap{width:min(520px,96%);aspect-ratio:1079/1457;position:relative}
+.mock-layer{position:absolute;inset:0;background:var(--color);-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+.front .body{--color:var(--body);-webkit-mask-image:url('assets/front-body-mask.png');mask-image:url('assets/front-body-mask.png')}
+.front .left{--color:var(--left);-webkit-mask-image:url('assets/front-left-sleeve-mask.png');mask-image:url('assets/front-left-sleeve-mask.png')}
+.front .right{--color:var(--right);-webkit-mask-image:url('assets/front-right-sleeve-mask.png');mask-image:url('assets/front-right-sleeve-mask.png')}
+.front .cuffL{--color:var(--cuff);-webkit-mask-image:url('assets/front-left-cuff-mask.png');mask-image:url('assets/front-left-cuff-mask.png')}
+.front .cuffR{--color:var(--cuff);-webkit-mask-image:url('assets/front-right-cuff-mask.png');mask-image:url('assets/front-right-cuff-mask.png')}
+.front .collar{--color:var(--collar);-webkit-mask-image:url('assets/front-collar-mask.png');mask-image:url('assets/front-collar-mask.png')}
+.back .body{--color:var(--body);-webkit-mask-image:url('assets/back-body-mask.png');mask-image:url('assets/back-body-mask.png')}
+.back .left{--color:var(--left);-webkit-mask-image:url('assets/back-left-sleeve-mask.png');mask-image:url('assets/back-left-sleeve-mask.png')}
+.back .right{--color:var(--right);-webkit-mask-image:url('assets/back-right-sleeve-mask.png');mask-image:url('assets/back-right-sleeve-mask.png')}
+.back .cuffL{--color:var(--cuff);-webkit-mask-image:url('assets/back-left-cuff-mask.png');mask-image:url('assets/back-left-cuff-mask.png')}
+.back .cuffR{--color:var(--cuff);-webkit-mask-image:url('assets/back-right-cuff-mask.png');mask-image:url('assets/back-right-cuff-mask.png')}
+.back .collar{--color:var(--collar);-webkit-mask-image:url('assets/back-collar-mask.png');mask-image:url('assets/back-collar-mask.png')}
+.texture{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;pointer-events:none;filter:contrast(1.04)}
+.pattern{position:absolute;inset:0;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat;opacity:.48;mix-blend-mode:multiply}
+.front .pattern{-webkit-mask-image:url('assets/front-body-mask.png');mask-image:url('assets/front-body-mask.png')}
+.back .pattern{-webkit-mask-image:url('assets/back-body-mask.png');mask-image:url('assets/back-body-mask.png')}
+.pattern.geo{background-color:transparent;background-image:linear-gradient(30deg,var(--detail) 12%,transparent 12.5%,transparent 87%,var(--detail) 87.5%),linear-gradient(150deg,var(--detail) 12%,transparent 12.5%,transparent 87%,var(--detail) 87.5%);background-size:48px 84px}
+.pattern.stripes{background:repeating-linear-gradient(90deg,var(--detail) 0 30px,transparent 30px 64px)}
+.pattern.diagonal{background:repeating-linear-gradient(135deg,var(--detail) 0 18px,transparent 18px 62px)}
+.pattern.none{display:none}
+.print{position:absolute;z-index:8;font-weight:900;color:var(--collar);text-shadow:0 1px 2px rgba(255,255,255,.5)}
+.front .number{left:50%;top:38%;transform:translate(-50%,-50%);font-size:54px}
+.back .name{left:50%;top:31%;transform:translateX(-50%);font-size:24px;white-space:nowrap}
+.back .number{left:50%;top:41%;transform:translate(-50%,-50%);font-size:100px}
+.label{position:absolute;top:18px;background:#36515e;color:#fff;border-radius:999px;padding:5px 10px;font-size:10px;font-weight:900}
+.right-section{padding:13px 15px;border-bottom:1px solid var(--line)}.right-section h3{margin:0 0 10px;font-size:12px;text-transform:uppercase}
+.colorrow{display:grid;grid-template-columns:1fr 56px;gap:9px;align-items:center;margin:8px 0}.colorrow label{font-size:12px;font-weight:700;color:#5c656c}input[type=color]{width:56px;height:38px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:3px}
+.choicegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.choice{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px;font-size:11px;font-weight:800}.choice.active{border:2px solid var(--orange);padding:8px}
+.toggle{width:46px;height:26px;border:0;border-radius:999px;background:#cbd2d7;position:relative}.toggle:after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:#fff;top:3px;left:3px;transition:.2s}.toggle.on{background:#35b85a}.toggle.on:after{left:23px}.switchline{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:700}
+.form{display:grid;gap:8px}.form label{font-size:11px;font-weight:800}.form input[type=text]{border:1px solid var(--line);border-radius:9px;padding:9px}
+.note{font-size:10px;color:#7a8389;line-height:1.45;margin-top:8px}
+@media(max-width:1200px){.workspace{grid-template-columns:280px minmax(560px,1fr)}.right{grid-column:1/-1}}
+@media(max-width:850px){.top{height:auto;min-height:66px;padding:10px 12px}.home{display:none}.logo{font-size:22px}.workspace{grid-template-columns:1fr;width:min(100% - 12px,650px)}.center{order:1}.left{order:2}.right{order:3}.stage{grid-template-columns:1fr}.mock{min-height:520px}.models{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:520px){.models{grid-template-columns:repeat(3,1fr)}.mock{min-height:430px}.top-actions .btn:first-child{display:none}}
 </style>
 </head>
 <body>
-<div class="app">
-<header class="topbar">
-  <div class="brand">
-    <a href="#" class="home-link">KATTALOGO · PÁGINA INICIAL</a>
-    <div class="logo">MEGA <span>SPORTS</span></div>
-  </div>
-  <div class="top-actions">
-    <button class="top-btn" id="reset">Nova simulação</button>
-    <button class="top-btn primary">Solicitar orçamento</button>
-  </div>
+<header class="top">
+  <div class="brand"><a class="home" href="#">KATTALOGO · PÁGINA INICIAL</a><div class="logo">MEGA <span>SPORTS</span></div></div>
+  <div class="top-actions"><button class="btn" onclick="location.reload()">Nova simulação</button><button class="btn primary">Solicitar orçamento</button></div>
 </header>
+<nav class="nav"><button class="active">Modelos / Estampas</button><button>Acabamentos</button><button>Nome e Número</button><button>Escudo e Patrocínio</button><button>Upload de Imagem</button></nav>
 
-<nav class="nav" id="mainNav">
-  <button class="active" data-panel="models">Modelos / Estampas</button>
-  <button data-panel="finish">Acabamentos</button>
-  <button data-panel="name">Nome e Número</button>
-  <button data-panel="logos">Escudo e Patrocínio</button>
-  <button data-panel="upload">Upload de Imagem</button>
-</nav>
+<main class="workspace">
+<aside class="panel left">
+  <div class="head"><span class="ico">👕</span>Modelos / Estampas</div>
+  <div class="left-body">
+    <div class="segment"><button class="active">Camisa</button><button>Calção</button><button>Meião</button></div>
+    <div class="models" id="models"></div>
+  </div>
+</aside>
 
-<div class="workspace">
-
-  <aside class="side left">
-    <div class="side-head"><span class="ico">👕</span><span id="leftTitle">Modelos / Estampas</span></div>
-    <div class="side-body" id="leftPanel">
-
-      <div class="panel-page" data-page="models">
-        <div class="checks">
-          <label><input type="checkbox" checked id="syncSet"> Sincronizar camisa e calção</label>
-        </div>
-        <div class="segment">
-          <button class="active">Camisa</button>
-          <button>Calção</button>
-          <button>Meião</button>
-        </div>
-        <div class="scroller"><div class="models" id="modelGrid"></div></div>
+<section class="center">
+  <div class="center-head"><button class="active" data-view="both">Frente + Costas</button><button data-view="front">Frente</button><button data-view="back">Costas</button></div>
+  <div class="stage">
+    <div class="mock front">
+      <span class="label">FRENTE</span>
+      <div class="mock-wrap">
+        <div class="mock-layer body"></div><div class="mock-layer left"></div><div class="mock-layer right"></div>
+        <div class="mock-layer cuffL"></div><div class="mock-layer cuffR"></div><div class="mock-layer collar"></div>
+        <div class="pattern geo" id="patternF"></div>
+        <img class="texture" src="assets/front-texture.png" alt="">
+        <div class="print number" id="frontNumber">10</div>
       </div>
-
-      <div class="panel-page" data-page="finish" style="display:none">
-        <div class="right-section" style="padding:0 0 14px;border:0">
-          <h3>Manga</h3>
-          <div class="finish-options">
-            <button class="finish-btn active" data-sleeve="traditional">Tradicional</button>
-            <button class="finish-btn" data-sleeve="raglan">Raglan</button>
-          </div>
-        </div>
-        <div class="right-section" style="padding:14px 0;border-top:1px solid var(--line)">
-          <h3>Gola</h3>
-          <div class="finish-options">
-            <button class="finish-btn active" data-collar="v">V</button>
-            <button class="finish-btn" data-collar="round">Redonda</button>
-            <button class="finish-btn" data-collar="madrid">Madrid</button>
-          </div>
-        </div>
-        <div class="right-section" style="padding:14px 0;border-top:1px solid var(--line)">
-          <h3>Punho</h3>
-          <div class="finish-options">
-            <button class="finish-btn active" data-cuff="off">Sem punho</button>
-            <button class="finish-btn" data-cuff="on">Punho simples</button>
-          </div>
-        </div>
+    </div>
+    <div class="mock back">
+      <span class="label">COSTAS</span>
+      <div class="mock-wrap">
+        <div class="mock-layer body"></div><div class="mock-layer left"></div><div class="mock-layer right"></div>
+        <div class="mock-layer cuffL"></div><div class="mock-layer cuffR"></div><div class="mock-layer collar"></div>
+        <div class="pattern geo" id="patternB"></div>
+        <img class="texture" src="assets/back-texture.png" alt="">
+        <div class="print name" id="backName">SEU NOME</div>
+        <div class="print number" id="backNumber">10</div>
       </div>
-
-      <div class="panel-page" data-page="name" style="display:none">
-        <div class="form-row"><label>Nome nas costas</label><input id="playerName" value="SEU NOME"></div>
-        <div class="form-row"><label>Número</label><input id="playerNumber" value="10" maxlength="2"></div>
-        <div class="help">Nome e número são atualizados ao vivo no verso da camisa e no calção.</div>
-      </div>
-
-      <div class="panel-page" data-page="logos" style="display:none">
-        <div class="form-row"><label>Escudo</label><input type="file" id="crestUpload" accept="image/*"></div>
-        <div class="form-row"><label>Patrocínio frontal</label><input type="file" id="sponsorUpload" accept="image/*"></div>
-        <div class="help">Para melhor resultado, use PNG com fundo transparente.</div>
-      </div>
-
-      <div class="panel-page" data-page="upload" style="display:none">
-        <div class="upload-box">
-          <b>Adicionar imagem livre</b><br><br>
-          <input type="file" id="freeUpload" accept="image/*">
-        </div>
-        <div class="help">Nesta prova, a imagem livre aparece na região central frontal.</div>
-      </div>
-
     </div>
-  </aside>
+  </div>
+</section>
 
-  <section class="center">
-    <div class="center-head">
-      <button class="active" data-view="both">Frente + Costas</button>
-      <button data-view="front">Frente</button>
-      <button data-view="back">Costas</button>
+<aside class="panel right">
+  <div class="head"><span class="ico">◉</span>Personalização</div>
+  <div class="right-section">
+    <div class="switchline"><span>Sincronizar mangas</span><button class="toggle on" id="syncSleeves"></button></div>
+  </div>
+  <div class="right-section">
+    <h3>Cores da camisa</h3>
+    <div class="colorrow"><label>Corpo</label><input id="bodyColor" type="color" value="#ffe44d"></div>
+    <div class="colorrow"><label>Manga esquerda</label><input id="leftColor" type="color" value="#ffe44d"></div>
+    <div class="colorrow"><label>Manga direita</label><input id="rightColor" type="color" value="#ffe44d"></div>
+    <div class="colorrow"><label>Gola</label><input id="collarColor" type="color" value="#06603d"></div>
+    <div class="colorrow"><label>Punho</label><input id="cuffColor" type="color" value="#06603d"></div>
+    <div class="colorrow"><label>Cor da estampa</label><input id="detailColor" type="color" value="#f2c700"></div>
+  </div>
+  <div class="right-section">
+    <h3>Estampa do corpo</h3>
+    <div class="choicegrid">
+      <button class="choice active" data-pattern="geo">Geométrica</button>
+      <button class="choice" data-pattern="stripes">Listras</button>
+      <button class="choice" data-pattern="diagonal">Diagonal</button>
+      <button class="choice" data-pattern="none">Lisa</button>
     </div>
-    <div class="stage">
-
-      <div class="look frontLook">
-        <span class="look-label">FRENTE</span>
-        <svg viewBox="0 0 700 900" id="frontSvg">
-          <defs>
-            <linearGradient id="fabricF" x1="0" x2="1">
-              <stop offset="0" stop-color="#ffffff" stop-opacity=".20"/>
-              <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
-              <stop offset="1" stop-color="#000000" stop-opacity=".09"/>
-            </linearGradient>
-            <pattern id="geoPatternF" width="46" height="46" patternUnits="userSpaceOnUse">
-              <path d="M0 23 L23 0 L46 23 L23 46 Z" fill="none" stroke="var(--detail2)" stroke-width="7" opacity=".55"/>
-            </pattern>
-            <clipPath id="bodyClipF">
-              <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"/>
-            </clipPath>
-          </defs>
-
-          <ellipse cx="350" cy="825" rx="210" ry="22" fill="rgba(0,0,0,.08)"/>
-
-          <path id="fBody" d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
-            fill="var(--base)" stroke="#69747b" stroke-width="2"/>
-          <rect id="fPattern" x="210" y="135" width="280" height="500" fill="url(#geoPatternF)" clip-path="url(#bodyClipF)" opacity=".65"/>
-
-          <path id="fSleeveL" d="M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z"
-            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
-          <path id="fSleeveR" d="M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
-            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
-
-          <path id="fCuffL" d="M52 191 L91 250 L106 241 L67 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
-          <path id="fCuffR" d="M648 191 L609 250 L594 241 L633 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
-
-          <g id="fCollarV">
-            <path id="fVA" d="M305 139 Q350 120 395 139 L388 155 Q350 145 312 155 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
-            <path id="fVB" d="M312 155 Q350 143 388 155 L350 210 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
-          </g>
-          <g id="fCollarRound" style="display:none">
-            <path id="fRA" d="M305 139 Q350 120 395 139 L388 155 Q350 145 312 155 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
-            <path id="fRB" d="M312 155 Q350 143 388 155 Q382 190 350 197 Q318 190 312 155 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
-          </g>
-          <g id="fCollarMadrid" style="display:none">
-            <path id="fMA" d="M303 138 Q350 118 397 138 L389 154 Q350 143 311 154 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
-            <path id="fMB" d="M311 154 Q350 143 389 154 Q382 182 350 188 Q318 182 311 154 Z" fill="var(--detail2)" stroke="#69747b" stroke-width="1.5"/>
-            <path id="fMC" d="M325 180 L350 211 L375 180 Q363 188 350 191 Q337 188 325 180 Z" fill="var(--accent)" stroke="#69747b" stroke-width="1.5"/>
-          </g>
-
-          <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
-            fill="url(#fabricF)" pointer-events="none"/>
-
-          <image id="crestFront" href="" x="370" y="245" width="70" height="70" preserveAspectRatio="xMidYMid meet"/>
-          <image id="sponsorFront" href="" x="275" y="335" width="150" height="70" preserveAspectRatio="xMidYMid meet"/>
-          <image id="freeFront" href="" x="295" y="415" width="110" height="90" preserveAspectRatio="xMidYMid meet"/>
-
-          <!-- calção -->
-          <path id="fShorts" d="M248 630 L452 630 L478 790 L382 790 L350 735 L318 790 L222 790 Z"
-            fill="var(--shortBase)" stroke="#69747b" stroke-width="2"/>
-          <path d="M248 630 L452 630 L458 660 L242 660 Z" fill="var(--shortDetail)" opacity=".95"/>
-          <text id="shortNumF" x="405" y="750" font-size="34" font-weight="900" text-anchor="middle" fill="#fff">10</text>
-        </svg>
-      </div>
-
-      <div class="look backLook">
-        <span class="look-label">COSTAS</span>
-        <svg viewBox="0 0 700 900" id="backSvg">
-          <defs>
-            <linearGradient id="fabricB" x1="0" x2="1">
-              <stop offset="0" stop-color="#ffffff" stop-opacity=".20"/>
-              <stop offset=".45" stop-color="#ffffff" stop-opacity="0"/>
-              <stop offset="1" stop-color="#000000" stop-opacity=".09"/>
-            </linearGradient>
-            <pattern id="geoPatternB" width="46" height="46" patternUnits="userSpaceOnUse">
-              <path d="M0 23 L23 0 L46 23 L23 46 Z" fill="none" stroke="var(--detail2)" stroke-width="7" opacity=".55"/>
-            </pattern>
-            <clipPath id="bodyClipB">
-              <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"/>
-            </clipPath>
-          </defs>
-
-          <ellipse cx="350" cy="825" rx="210" ry="22" fill="rgba(0,0,0,.08)"/>
-          <path id="bBody" d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
-            fill="var(--base)" stroke="#69747b" stroke-width="2"/>
-          <rect id="bPattern" x="210" y="135" width="280" height="500" fill="url(#geoPatternB)" clip-path="url(#bodyClipB)" opacity=".65"/>
-
-          <path id="bSleeveL" d="M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z"
-            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
-          <path id="bSleeveR" d="M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
-            fill="var(--detail1)" stroke="#69747b" stroke-width="2"/>
-          <path id="bCuffL" d="M52 191 L91 250 L106 241 L67 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
-          <path id="bCuffR" d="M648 191 L609 250 L594 241 L633 181 Z" fill="var(--detail3)" stroke="#69747b" stroke-width="1.5" style="display:none"/>
-          <path id="backCollar" d="M305 139 Q350 120 395 139 Q388 160 350 165 Q312 160 305 139 Z"
-            fill="var(--detail3)" stroke="#69747b" stroke-width="1.5"/>
-
-          <path d="M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z"
-            fill="url(#fabricB)" pointer-events="none"/>
-
-          <text id="nameBack" x="350" y="300" font-size="32" font-weight="900" text-anchor="middle" fill="var(--detail3)">SEU NOME</text>
-          <text id="numBack" x="350" y="455" font-size="150" font-weight="900" text-anchor="middle" fill="var(--detail3)">10</text>
-
-          <path id="bShorts" d="M248 630 L452 630 L478 790 L382 790 L350 735 L318 790 L222 790 Z"
-            fill="var(--shortBase)" stroke="#69747b" stroke-width="2"/>
-          <path d="M248 630 L452 630 L458 660 L242 660 Z" fill="var(--shortDetail)" opacity=".95"/>
-          <text id="shortNumB" x="405" y="750" font-size="34" font-weight="900" text-anchor="middle" fill="#fff">10</text>
-        </svg>
-      </div>
-
+  </div>
+  <div class="right-section">
+    <h3>Acabamentos</h3>
+    <div class="choicegrid">
+      <button class="choice active" data-collar="v">Gola V</button>
+      <button class="choice" data-collar="round">Redonda</button>
+      <button class="choice" data-collar="madrid">Madrid</button>
     </div>
-  </section>
-
-  <aside class="side right">
-    <div class="side-head"><span class="ico">◉</span><span>Cores</span></div>
-
-    <div class="right-section">
-      <div class="sync"><b>Sincronizar cores</b><button class="switch on" id="syncColors"></button></div>
-    </div>
-
-    <div class="right-section">
-      <h3>Cores camisa</h3>
-      <div class="color-line"><b>Base</b><div class="palette" id="basePalette"></div></div>
-      <div class="color-line"><b>Cor 1</b><div class="palette" id="detail1Palette"></div></div>
-      <div class="color-line"><b>Cor 2</b><div class="palette" id="detail2Palette"></div></div>
-      <div class="color-line"><b>Cor 3</b><div class="palette" id="detail3Palette"></div></div>
-    </div>
-
-    <div class="right-section">
-      <h3>Cores calção</h3>
-      <div class="color-line"><b>Base</b><div class="palette" id="shortBasePalette"></div></div>
-      <div class="color-line"><b>Detalhe</b><div class="palette" id="shortDetailPalette"></div></div>
-    </div>
-
-    <div class="right-section">
-      <h3>Próximo passo</h3>
-      <button class="cta" id="nextBtn">Continuar personalização</button>
-      <div class="help">Depois desta prova, podemos acrescentar meião, mais modelos e o fluxo completo de orçamento.</div>
-    </div>
-  </aside>
-
-</div>
-
-<div class="bottom">
-  <div class="info">✓ Modelos e estampas selecionáveis</div>
-  <div class="info">✓ Cores independentes por parte</div>
-  <div class="info">✓ Frente e costas sincronizadas</div>
-  <div class="info">✓ Nome, número e uploads</div>
-</div>
-</div>
+    <div class="switchline" style="margin-top:10px"><span>Usar punho</span><button class="toggle on" id="useCuff"></button></div>
+  </div>
+  <div class="right-section">
+    <h3>Nome e número</h3>
+    <div class="form"><label>Nome</label><input id="nameInput" type="text" value="SEU NOME"><label>Número</label><input id="numInput" type="text" value="10" maxlength="2"></div>
+    <div class="note">Nesta prova, a prioridade é o realismo do mockup 2D e a troca de cores por partes.</div>
+  </div>
+</aside>
+</main>
 
 <script>
-const root=document.documentElement;
-const state={
-  model:0, view:"both",
-  base:"#ffe75a", detail1:"#ffd400", detail2:"#2e663f", detail3:"#0a9449", accent:"#ff6a00",
-  shortBase:"#084aa8", shortDetail:"#ffffff",
-  syncColors:true, sleeve:"traditional", collar:"v", cuff:false,
-  name:"SEU NOME", number:"10"
-};
-
+const R=document.documentElement;
+const state={sync:true,cuff:true,pattern:"geo"};
 const models=[
-  {name:"570",base:"#ffe75a",d1:"#ffd400",d2:"#2e663f",d3:"#0a9449",pattern:"geo"},
-  {name:"569",base:"#10151b",d1:"#153d7a",d2:"#1e77d1",d3:"#ffffff",pattern:"geo"},
-  {name:"568",base:"#c6242f",d1:"#ef3f4e",d2:"#73111e",d3:"#ffffff",pattern:"geo"},
-  {name:"567",base:"#0c397a",d1:"#1458aa",d2:"#76a9e5",d3:"#ffffff",pattern:"geo"},
-  {name:"566",base:"#7c1f2a",d1:"#b43a47",d2:"#401017",d3:"#ffffff",pattern:"geo"},
-  {name:"565",base:"#f8f8f8",d1:"#b82731",d2:"#7d0f18",d3:"#111111",pattern:"geo"},
-  {name:"564",base:"#111111",d1:"#2f2f2f",d2:"#5d5d5d",d3:"#ffffff",pattern:"geo"},
-  {name:"563",base:"#d9f3f0",d1:"#8bd4ca",d2:"#ffffff",d3:"#184d4a",pattern:"geo"},
-  {name:"562",base:"#109250",d1:"#08753c",d2:"#0fc96b",d3:"#ffffff",pattern:"geo"}
+ ["Brasil 570","#ffe44d","#ffe44d","#06603d","#f2c700"],
+ ["Azul 569","#0d3978","#174e92","#ffffff","#1e75c8"],
+ ["Vermelho 568","#c92531","#e0474e","#ffffff","#7f121c"],
+ ["Preto 564","#171717","#2b2b2b","#ffffff","#666666"],
+ ["Menta 563","#d8f2ed","#8bd0c5","#184e4a","#ffffff"],
+ ["Verde 562","#15914e","#0b713a","#ffffff","#11c66a"]
 ];
-
-const palette=["#ffffff","#111111","#6b7378","#ffe75a","#ffd400","#d81f26","#0a9449","#084aa8","#ff6a00","#7b2cbf"];
-
-function setVar(k,v){root.style.setProperty("--"+k,v)}
-function applyState(){
-  setVar("base",state.base);setVar("detail1",state.detail1);setVar("detail2",state.detail2);setVar("detail3",state.detail3);
-  setVar("accent",state.accent);setVar("shortBase",state.shortBase);setVar("shortDetail",state.shortDetail);
-  document.getElementById("nameBack").textContent=state.name;
-  document.getElementById("numBack").textContent=state.number;
-  document.getElementById("shortNumF").textContent=state.number;
-  document.getElementById("shortNumB").textContent=state.number;
-  const fv=document.getElementById("fCollarV"),fr=document.getElementById("fCollarRound"),fm=document.getElementById("fCollarMadrid");
-  fv.style.display=state.collar==="v"?"block":"none";fr.style.display=state.collar==="round"?"block":"none";fm.style.display=state.collar==="madrid"?"block":"none";
-  ["fCuffL","fCuffR","bCuffL","bCuffR"].forEach(id=>document.getElementById(id).style.display=state.cuff?"block":"none");
-
-  const traditional={
-    body:"M240 175 Q285 140 350 140 Q415 140 460 175 Q470 190 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q230 190 240 175 Z",
-    l:"M240 175 Q215 175 192 190 L91 250 L52 191 L195 108 Q220 123 240 175 Z",
-    r:"M460 175 Q485 175 508 190 L609 250 L648 191 L505 108 Q480 123 460 175 Z"
-  };
-  const raglan={
-    body:"M305 142 Q350 132 395 142 Q430 158 462 190 Q474 205 478 225 L463 605 Q405 625 350 625 Q295 625 237 605 L222 225 Q226 205 238 190 Q270 158 305 142 Z",
-    l:"M305 142 Q270 145 238 190 L91 250 L52 191 L195 108 Q245 121 305 142 Z",
-    r:"M395 142 Q430 145 462 190 L609 250 L648 191 L505 108 Q455 121 395 142 Z"
-  };
-  const p=state.sleeve==="raglan"?raglan:traditional;
-  ["fBody","bBody"].forEach(id=>document.getElementById(id).setAttribute("d",p.body));
-  ["fSleeveL","bSleeveL"].forEach(id=>document.getElementById(id).setAttribute("d",p.l));
-  ["fSleeveR","bSleeveR"].forEach(id=>document.getElementById(id).setAttribute("d",p.r));
-}
-
-function thumbSvg(m){
-  return `<svg viewBox="0 0 100 110">
-    <path d="M32 25 Q50 15 68 25 L80 35 L92 50 L80 62 L72 50 L70 96 Q50 101 30 96 L28 50 L20 62 L8 50 L20 35 Z" fill="${m.base}" stroke="#69747b" stroke-width="1.4"/>
-    <path d="M32 25 L20 35 L8 50 L20 62 L28 50 L32 25" fill="${m.d1}"/>
-    <path d="M68 25 L80 35 L92 50 L80 62 L72 50 L68 25" fill="${m.d1}"/>
-    <path d="M36 26 Q50 20 64 26 L50 40 Z" fill="${m.d3}"/>
-    <path d="M30 60 Q50 45 70 60 M30 76 Q50 61 70 76" fill="none" stroke="${m.d2}" stroke-width="5" opacity=".7"/>
-  </svg>`;
-}
-
-const grid=document.getElementById("modelGrid");
+const box=document.getElementById("models");
 models.forEach((m,i)=>{
-  const b=document.createElement("button");b.className="model"+(i===0?" active":"");
-  b.innerHTML=`<div class="thumb">${thumbSvg(m)}</div><small>Modelo ${m.name}</small>`;
-  b.onclick=()=>{state.model=i;state.base=m.base;state.detail1=m.d1;state.detail2=m.d2;state.detail3=m.d3;
-    document.querySelectorAll(".model").forEach(x=>x.classList.remove("active"));b.classList.add("active");applyState();renderPalettes()};
-  grid.appendChild(b);
+ const b=document.createElement("button");b.className="model"+(i===0?" active":"");
+ b.style.setProperty("--m1",m[1]);b.style.setProperty("--m2",m[2]);b.style.setProperty("--m3",m[4]);
+ b.innerHTML=`<div class="model-preview"></div><small>${m[0]}</small>`;
+ b.onclick=()=>{document.querySelectorAll(".model").forEach(x=>x.classList.remove("active"));b.classList.add("active");
+   setColor("body",m[1]);setColor("left",m[2]);setColor("right",m[2]);setColor("collar",m[3]);setColor("cuff",m[3]);setColor("detail",m[4]);
+   bodyColor.value=m[1];leftColor.value=m[2];rightColor.value=m[2];collarColor.value=m[3];cuffColor.value=m[3];detailColor.value=m[4];
+ };
+ box.appendChild(b);
 });
-
-function paletteInto(id,key){
-  const box=document.getElementById(id);box.innerHTML="";
-  palette.forEach(c=>{
-    const b=document.createElement("button");b.className="swatch"+(state[key]===c?" active":"");b.style.background=c;
-    b.title=c;b.onclick=()=>{state[key]=c;if(state.syncColors && key==="base"){state.shortBase=c}applyState();renderPalettes()};
-    box.appendChild(b);
-  });
-}
-function renderPalettes(){
-  paletteInto("basePalette","base");paletteInto("detail1Palette","detail1");paletteInto("detail2Palette","detail2");paletteInto("detail3Palette","detail3");
-  paletteInto("shortBasePalette","shortBase");paletteInto("shortDetailPalette","shortDetail");
-}
-
-document.querySelectorAll("#mainNav button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll("#mainNav button").forEach(x=>x.classList.toggle("active",x===b));
-  document.querySelectorAll(".panel-page").forEach(p=>p.style.display=p.dataset.page===b.dataset.panel?"block":"none");
-  document.getElementById("leftTitle").textContent=b.textContent;
-});
-document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{
-  state.view=b.dataset.view;document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));
-  document.querySelector(".frontLook").style.display=state.view==="back"?"none":"flex";
-  document.querySelector(".backLook").style.display=state.view==="front"?"none":"flex";
-});
-document.querySelectorAll("[data-sleeve]").forEach(b=>b.onclick=()=>{
-  state.sleeve=b.dataset.sleeve;document.querySelectorAll("[data-sleeve]").forEach(x=>x.classList.toggle("active",x===b));applyState();
-});
-document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{
-  state.collar=b.dataset.collar;document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));applyState();
-});
-document.querySelectorAll("[data-cuff]").forEach(b=>b.onclick=()=>{
-  state.cuff=b.dataset.cuff==="on";document.querySelectorAll("[data-cuff]").forEach(x=>x.classList.toggle("active",x===b));applyState();
-});
-
-document.getElementById("syncColors").onclick=e=>{state.syncColors=!state.syncColors;e.currentTarget.classList.toggle("on",state.syncColors)};
-document.getElementById("playerName").oninput=e=>{state.name=e.target.value.toUpperCase();applyState()};
-document.getElementById("playerNumber").oninput=e=>{state.number=e.target.value||"0";applyState()};
-
-function fileToImage(input, targetId){
-  const f=input.files&&input.files[0];if(!f)return;
-  const r=new FileReader();r.onload=()=>document.getElementById(targetId).setAttribute("href",r.result);r.readAsDataURL(f);
-}
-document.getElementById("crestUpload").onchange=e=>fileToImage(e.target,"crestFront");
-document.getElementById("sponsorUpload").onchange=e=>fileToImage(e.target,"sponsorFront");
-document.getElementById("freeUpload").onchange=e=>fileToImage(e.target,"freeFront");
-
-document.getElementById("nextBtn").onclick=()=>{
-  document.querySelector('[data-panel="name"]').click();
-  document.querySelector(".left").scrollIntoView({behavior:"smooth",block:"start"});
-};
-document.getElementById("reset").onclick=()=>location.reload();
-
-applyState();renderPalettes();
+function setColor(name,val){R.style.setProperty("--"+name,val)}
+bodyColor.oninput=e=>setColor("body",e.target.value);
+leftColor.oninput=e=>{setColor("left",e.target.value);if(state.sync){setColor("right",e.target.value);rightColor.value=e.target.value}};
+rightColor.oninput=e=>{setColor("right",e.target.value);if(state.sync){setColor("left",e.target.value);leftColor.value=e.target.value}};
+collarColor.oninput=e=>setColor("collar",e.target.value);
+cuffColor.oninput=e=>setColor("cuff",e.target.value);
+detailColor.oninput=e=>setColor("detail",e.target.value);
+syncSleeves.onclick=e=>{state.sync=!state.sync;e.currentTarget.classList.toggle("on",state.sync)};
+useCuff.onclick=e=>{state.cuff=!state.cuff;e.currentTarget.classList.toggle("on",state.cuff);document.querySelectorAll(".cuffL,.cuffR").forEach(x=>x.style.display=state.cuff?"block":"none")};
+document.querySelectorAll("[data-pattern]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-pattern]").forEach(x=>x.classList.toggle("active",x===b));["patternF","patternB"].forEach(id=>{const p=document.getElementById(id);p.className="pattern "+b.dataset.pattern})});
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.toggle("active",x===b));document.querySelector(".front").style.display=b.dataset.view==="back"?"none":"flex";document.querySelector(".back").style.display=b.dataset.view==="front"?"none":"flex"});
+nameInput.oninput=e=>backName.textContent=e.target.value.toUpperCase();
+numInput.oninput=e=>{frontNumber.textContent=e.target.value||"0";backNumber.textContent=e.target.value||"0"};
+document.querySelectorAll("[data-collar]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-collar]").forEach(x=>x.classList.toggle("active",x===b));});
 </script>
-</body>
-</html>
+</body></html>
