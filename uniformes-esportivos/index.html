@@ -59,6 +59,8 @@
   }
   </script>
 
+
+  
   <!-- O conteúdo deste Schema é preenchido automaticamente pelo produto em destaque -->
   <script id="product-schema" type="application/ld+json">{}</script>
 
@@ -653,6 +655,7 @@
     <img id="lightbox-image" src="" alt="" />
   </div>
 
+
   <div id="about-modal" class="about-modal" role="dialog" aria-modal="true" aria-labelledby="about-title">
     <article class="about-card">
       <button id="about-close" class="about-close" type="button" aria-label="Fechar Quem Somos">×</button>
@@ -679,43 +682,57 @@
     /* ============================================================
        KATTALOGO — VITRINE PRODUTOS PREMIUM
        ÁREA DE TROCA SEMANAL
+
+       Para trocar o destaque, altere SOMENTE os dados abaixo.
+       A identidade "Produtos Premium", o layout, botões e estrutura
+       permanecem fixos.
        ============================================================ */
 
     const DESTAQUE = {
-      categoria: "Uniformes Esportivos",
+      categoria: "Bicicletas",
 
-      nomePrincipal: "Camiseta",
-      nomeDestaque: "Esportiva",
-      modelo: "Molde Costa Premium",
+      nomePrincipal: "Audax",
+      nomeDestaque: "ADX 200",
+      modelo: "Deore 20V (2023)",
 
       imagens: [
-        "MOLDE COSTA ALTA RESOLUÇÃO.jpg"
+        "assets/adx-200.png",
+        "adx-200-2.png",
+        "adx-200-3.png"
       ],
       imagensAlt: [
-        "Molde camiseta costa alta resolução em fundo preto"
+        "Bicicleta Audax ADX 200 verde e laranja",
+        "Bicicleta Audax ADX 200 em vista alternativa",
+        "Detalhe da roda traseira, cassete e câmbio da Audax ADX 200"
       ],
 
-      headlineAntes: "Conforto e qualidade em",
-      headlineDestaque: "alta definição.",
-      descricaoCurta: "Modelagem anatômica e acabamento de alto padrão ideal para personalização e uniformes esportivos.",
+      headlineAntes: "Performance para quem",
+      headlineDestaque: "exige mais.",
+      descricaoCurta: "Leveza, resistência e tecnologia para superar desafios com máximo controle.",
 
       fichaTecnica: [
-        ["Modelo", "Camiseta Manga Curta (Costas)"],
-        ["Tecido", "Poliéster / Poliamida de alta tecnologia"],
-        ["Acabamento", "Gola careca reforçada e costura dupla"],
-        ["Aplicações", "Uniformes esportivos, sublimação total e eventos"],
-        ["Modelagem", "Anatômica / Fit esportivo"]
+        ["Quadro", "ADX 200 MTB 6061 T6 29 Boost / Tapered / Direct Mount - Side Swing / Press Fit / Cabeamento interno."],
+        ["Suspensão", "Suntour SF19 XCR32 Boost Air 100 DS REM TPR 15x110 / 29” Vaxa Boost Air 100 mm 15x110 REM TPR."],
+        ["Câmbio dianteiro", "Shimano M4100-D Deore 2x10 Direct Side Swing."],
+        ["Câmbio traseiro", "Shimano RD-M4120 Deore 10/11V Shadow."],
+        ["Pedivela", "Shimano Deore M4100-B2 10V 170/175 mm 36/26D."],
+        ["Cassete", "Tridiamond 10V em aço 11-42D cromado."],
+        ["Freio", "Shimano Altus MT-201 hidráulico. Disco Bolids 160 mm com parafuso."],
+        ["Rodas", "Audax BTT-NB 29” 28F Boost, aro parede dupla assimétrico, cubos em alumínio 148x12 mm / 110x15 mm e raios J-bend em aço inox."],
+        ["Peso sem pedal", "13,80 kg."]
       ],
 
       whatsappNumero: "5544984044400",
-      whatsappMensagem: "Olá! Gostaria de falar com um especialista sobre a camiseta em destaque no Kattalogo Produtos Premium.",
+      whatsappMensagem: "Olá! Gostaria de falar com um especialista sobre o produto em destaque no Kattalogo Produtos Premium.",
 
       instagram: "https://www.instagram.com/kattalogo.net.br/",
       facebook: "https://www.facebook.com/kattalogo/?locale=pt_BR"
     };
 
     /* ============================================================
-       ESTRUTURA DINÂMICA DA PÁGINA
+       DAQUI PARA BAIXO NÃO PRECISA ALTERAR PARA TROCAR O PRODUTO.
+       Esta estrutura também ficará preparada para o Analytics na
+       próxima etapa.
        ============================================================ */
 
     const productLabel = `${DESTAQUE.nomePrincipal} ${DESTAQUE.nomeDestaque}`.trim();
@@ -723,7 +740,9 @@
     document.documentElement.dataset.category = DESTAQUE.categoria;
     document.documentElement.dataset.product = productLabel;
 
-    /* Schema do produto em destaque */
+
+    /* Schema do produto em destaque.
+       É alimentado pelo mesmo objeto DESTAQUE para evitar informações divergentes. */
     const productSchemaElement = document.getElementById('product-schema');
     const productSchema = {
       "@context": "https://schema.org",
@@ -749,7 +768,8 @@
     };
     productSchemaElement.textContent = JSON.stringify(productSchema);
 
-    /* Metadados sociais */
+
+    /* Mantém metadados sociais coerentes com o destaque atual em navegadores que executam JS. */
     const currentShareImage = DESTAQUE.imagens[0].startsWith('http')
       ? DESTAQUE.imagens[0]
       : `https://kattalogo.net.br/${DESTAQUE.imagens[0].replace(/^\.\//, '')}`;
@@ -762,14 +782,16 @@
     if (twitterImage) twitterImage.setAttribute('content', currentShareImage);
     if (ogImageAlt) ogImageAlt.setAttribute('content', productLabel);
 
-    /* SEO institucional fixo */
+    /* SEO institucional fixo:
+       o produto em destaque continua mudando visualmente,
+       mas título e descrição da página permanecem estáveis para o Google. */
     document.getElementById('page-title').textContent = 'Kattalogo | Catálogo de Produtos Premium';
     document.getElementById('meta-description').setAttribute(
       'content',
       'Descubra produtos selecionados para futebol e ciclismo, fabricação de uniformes esportivos e mobiliário de alto padrão, como estofados. Confira lançamentos e destaques no Kattalogo, com informações, especificações e atendimento especializado.'
     );
 
-    /* Carrossel do produto */
+    /* Carrossel do produto — 3 imagens, 4 segundos, fade e swipe no celular */
     const carousel = document.getElementById('product-carousel');
     const lightbox = document.getElementById('image-lightbox');
     const lightboxImage = document.getElementById('lightbox-image');
@@ -797,7 +819,6 @@
     }
 
     function startCarousel() {
-      if (carouselImages.length <= 1) return;
       clearInterval(carouselTimer);
       carouselTimer = setInterval(() => showCarouselImage(carouselIndex + 1), 4000);
     }
@@ -839,7 +860,7 @@
     }, { passive:true });
 
     carousel.addEventListener('touchend', () => {
-      if (Math.abs(touchDeltaX) >= 45 && carouselImages.length > 1) {
+      if (Math.abs(touchDeltaX) >= 45) {
         showCarouselImage(carouselIndex + (touchDeltaX < 0 ? 1 : -1));
         startCarousel();
       }
@@ -855,6 +876,7 @@
     });
 
     startCarousel();
+
 
     /* Quem Somos */
     const aboutTrigger = document.getElementById('about-trigger');
@@ -902,9 +924,14 @@
     document.getElementById('instagram-link').href = DESTAQUE.instagram;
     document.getElementById('facebook-link').href = DESTAQUE.facebook;
 
-    /* Analytics */
+    /* Dados do destaque disponíveis para integrações e Analytics */
     window.KATTALOGO_DESTAQUE = DESTAQUE;
 
+    /* ============================================================
+       GOOGLE ANALYTICS 4 — FUNIL DA VITRINE
+       page_view é coletado automaticamente pela tag do Google.
+       Os eventos abaixo medem interesse e intenção comercial.
+       ============================================================ */
     const analyticsParams = () => ({
       categoria: DESTAQUE.categoria,
       produto: productLabel,
@@ -917,8 +944,10 @@
       }
     }
 
+    // Visualização do produto em destaque (uma vez por carregamento).
     trackEvent('visualizacao_destaque');
 
+    // Abertura da ficha técnica.
     const technicalDetails = document.getElementById('technical-details');
     let fichaTecnicaRegistrada = false;
     technicalDetails.addEventListener('toggle', () => {
@@ -928,6 +957,7 @@
       }
     });
 
+    // Cliques de contato e redes sociais.
     document.getElementById('whatsapp-main').addEventListener('click', () =>
       trackEvent('clique_whatsapp', { posicao: 'botao_principal' })
     );
