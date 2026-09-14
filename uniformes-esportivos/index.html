@@ -100,14 +100,34 @@ function drawContain(ctx,img,color,pad=.02){const w=ctx.canvas.width,h=ctx.canva
   ctx.save(); ctx.shadowColor='rgba(17,24,39,.24)'; ctx.shadowBlur=Math.max(10,w*.018); ctx.shadowOffsetX=0; ctx.shadowOffsetY=Math.max(3,h*.006); ctx.drawImage(src,x,y,dw,dh); ctx.restore();
   return {x,y,w:dw,h:dh,scale};}
 function drawSleeve(ctx,img,color,side,view){const W=ctx.canvas.width,H=ctx.canvas.height, src=tintedCanvas(img,color); const front=view==='front';
-  // Ajuste V5: tamanho e referência lateral preservados; mangas rebaixadas cerca de 2 mm para fechar o encaixe na axila/ombro.
+  // Ajuste V5 preservado: tamanho, altura e referências originais das mangas permanecem iguais.
+  // Correção fina: cada manga avança 0,5 mm em direção ao centro, sem alterar escala ou geometria.
   const dw=W*(front?0.205:0.210), dh=dw*(src.height/src.width);
   const y=H*(front?0.1715:0.1715);
-  const x= side==='right' ? W*(front?0.739:0.734) : W*(front?0.056:0.052);
+  const stageCssWidth=document.getElementById('stage').getBoundingClientRect().width;
+  const sleeveCenterShift=(0.5/25.4)*96*(W/stageCssWidth);
+  const baseX=side==='right' ? W*(front?0.739:0.734) : W*(front?0.056:0.052);
+  const x=baseX + (side==='right' ? -sleeveCenterShift : sleeveCenterShift);
   ctx.save();
   ctx.translate(x+dw/2,y+dh/2);
   if(side==='right') ctx.scale(-1,1);
   ctx.drawImage(src,-dw/2,-dh/2,dw,dh);
+  ctx.restore();
+}
+function maskBaseNeckArtifact(ctx,geom,color){
+  // Correção cirúrgica somente no pequeno remanescente da gola V original
+  // que aparece abaixo da gola redonda na frente.
+  const s=geom.scale, x=geom.x, y=geom.y;
+  const P=(sx,sy)=>[x+sx*s,y+sy*s];
+  const a=P(635,207), b=P(659,207), c=P(647,223);
+  ctx.save();
+  ctx.fillStyle=color;
+  ctx.beginPath();
+  ctx.moveTo(a[0],a[1]);
+  ctx.quadraticCurveTo((a[0]+c[0])/2,c[1]-2*s,c[0],c[1]);
+  ctx.quadraticCurveTo((b[0]+c[0])/2,c[1]-2*s,b[0],b[1]);
+  ctx.closePath();
+  ctx.fill();
   ctx.restore();
 }
 function drawCollar(ctx,type,color){if(state.view==='back') return; const img=imgs[type],src=tintedCanvas(img,color); const W=ctx.canvas.width,H=ctx.canvas.height; let wFrac,yFrac;
@@ -115,7 +135,7 @@ function drawCollar(ctx,type,color){if(state.view==='back') return; const img=im
  if(type==='round'){wFrac=.2445;yFrac=.073}else if(type==='madrid'){wFrac=.2445;yFrac=.071}else{wFrac=.2428;yFrac=.072}
  const dw=W*wFrac, dh=dw*(src.height/src.width), x=(W-dw)/2, y=H*yFrac; ctx.drawImage(src,x,y,dw,dh);
 }
-function render(){if(!imgs.front.complete) return; for(const c of Object.values(cvs)){c.getContext('2d').clearRect(0,0,c.width,c.height)}; const baseImg=state.view==='front'?imgs.front:imgs.back; drawContain(cvs.base.getContext('2d'),baseImg,state.body,.025);
+function render(){if(!imgs.front.complete) return; for(const c of Object.values(cvs)){c.getContext('2d').clearRect(0,0,c.width,c.height)}; const baseImg=state.view==='front'?imgs.front:imgs.back; const baseGeom=drawContain(cvs.base.getContext('2d'),baseImg,state.body,.025); if(state.view==='front'){maskBaseNeckArtifact(cvs.base.getContext('2d'),baseGeom,state.body);}
   // A gola redonda branca/colorida pelo corpo passa a fazer parte do visual-base da FRENTE.
   // Ela não ativa o comando GOLA: serve apenas para substituir visualmente a gola V original do mapa.
   if(state.view==='front'){ drawCollar(cvs.base.getContext('2d'),'round',state.body); }
