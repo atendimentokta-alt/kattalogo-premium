@@ -100,14 +100,23 @@ function drawContain(ctx,img,color,pad=.02){const w=ctx.canvas.width,h=ctx.canva
   ctx.save(); ctx.shadowColor='rgba(17,24,39,.24)'; ctx.shadowBlur=Math.max(10,w*.018); ctx.shadowOffsetX=0; ctx.shadowOffsetY=Math.max(3,h*.006); ctx.drawImage(src,x,y,dw,dh); ctx.restore();
   return {x,y,w:dw,h:dh,scale};}
 function drawSleeve(ctx,img,color,side,view){const W=ctx.canvas.width,H=ctx.canvas.height, src=tintedCanvas(img,color); const front=view==='front';
-  // Ajuste V5 preservado: tamanho, altura e referências originais das mangas permanecem iguais.
-  // Correção fina: cada manga avança 0,5 mm em direção ao centro, sem alterar escala ou geometria.
-  const dw=W*(front?0.205:0.210), dh=dw*(src.height/src.width);
-  const y=H*(front?0.1745:0.1745);
+  // Mangas-elemento: redução proporcional de apenas 1%. O molde/corpo base permanece intacto.
+  // A redução é ancorada no encontro superior do ombro: a linha de costura do ombro não se desloca.
+  const originalDw=W*(front?0.205:0.210), originalDh=originalDw*(src.height/src.width);
+  const dw=originalDw*.99, dh=originalDh*.99;
+  const originalY=H*(front?0.1745:0.1745);
+  // Ajuste solicitado: desce SOMENTE os elementos manga em exatamente 1 mm.
+  const sleeveDown1mm=(1/25.4)*96*(H/document.getElementById('stage').getBoundingClientRect().height);
+  const y=originalY+sleeveDown1mm;
   const stageCssWidth=document.getElementById('stage').getBoundingClientRect().width;
   const sleeveCenterShift=(0.5/25.4)*96*(W/stageCssWidth);
   const baseX=side==='right' ? W*(front?0.739:0.734) : W*(front?0.056:0.052);
-  const x=baseX + (side==='right' ? -sleeveCenterShift : sleeveCenterShift);
+  const originalX=baseX + (side==='right' ? -sleeveCenterShift : sleeveCenterShift);
+
+  // Âncora interna: no lado esquerdo preserva a borda direita; no direito preserva a borda esquerda.
+  // Assim a manga encolhe para fora do encaixe, sem abrir a junta com o corpo.
+  const x=side==='right' ? originalX : originalX+(originalDw-dw);
+
   ctx.save();
   ctx.translate(x+dw/2,y+dh/2);
   if(side==='right') ctx.scale(-1,1);
@@ -115,28 +124,86 @@ function drawSleeve(ctx,img,color,side,view){const W=ctx.canvas.width,H=ctx.canv
   ctx.restore();
 }
 function maskBaseNeckArtifact(ctx,geom,color){
-  // Correção fina: remove totalmente o pequeno detalhe cinza/V
-  // remanescente da imagem-base abaixo da gola, usando a própria cor do corpo.
+  // Correção cirúrgica: esta pequena região deve ficar 100% branca,
+  // eliminando qualquer cinza/sombra residual do V original da imagem-base.
   const s=geom.scale, x=geom.x, y=geom.y;
   const P=(sx,sy)=>[x+sx*s,y+sy*s];
 
-  // Área ampliada apenas o suficiente para cobrir o artefato inteiro.
-  const a=P(620,198), b=P(674,198), c=P(647,231);
+  // Cobertura um pouco mais ampla que o artefato para não deixar borda cinza.
+  const a=P(611,194), b=P(683,194), c=P(647,236);
 
   ctx.save();
-  ctx.fillStyle=color;
+  ctx.fillStyle='#ffffff';
   ctx.beginPath();
   ctx.moveTo(a[0],a[1]);
-  ctx.quadraticCurveTo(635*s+x,208*s+y,c[0],c[1]);
-  ctx.quadraticCurveTo(659*s+x,208*s+y,b[0],b[1]);
+  ctx.quadraticCurveTo(630*s+x,202*s+y,c[0],c[1]);
+  ctx.quadraticCurveTo(664*s+x,202*s+y,b[0],b[1]);
   ctx.closePath();
   ctx.fill();
   ctx.restore();
 }
-function drawCollar(ctx,type,color){if(state.view==='back') return; const img=imgs[type],src=tintedCanvas(img,color); const W=ctx.canvas.width,H=ctx.canvas.height; let wFrac,yFrac;
- // Ajuste V5: dimensões da gola preservadas da V4; gola redonda passa a compor visualmente o mapa-base da frente.
- if(type==='round'){wFrac=.2445;yFrac=.0695}else if(type==='madrid'){wFrac=.2445;yFrac=.0675}else{wFrac=.2428;yFrac=.0685}
- const dw=W*wFrac, dh=dw*(src.height/src.width), x=(W-dw)/2, y=H*yFrac; ctx.drawImage(src,x,y,dw,dh);
+function drawCollar(ctx,type,color){
+ if(state.view==='back') return;
+ const img=imgs[type],src=tintedCanvas(img,color);
+ const W=ctx.canvas.width,H=ctx.canvas.height;
+ let wFrac,yFrac;
+ if(type==='round'){wFrac=.2445;yFrac=.0695}
+ else if(type==='madrid'){wFrac=.2445;yFrac=.0675}
+ else{wFrac=.2428;yFrac=.0685}
+
+ const dw=W*wFrac;
+ let dh=dw*(src.height/src.width);
+ const stageRect=document.getElementById('stage').getBoundingClientRect();
+
+ // Mantém a redução aprovada da gola V: 2,5 mm somente pela base.
+ if(type==='v'){
+   const cut25mm=(2.5/25.4)*96*(W/stageRect.width);
+   dh=Math.max(1,dh-cut25mm);
+ }
+
+ const x=(W-dw)/2,y=H*yFrac;
+
+ // Primeiro desenha a gola colorida: esta faixa externa continua editável.
+ ctx.drawImage(src,x,y,dw,dh);
+
+ // Depois cobre SOMENTE a abertura interna com um efeito fixo.
+ // Assim a cor escolhida nunca altera a área que simula a passagem do pescoço.
+ ctx.save();
+
+ if(type==='v'){
+   ctx.beginPath();
+   ctx.moveTo(x+dw*.205,y+dh*.155);
+   ctx.quadraticCurveTo(x+dw*.50,y+dh*.245,x+dw*.795,y+dh*.155);
+   ctx.lineTo(x+dw*.50,y+dh*.775);
+   ctx.closePath();
+   ctx.clip();
+
+   const gx=x+dw*.50,gy=y+dh*.43,r=dw*.34;
+   const g=ctx.createRadialGradient(gx,gy,r*.02,gx,gy,r);
+   g.addColorStop(0,'rgb(190,190,190)');
+   g.addColorStop(.28,'rgb(145,145,145)');
+   g.addColorStop(.60,'rgb(82,82,82)');
+   g.addColorStop(.84,'rgb(35,35,35)');
+   g.addColorStop(1,'rgb(8,8,8)');
+   ctx.fillStyle=g;
+   ctx.fillRect(x,y,dw,dh);
+ }else{
+   ctx.beginPath();
+   ctx.ellipse(x+dw*.50,y+dh*.405,dw*.315,dh*.245,0,0,Math.PI*2);
+   ctx.clip();
+
+   const gx=x+dw*.50,gy=y+dh*.43,r=dw*.34;
+   const g=ctx.createRadialGradient(gx,gy,r*.02,gx,gy,r);
+   g.addColorStop(0,'rgb(195,195,195)');
+   g.addColorStop(.30,'rgb(145,145,145)');
+   g.addColorStop(.62,'rgb(78,78,78)');
+   g.addColorStop(.86,'rgb(30,30,30)');
+   g.addColorStop(1,'rgb(8,8,8)');
+   ctx.fillStyle=g;
+   ctx.fillRect(x,y,dw,dh);
+ }
+
+ ctx.restore();
 }
 function render(){if(!imgs.front.complete) return; for(const c of Object.values(cvs)){c.getContext('2d').clearRect(0,0,c.width,c.height)}; const baseImg=state.view==='front'?imgs.front:imgs.back; const baseGeom=drawContain(cvs.base.getContext('2d'),baseImg,state.body,.025); if(state.view==='front'){maskBaseNeckArtifact(cvs.base.getContext('2d'),baseGeom,state.body);}
   // A gola redonda branca/colorida pelo corpo passa a fazer parte do visual-base da FRENTE.
