@@ -141,15 +141,24 @@ function drawCuff(ctx,img,color,side,view){
 
   // GEOMETRIA MESTRE DA FRENTE
   // Ajustamos somente o lado esquerdo; o direito é o espelho exato.
-  const dw=W*0.154*0.90;
+  // Ajuste fino do punho: amplia SOMENTE no sentido do comprimento,
+  // mantendo a extremidade superior/externa na mesma posição.
+  // A espessura e a proporção do PNG continuam preservadas.
+  const cuffExtension=1.08; // +8% de comprimento
+  const dw=W*0.154*0.90*cuffExtension;
   const dh=dw*(src.height/src.width);
 
   // Posição calibrada a partir do último print real/Corel.
-  // O PNG é mantido proporcional, sem deformação.
+  // O ponto inicial do punho permanece ancorado; a ampliação avança
+  // somente para a extremidade indicada pela seta.
   const mmX=W/200;
   const mmY=H/200;
-  const x=W*0.0555 + 1*mmX;
-  const y=H*0.3425 - 1*mmY;
+  const baseX=W*0.0555 + 1*mmX;
+  const baseY=H*0.3425 - 1*mmY;
+  const originalDw=W*0.154*0.90;
+  const originalDh=originalDw*(src.height/src.width);
+  const x=baseX + (originalDw-dw)/2;
+  const y=baseY + (originalDh-dh)/2;
   const angle=-0.010;
 
   ctx.save();
