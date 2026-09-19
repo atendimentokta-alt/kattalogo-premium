@@ -144,7 +144,7 @@ function drawCuff(ctx,img,color,side,view){
   // Ajuste fino do punho: amplia SOMENTE no sentido do comprimento,
   // mantendo a extremidade superior/externa na mesma posição.
   // A espessura e a proporção do PNG continuam preservadas.
-  const cuffExtension=1.05; // +5% de comprimento (redução de 3 pontos percentuais)
+  const cuffExtension=0.975; // redução fina para alinhar a borda externa ao azul
   const dw=W*0.154*0.90*cuffExtension;
   const dh=dw*(src.height/src.width);
 
@@ -157,7 +157,7 @@ function drawCuff(ctx,img,color,side,view){
   const baseY=H*0.3425 - 1*mmY;
   const originalDw=W*0.154*0.90;
   const originalDh=originalDw*(src.height/src.width);
-  const x=baseX + (originalDw-dw)/2;
+  const x=baseX + (originalDw-dw);
   const y=baseY + (originalDh-dh)/2;
   const angle=-0.010;
 
