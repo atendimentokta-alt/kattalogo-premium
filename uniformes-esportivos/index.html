@@ -144,7 +144,7 @@ function drawCuff(ctx,img,color,side,view){
   // Ajuste fino do punho: amplia SOMENTE no sentido do comprimento,
   // mantendo a extremidade superior/externa na mesma posição.
   // A espessura e a proporção do PNG continuam preservadas.
-  const cuffExtension=0.975; // redução fina para alinhar a borda externa ao azul
+  const cuffExtension=1.000; // ampliação fina para alinhar o punho às bordas da manga azul
   const dw=W*0.154*0.90*cuffExtension;
   const dh=dw*(src.height/src.width);
 
